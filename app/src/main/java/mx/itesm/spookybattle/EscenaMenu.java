@@ -21,7 +21,7 @@ public class EscenaMenu extends EscenaBase
     private ITextureRegion regionFondo;
     private ITextureRegion regionBtnAcercaDe;
     private ITextureRegion regionBtnJugar;
-    private ITextureRegion regionBtnNuclear;
+    private ITextureRegion regionBtnHowTo;
 
     // Sprites sobre la escena
     private Sprite spriteFondo;
@@ -43,7 +43,7 @@ public class EscenaMenu extends EscenaBase
         // Botones del menú
         regionBtnAcercaDe = cargarImagen("BotonAboutUs.png");
         regionBtnJugar = cargarImagen("BotonPlay.png");
-        regionBtnNuclear = cargarImagen("BotonHowTo.png");
+        regionBtnHowTo = cargarImagen("BotonHowTo.png");
     }
 
     @Override
@@ -80,7 +80,7 @@ public class EscenaMenu extends EscenaBase
         IMenuItem opcionJugar = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_JUGAR,
                 regionBtnJugar, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
         IMenuItem opcionNuclear = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_NUCLEAR,
-                regionBtnNuclear, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
+                regionBtnHowTo, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
 
 
         // Agrega las opciones al menú
