@@ -92,7 +92,7 @@ public class EscenaMenu extends EscenaBase
         menu.buildAnimations();
         menu.setBackgroundEnabled(false);   // Completamente transparente
 
-        // Ubicar las opciones DENTRO del menú. El centro del menú es (0,0)
+        // Ubicar las opciones DENTRO del menú. El centro del menú huhh es (0,0)
         opcionAcercaDe.setPosition(-200, 0);
         opcionJugar.setPosition(200, 0);
         opcionNuclear.setPosition(-500,-250);
@@ -114,7 +114,9 @@ public class EscenaMenu extends EscenaBase
 
                     case OPCION_JUGAR:
                         // Mostrar la pantalla de juego
-
+                        admEscenas.crearEscenaAcercaDe();
+                        admEscenas.setEscena(TipoEscena.ESCENA_ACERCA_DE);
+                        admEscenas.liberarEscenaMenu();
                         break;
 
                     case OPCION_NUCLEAR:

@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/SpookyBattle.iml" filepath="$PROJECT_DIR$/SpookyBattle.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/org.andengine/org.andengine.iml" filepath="$PROJECT_DIR$/org.andengine/org.andengine.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spooky.iml" filepath="$PROJECT_DIR$/spooky.iml" />
     </modules>
   </component>
 </project>
-

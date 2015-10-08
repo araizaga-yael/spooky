@@ -17,6 +17,8 @@ public class AdministradorEscenas
     private EscenaBase escenaMenu;
     private EscenaBase escenaAcercaDe;
 
+
+
     // El tipo de escena que se está mostrando
     private TipoEscena tipoEscenaActual = TipoEscena.ESCENA_SPLASH;
     // La escena que se está mostrando

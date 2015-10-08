@@ -2,39 +2,39 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\Yael\AndroidStudioProjects\JuegoDummy\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.1\classes.jar"
+        jar="C:\Users\Juan Manuel\Documents\GitHub\spooky\app\build\intermediates\exploded-aar\spooky\org.andengine\unspecified\jars\classes.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="f8efd0096475e0daf054267b61544e10dc776503">
-        <dex dex="C:\Users\Yael\AndroidStudioProjects\JuegoDummy\app\build\intermediates\pre-dexed\debug\classes-14729017293f0659df3522562d8c078e110ea179.jar" />
+        sha1="8420ffad62c2ff4188385ed367b5c881a190a0f5">
+        <dex dex="C:\Users\Juan Manuel\Documents\GitHub\spooky\app\build\intermediates\pre-dexed\debug\classes-5cf163c80ace191830cb6836a04130db19901d7e.jar" />
     </item>
     <item
-        jar="C:\Users\Yael\AndroidStudioProjects\JuegoDummy\app\build\intermediates\exploded-aar\JuegoDummy\org.andengine\unspecified\classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="f28d8e20337fe542890c69970083a79bf96d554e">
-        <dex dex="C:\Users\Yael\AndroidStudioProjects\JuegoDummy\app\build\intermediates\pre-dexed\debug\classes-ac1d4094bf930270d9695c8db7b5b8c209a9b71a.jar" />
-    </item>
-    <item
-        jar="C:\Users\Yael\AndroidStudioProjects\JuegoDummy\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.2.1\classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="4486e953d1f35f8ccab098b1dd67146366d5f731">
-        <dex dex="C:\Users\Yael\AndroidStudioProjects\JuegoDummy\app\build\intermediates\pre-dexed\debug\classes-abf4a2e2c0b443000a7d176c1a6f2763f088e4a7.jar" />
-    </item>
-    <item
-        jar="C:\Users\Yael\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.2.1\support-annotations-22.2.1.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="61a0ff5c29295ec56d7e0bd3d25d95dbf71b4b2b">
-        <dex dex="C:\Users\Yael\AndroidStudioProjects\JuegoDummy\app\build\intermediates\pre-dexed\debug\support-annotations-22.2.1-dac626bd6f6520d5038a1408e250c5fc59ea18cb.jar" />
-    </item>
-    <item
-        jar="C:\Users\Yael\AndroidStudioProjects\JuegoDummy\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.1\libs\internal_impl-22.2.1.jar"
+        jar="C:\Users\Juan Manuel\Documents\GitHub\spooky\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.1\jars\libs\internal_impl-22.2.1.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="c471eaaba13ff64f6e0383d1c30a9cdc9a97efeb">
-        <dex dex="C:\Users\Yael\AndroidStudioProjects\JuegoDummy\app\build\intermediates\pre-dexed\debug\internal_impl-22.2.1-88b019f23a8fbe724e95d0328f45717af4a50ed5.jar" />
+        <dex dex="C:\Users\Juan Manuel\Documents\GitHub\spooky\app\build\intermediates\pre-dexed\debug\internal_impl-22.2.1-9579385d204cab18b8c201d64c8d84d0eafe9ee9.jar" />
+    </item>
+    <item
+        jar="C:\Users\Juan Manuel\Documents\GitHub\spooky\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.2.1\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4486e953d1f35f8ccab098b1dd67146366d5f731">
+        <dex dex="C:\Users\Juan Manuel\Documents\GitHub\spooky\app\build\intermediates\pre-dexed\debug\classes-1c2e5ba817e765f09782aba2e5a485b744e17231.jar" />
+    </item>
+    <item
+        jar="C:\Users\Juan Manuel\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.2.1\support-annotations-22.2.1.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="61a0ff5c29295ec56d7e0bd3d25d95dbf71b4b2b">
+        <dex dex="C:\Users\Juan Manuel\Documents\GitHub\spooky\app\build\intermediates\pre-dexed\debug\support-annotations-22.2.1-c796bb4be5e4af9db8767b51671e232cea875ee9.jar" />
+    </item>
+    <item
+        jar="C:\Users\Juan Manuel\Documents\GitHub\spooky\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.1\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="f8efd0096475e0daf054267b61544e10dc776503">
+        <dex dex="C:\Users\Juan Manuel\Documents\GitHub\spooky\app\build\intermediates\pre-dexed\debug\classes-0fc2c3a4173d0fc904abe1cd367d7ea7ad5f1a63.jar" />
     </item>
 
 </items>
