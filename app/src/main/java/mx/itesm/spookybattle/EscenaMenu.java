@@ -22,7 +22,8 @@ public class EscenaMenu extends EscenaBase
     private ITextureRegion regionBtnAcercaDe;
     private ITextureRegion regionBtnJugar;
     private ITextureRegion regionBtnHowTo;
-    
+    private ITextureRegion regionTitulo;
+
 
 
     // Sprites sobre la escena
@@ -46,6 +47,7 @@ public class EscenaMenu extends EscenaBase
         regionBtnAcercaDe = cargarImagen("BotonAboutUs.png");
         regionBtnJugar = cargarImagen("BotonPlay.png");
         regionBtnHowTo = cargarImagen("BotonHowTo.png");
+        regionTitulo = cargarImagen("Titulo.png");
     }
 
     @Override
@@ -67,10 +69,10 @@ public class EscenaMenu extends EscenaBase
     }
 
     private void agregarFondoMenu() {
-        Rectangle cuadro = new Rectangle(ControlJuego.ANCHO_CAMARA/2, ControlJuego.ALTO_CAMARA/2,
-                0.75f*ControlJuego.ANCHO_CAMARA, 0.75f*ControlJuego.ALTO_CAMARA, actividadJuego.getVertexBufferObjectManager());
-        cuadro.setColor(0.8f, 0.8f, 0.8f, 0.4f);
-        attachChild(cuadro);
+       // Rectangle cuadro = new Rectangle(ControlJuego.ANCHO_CAMARA/2, ControlJuego.ALTO_CAMARA/2,
+         //       0.75f*ControlJuego.ANCHO_CAMARA, 0.75f*ControlJuego.ALTO_CAMARA, actividadJuego.getVertexBufferObjectManager());
+        //cuadro.setColor(0.8f, 0.8f, 0.8f, 0.4f);
+        //attachChild(cuadro);
     }
 
     private void agregarMenu() {
@@ -85,6 +87,7 @@ public class EscenaMenu extends EscenaBase
                 regionBtnJugar, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
         IMenuItem opcionHowTo = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_HOW_TO,
                 regionBtnHowTo, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
+       // IMenuItem titulo = new ScaleMenuItemDecorator(new SpriteMenuItem(Op))
 
 
         // Agrega las opciones al menú
