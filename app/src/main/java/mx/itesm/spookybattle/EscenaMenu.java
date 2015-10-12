@@ -22,6 +22,8 @@ public class EscenaMenu extends EscenaBase
     private ITextureRegion regionBtnAcercaDe;
     private ITextureRegion regionBtnJugar;
     private ITextureRegion regionBtnHowTo;
+    
+
 
     // Sprites sobre la escena
     private Sprite spriteFondo;
@@ -31,7 +33,7 @@ public class EscenaMenu extends EscenaBase
     // Constantes para cada opción
     private final int OPCION_ACERCA_DE = 0;
     private final int OPCION_JUGAR = 1;
-    private final int OPCION_NUCLEAR = 2;
+    private final int OPCION_HOW_TO = 2;
     // Botones de cada opción
     private ButtonSprite btnAcercaDe;
     private ButtonSprite btnJugar;
@@ -39,7 +41,7 @@ public class EscenaMenu extends EscenaBase
     @Override
     public void cargarRecursos() {
         // Fondo
-        regionFondo = cargarImagen("MenuPrincipal2.png");
+        regionFondo = cargarImagen("MenuPrincipal1.png");
         // Botones del menú
         regionBtnAcercaDe = cargarImagen("BotonAboutUs.png");
         regionBtnJugar = cargarImagen("BotonPlay.png");
@@ -48,6 +50,8 @@ public class EscenaMenu extends EscenaBase
 
     @Override
     public void crearEscena() {
+
+
         // Creamos el sprite de manera óptima
         spriteFondo = cargarSprite(ControlJuego.ANCHO_CAMARA/2, ControlJuego.ALTO_CAMARA/2, regionFondo);
 
@@ -79,23 +83,23 @@ public class EscenaMenu extends EscenaBase
                 regionBtnAcercaDe, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
         IMenuItem opcionJugar = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_JUGAR,
                 regionBtnJugar, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
-        IMenuItem opcionNuclear = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_NUCLEAR,
+        IMenuItem opcionHowTo = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_HOW_TO,
                 regionBtnHowTo, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
 
 
         // Agrega las opciones al menú
         menu.addMenuItem(opcionAcercaDe);
         menu.addMenuItem(opcionJugar);
-        menu.addMenuItem(opcionNuclear);
+        menu.addMenuItem(opcionHowTo);
 
         // Termina la configuración
         menu.buildAnimations();
         menu.setBackgroundEnabled(false);   // Completamente transparente
 
         // Ubicar las opciones DENTRO del menú. El centro del menú huhh es (0,0)
-        opcionAcercaDe.setPosition(-200, 0);
-        opcionJugar.setPosition(200, 0);
-        opcionNuclear.setPosition(-500,-250);
+        opcionAcercaDe.setPosition(0,-300);
+        opcionJugar.setPosition(0, 0);
+        opcionHowTo.setPosition(0,-150);
 
 
         // Registra el Listener para atender las opciones
@@ -119,7 +123,7 @@ public class EscenaMenu extends EscenaBase
                         admEscenas.liberarEscenaMenu();
                         break;
 
-                    case OPCION_NUCLEAR:
+                    case OPCION_HOW_TO:
                         admEscenas.crearNuclear();
                         admEscenas.setEscena(TipoEscena.ESCENA_ACERCA_DE);
                         admEscenas.liberarEscenaMenu();

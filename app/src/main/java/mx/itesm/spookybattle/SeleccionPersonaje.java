@@ -34,7 +34,7 @@ public class SeleccionPersonaje extends EscenaBase
 
     @Override
     public TipoEscena getTipoEscena() {
-        return TipoEscena.ESCENA_NUCLEAR;
+        return TipoEscena.ESCENA_SELECCION_PERSONAJE;
     }
 
     @Override
