@@ -35,6 +35,7 @@ public class EscenaMenu extends EscenaBase
     private final int OPCION_ACERCA_DE = 0;
     private final int OPCION_JUGAR = 1;
     private final int OPCION_HOW_TO = 2;
+    private final int OPCION_TITULO = 3;
     // Botones de cada opción
     private ButtonSprite btnAcercaDe;
     private ButtonSprite btnJugar;
@@ -81,19 +82,17 @@ public class EscenaMenu extends EscenaBase
         // Centrado en la pantalla
         menu.setPosition(ControlJuego.ANCHO_CAMARA/2,ControlJuego.ALTO_CAMARA/2);
         // Crea las opciones (por ahora, acerca de y jugar)
-        IMenuItem opcionAcercaDe = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_ACERCA_DE,
-                regionBtnAcercaDe, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
-        IMenuItem opcionJugar = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_JUGAR,
-                regionBtnJugar, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
-        IMenuItem opcionHowTo = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_HOW_TO,
-                regionBtnHowTo, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
-       // IMenuItem titulo = new ScaleMenuItemDecorator(new SpriteMenuItem(Op))
+        IMenuItem opcionAcercaDe = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_ACERCA_DE,regionBtnAcercaDe, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
+        IMenuItem opcionJugar = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_JUGAR,regionBtnJugar, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
+        IMenuItem opcionHowTo = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_HOW_TO,regionBtnHowTo, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
+        IMenuItem titulo = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_TITULO,regionTitulo,actividadJuego.getVertexBufferObjectManager()),1.5f,1);
 
 
         // Agrega las opciones al menú
         menu.addMenuItem(opcionAcercaDe);
         menu.addMenuItem(opcionJugar);
         menu.addMenuItem(opcionHowTo);
+        menu.addMenuItem(titulo);
 
         // Termina la configuración
         menu.buildAnimations();
@@ -103,6 +102,7 @@ public class EscenaMenu extends EscenaBase
         opcionAcercaDe.setPosition(0,-300);
         opcionJugar.setPosition(0, 0);
         opcionHowTo.setPosition(0,-150);
+        titulo.setPosition(0,200);
 
 
         // Registra el Listener para atender las opciones
