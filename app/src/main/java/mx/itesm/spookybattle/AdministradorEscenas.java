@@ -121,6 +121,20 @@ public class AdministradorEscenas
         escenaAcercaDe.liberarEscena();
         escenaAcercaDe = null;
     }
+
+    public void crearSeleccionPersonaje(){
+        //Cargar los recursos
+        escenaAcercaDe = new SeleccionPersonaje();
+
+    }
+    public void liberarEscenaSeleccionPersonaje() {
+
+        escenaAcercaDe.liberarEscena();
+        escenaAcercaDe=null;
+
+
+
+}
 /*
     //*** Crea la escena de JUEGO
     public void crearEscenaJuego() {

@@ -121,7 +121,7 @@ public class EscenaMenu extends EscenaBase
 
                     case OPCION_JUGAR:
                         // Mostrar la pantalla de juego
-                        admEscenas.crearEscenaAcercaDe();
+                        admEscenas.crearSeleccionPersonaje();
                         admEscenas.setEscena(TipoEscena.ESCENA_ACERCA_DE);
                         admEscenas.liberarEscenaMenu();
                         break;

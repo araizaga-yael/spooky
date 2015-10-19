@@ -1,6 +1,7 @@
 package mx.itesm.spookybattle;
 
 import org.andengine.entity.sprite.Sprite;
+import org.andengine.opengl.texture.ITexture;
 import org.andengine.opengl.texture.region.ITextureRegion;
 
 /**
@@ -9,13 +10,28 @@ import org.andengine.opengl.texture.region.ITextureRegion;
 public class SeleccionPersonaje extends EscenaBase
 {
     // Regiones para imágenes
+
     private ITextureRegion regionFondo;
+    private ITextureRegion regionAgeLevel;
+    private ITextureRegion regionDracoSelect;
+    private ITextureRegion regionDracoStand;
+    private ITextureRegion regionInfoDraco;
+    private ITextureRegion regionMummySelect;
+    private ITextureRegion regionNameTitle;
+    private ITextureRegion regionSelectTitle;
     // Sprite para el fondo
     private Sprite spriteFondo;
 
     @Override
     public void cargarRecursos() {
-        regionFondo = cargarImagen("pruebafondo.jpg");
+        regionFondo = cargarImagen("SelectScreen/FondoSelect.png");
+        regionAgeLevel = cargarImagen("SelectScreen/AgeLevel.png");
+        regionDracoSelect = cargarImagen("SelectScreen/DracoSelect.png");
+        regionDracoStand = cargarImagen("SelectScreen/DracoStand.png");
+        regionInfoDraco = cargarImagen("SelectScreen/InfoDraco.png");
+        regionMummySelect = cargarImagen("SelectScreen/MummySelect.png");
+        regionNameTitle = cargarImagen("SelectScreen/NameTitle.png");
+        regionSelectTitle = cargarImagen("SelectScreen/SelectTitle.png");
     }
 
     @Override
