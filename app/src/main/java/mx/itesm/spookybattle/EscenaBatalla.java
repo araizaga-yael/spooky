@@ -14,6 +14,7 @@ import org.andengine.opengl.texture.region.ITextureRegion;
  *
  *
  */
+
 public class EscenaBatalla extends EscenaBase
 {
     // Regiones para las imágenes de la escena
@@ -88,27 +89,27 @@ public class EscenaBatalla extends EscenaBase
         // Centrado en la pantalla
         menu.setPosition(ControlJuego.ANCHO_CAMARA/2,ControlJuego.ALTO_CAMARA/2);
         // Crea las opciones (por ahora, acerca de y jugar)
-        IMenuItem opcionAcercaDe = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_ACERCA_DE,regionBtnAcercaDe, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
-        IMenuItem opcionJugar = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_JUGAR,regionBtnJugar, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
-        IMenuItem opcionHowTo = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_HOW_TO,regionBtnHowTo, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
-        IMenuItem titulo = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_TITULO,regionTitulo,actividadJuego.getVertexBufferObjectManager()),1.5f,1);
+        //IMenuItem opcionAcercaDe = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_ACERCA_DE,regionBtnAcercaDe, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
+        //IMenuItem opcionJugar = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_JUGAR,regionBtnJugar, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
+        //IMenuItem opcionHowTo = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_HOW_TO,regionBtnHowTo, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
+        //IMenuItem titulo = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_TITULO,regionTitulo,actividadJuego.getVertexBufferObjectManager()),1.5f,1);
 
 
         // Agrega las opciones al menú
-        menu.addMenuItem(opcionAcercaDe);
-        menu.addMenuItem(opcionJugar);
-        menu.addMenuItem(opcionHowTo);
-        menu.addMenuItem(titulo);
+        //menu.addMenuItem(opcionAcercaDe);
+        //menu.addMenuItem(opcionJugar);
+        //menu.addMenuItem(opcionHowTo);
+        //menu.addMenuItem(titulo);
 
         // Termina la configuración
         menu.buildAnimations();
         menu.setBackgroundEnabled(false);   // Completamente transparente
 
         // Ubicar las opciones DENTRO del menú. El centro del menú huhh es (0,0)
-        opcionAcercaDe.setPosition(0,-300);
-        opcionJugar.setPosition(0, 0);
-        opcionHowTo.setPosition(0,-150);
-        titulo.setPosition(0,200);
+       // opcionAcercaDe.setPosition(0,-300);
+        //opcionJugar.setPosition(0, 0);
+        //opcionHowTo.setPosition(0,-150);
+        //titulo.setPosition(0,200);
 
 
         // Registra el Listener para atender las opciones
@@ -118,25 +119,25 @@ public class EscenaBatalla extends EscenaBase
                                              float pMenuItemLocalX, float pMenuItemLocalY) {
                 // El parámetro pMenuItem indica la opción oprimida
                 switch(pMenuItem.getID()) {
-                    case OPCION_ACERCA_DE:
+                   // case OPCION_ACERCA_DE:
                         // Mostrar la escena de AcercaDe
-                        admEscenas.crearEscenaAcercaDe();
-                        admEscenas.setEscena(TipoEscena.ESCENA_ACERCA_DE);
-                        admEscenas.liberarEscenaMenu();
-                        break;
+                        //admEscenas.crearEscenaAcercaDe();
+                        //admEscenas.setEscena(TipoEscena.ESCENA_ACERCA_DE);
+                        //admEscenas.liberarEscenaMenu();
+                        //break;
 
-                    case OPCION_JUGAR:
+                   // case OPCION_JUGAR:
                         // Mostrar la pantalla de juego
-                        admEscenas.crearSeleccionPersonaje();
-                        admEscenas.setEscena(TipoEscena.ESCENA_ACERCA_DE);
-                        admEscenas.liberarEscenaMenu();
-                        break;
+                       // admEscenas.crearSeleccionPersonaje();
+                        //admEscenas.setEscena(TipoEscena.ESCENA_ACERCA_DE);
+                        //admEscenas.liberarEscenaMenu();
+                       // break;
 
-                    case OPCION_HOW_TO:
-                        admEscenas.crearNuclear();
-                        admEscenas.setEscena(TipoEscena.ESCENA_ACERCA_DE);
-                        admEscenas.liberarEscenaMenu();
-                        break;
+                    //case OPCION_HOW_TO:
+                        //admEscenas.crearNuclear();
+                        //admEscenas.setEscena(TipoEscena.ESCENA_ACERCA_DE);
+                        //admEscenas.liberarEscenaMenu();
+                       // break;
 
                 }
                 return true;
