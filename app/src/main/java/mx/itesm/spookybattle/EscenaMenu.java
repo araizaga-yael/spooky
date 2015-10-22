@@ -85,7 +85,7 @@ public class EscenaMenu extends EscenaBase
         IMenuItem opcionAcercaDe = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_ACERCA_DE,regionBtnAcercaDe, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
         IMenuItem opcionJugar = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_JUGAR,regionBtnJugar, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
         IMenuItem opcionHowTo = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_HOW_TO,regionBtnHowTo, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
-        IMenuItem titulo = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_TITULO,regionTitulo,actividadJuego.getVertexBufferObjectManager()),1.5f,1);
+        IMenuItem titulo = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_TITULO,regionTitulo,actividadJuego.getVertexBufferObjectManager()),1,1);
 
 
         // Agrega las opciones al menú
@@ -100,9 +100,9 @@ public class EscenaMenu extends EscenaBase
 
         // Ubicar las opciones DENTRO del menú. El centro del menú huhh es (0,0)
         opcionAcercaDe.setPosition(0,-300);
-        opcionJugar.setPosition(0, 0);
+        opcionJugar.setPosition(0, -30);
         opcionHowTo.setPosition(0,-150);
-        titulo.setPosition(0,200);
+        titulo.setPosition(0,190);
 
 
         // Registra el Listener para atender las opciones

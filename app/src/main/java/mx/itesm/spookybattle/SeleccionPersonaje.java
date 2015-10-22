@@ -92,11 +92,11 @@ public class SeleccionPersonaje extends EscenaBase
         // Crea las opciones (por ahora, acerca de y jugar)
         IMenuItem opcionAcercaDe = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_ACERCA_DE,regionBtnAcercaDe, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
         IMenuItem opcionJugar = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_JUGAR,regionBtnJugar, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
-        IMenuItem opcionHowTo = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_HOW_TO,regionBtnHowTo, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
-        IMenuItem titulo = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_TITULO,regionTitulo,actividadJuego.getVertexBufferObjectManager()),1.5f,1);
-        IMenuItem opcionAge = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_AGE,regionAge,actividadJuego.getVertexBufferObjectManager()),1.5f,1);
-        IMenuItem opcionInfo = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_INFO,regionInfo,actividadJuego.getVertexBufferObjectManager()),1.5f,1);
-        IMenuItem opcionSelectTitle = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_SELECT_TITLE,regionSelectTitle,actividadJuego.getVertexBufferObjectManager()),1.5f,1);
+        IMenuItem opcionHowTo = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_HOW_TO,regionBtnHowTo, actividadJuego.getVertexBufferObjectManager()), 1, 1);
+        IMenuItem titulo = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_TITULO,regionTitulo,actividadJuego.getVertexBufferObjectManager()),1,1);
+        IMenuItem opcionAge = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_AGE,regionAge,actividadJuego.getVertexBufferObjectManager()),1,1);
+        IMenuItem opcionInfo = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_INFO,regionInfo,actividadJuego.getVertexBufferObjectManager()),1,1);
+        IMenuItem opcionSelectTitle = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_SELECT_TITLE,regionSelectTitle,actividadJuego.getVertexBufferObjectManager()),1,1);
 
 
 
@@ -130,8 +130,8 @@ public class SeleccionPersonaje extends EscenaBase
             public boolean onMenuItemClicked(MenuScene pMenuScene, IMenuItem pMenuItem,
                                              float pMenuItemLocalX, float pMenuItemLocalY) {
                 // El parámetro pMenuItem indica la opción oprimida
-                switch(pMenuItem.getID()) {
-                    case OPCION_ACERCA_DE:
+             switch(pMenuItem.getID()) {
+                    /*case OPCION_ACERCA_DE:
                         // Mostrar la escena de AcercaDe
                         admEscenas.crearEscenaAcercaDe();
                         admEscenas.setEscena(TipoEscena.ESCENA_ACERCA_DE);
@@ -150,7 +150,7 @@ public class SeleccionPersonaje extends EscenaBase
                         admEscenas.setEscena(TipoEscena.ESCENA_ACERCA_DE);
                         admEscenas.liberarEscenaMenu();
                         break;
-
+*/
                 }
                 return true;
             }

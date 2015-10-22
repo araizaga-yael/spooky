@@ -15,7 +15,7 @@ public class Nuclear extends EscenaBase
 
     @Override
     public void cargarRecursos() {
-        regionFondo = cargarImagen("Explosion.jpg");
+        regionFondo = cargarImagen("instructions/Fondo.png");
     }
 
     @Override
