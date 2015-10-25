@@ -26,6 +26,7 @@ public class EscenaMenu extends EscenaBase
 
 
 
+
     // Sprites sobre la escena
     private Sprite spriteFondo;
 
@@ -63,17 +64,8 @@ public class EscenaMenu extends EscenaBase
         setBackground(fondo);
         setBackgroundEnabled(true);
 
-        // Mostrar un recuadro atrás del menú
-        agregarFondoMenu();
         // Mostrar opciones de menú
         agregarMenu();
-    }
-
-    private void agregarFondoMenu() {
-       // Rectangle cuadro = new Rectangle(ControlJuego.ANCHO_CAMARA/2, ControlJuego.ALTO_CAMARA/2,
-         //       0.75f*ControlJuego.ANCHO_CAMARA, 0.75f*ControlJuego.ALTO_CAMARA, actividadJuego.getVertexBufferObjectManager());
-        //cuadro.setColor(0.8f, 0.8f, 0.8f, 0.4f);
-        //attachChild(cuadro);
     }
 
     private void agregarMenu() {
@@ -121,8 +113,8 @@ public class EscenaMenu extends EscenaBase
 
                     case OPCION_JUGAR:
                         // Mostrar la pantalla de juego
-                        admEscenas.crearSeleccionPersonaje();
-                        admEscenas.setEscena(TipoEscena.ESCENA_ACERCA_DE);
+                        admEscenas.crearEscenaSeleccionPersonaje();
+                        admEscenas.setEscena(TipoEscena.ESCENA_SELECCION_PERSONAJE);
                         admEscenas.liberarEscenaMenu();
                         break;
 

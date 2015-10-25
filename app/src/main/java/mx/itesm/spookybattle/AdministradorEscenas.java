@@ -16,6 +16,8 @@ public class AdministradorEscenas
     private EscenaBase escenaSplash;
     private EscenaBase escenaMenu;
     private EscenaBase escenaAcercaDe;
+    private EscenaBase escenaBatalla;
+    private EscenaBase escenaSeleccion;
 
 
 
@@ -72,6 +74,12 @@ public class AdministradorEscenas
             case ESCENA_ACERCA_DE:
                 setEscenaBase(escenaAcercaDe);
                 break;
+            case ESCENA_SELECCION_PERSONAJE:
+                setEscenaBase(escenaSeleccion);
+                break;
+            case ESCENA_BATALLA:
+                setEscenaBase(escenaBatalla);
+                break;
         }
     }
 
@@ -122,16 +130,26 @@ public class AdministradorEscenas
         escenaAcercaDe = null;
     }
 
-    public void crearSeleccionPersonaje(){
+    public void crearEscenaSeleccionPersonaje(){
         //Cargar los recursos
-        escenaAcercaDe = new SeleccionPersonaje();
+        escenaSeleccion = new SeleccionPersonaje();
 
     }
     public void liberarEscenaSeleccionPersonaje() {
 
-        escenaAcercaDe.liberarEscena();
-        escenaAcercaDe=null;
+        escenaSeleccion.liberarEscena();
+        escenaSeleccion = null;
+    }
 
+    public void crearEscenaBatalla() {
+        // Carga los recursos
+        escenaBatalla = new EscenaBatalla();
+    }
+    public void liberarEscenaBatalla() {
+
+        escenaBatalla.liberarEscena();
+        escenaBatalla = null;
+    }
 
 
 }
@@ -164,4 +182,4 @@ public class AdministradorEscenas
         escenaJuegoDos = null;
     }
 */
-}
+

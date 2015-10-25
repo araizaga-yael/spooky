@@ -48,9 +48,9 @@ public class EscenaBatalla extends EscenaBase
     @Override
     public void cargarRecursos() {
         // Fondo
-        regionFondo = cargarImagen("FondoBatalla1.png");
-        regionBtnAtk = cargarImagen("BotonPlay.png");
-        regionBtnDef = cargarImagen("BotonPlay.png");
+        regionFondo = cargarImagen("Batalla1/FondosBatalla1.png");
+        //regionBtnAtk = cargarImagen("BotonPlay.png");
+        //regionBtnDef = cargarImagen("BotonPlay.png");
         // Botones de opcion
         /*regionBtnAcercaDe = cargarImagen("BotonAboutUs.png");
         regionBtnJugar = cargarImagen("BotonPlay.png");
@@ -71,17 +71,17 @@ public class EscenaBatalla extends EscenaBase
         setBackgroundEnabled(true);
 
         // Mostrar un recuadro atrás del menú
-        agregarFondoMenu();
+        //agregarFondoMenu();
         // Mostrar opciones de menú
         agregarMenu();
     }
 
-    private void agregarFondoMenu() {
+    /*private void agregarFondoMenu() {
        // Rectangle cuadro = new Rectangle(ControlJuego.ANCHO_CAMARA/2, ControlJuego.ALTO_CAMARA/2,
          //       0.75f*ControlJuego.ANCHO_CAMARA, 0.75f*ControlJuego.ALTO_CAMARA, actividadJuego.getVertexBufferObjectManager());
         //cuadro.setColor(0.8f, 0.8f, 0.8f, 0.4f);
         //attachChild(cuadro);
-    }
+    }*/
 
     private void agregarMenu() {
         // Crea el objeto que representa el menú
@@ -113,37 +113,23 @@ public class EscenaBatalla extends EscenaBase
 
 
         // Registra el Listener para atender las opciones
+        // Registra el Listener para atender las opciones
         menu.setOnMenuItemClickListener(new MenuScene.IOnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClicked(MenuScene pMenuScene, IMenuItem pMenuItem,
                                              float pMenuItemLocalX, float pMenuItemLocalY) {
                 // El parámetro pMenuItem indica la opción oprimida
                 switch(pMenuItem.getID()) {
-                   // case OPCION_ACERCA_DE:
+                   /* case OPCION_START:
                         // Mostrar la escena de AcercaDe
-                        //admEscenas.crearEscenaAcercaDe();
-                        //admEscenas.setEscena(TipoEscena.ESCENA_ACERCA_DE);
-                        //admEscenas.liberarEscenaMenu();
-                        //break;
-
-                   // case OPCION_JUGAR:
-                        // Mostrar la pantalla de juego
-                       // admEscenas.crearSeleccionPersonaje();
-                        //admEscenas.setEscena(TipoEscena.ESCENA_ACERCA_DE);
-                        //admEscenas.liberarEscenaMenu();
-                       // break;
-
-                    //case OPCION_HOW_TO:
-                        //admEscenas.crearNuclear();
-                        //admEscenas.setEscena(TipoEscena.ESCENA_ACERCA_DE);
-                        //admEscenas.liberarEscenaMenu();
-                       // break;
-
+                        admEscenas.crearEscenaBatalla();
+                        admEscenas.setEscena(TipoEscena.ESCENA_BATALLA);
+                        admEscenas.liberarEscenaSeleccionPersonaje();
+                        break;*/
                 }
                 return true;
             }
         });
-
         // Asigna este menú a la escena
         setChildScene(menu);
     }
@@ -159,12 +145,14 @@ public class EscenaBatalla extends EscenaBase
 
     @Override
     public void onBackKeyPressed() {
-        // Salir del juego, no hacemos nada
+        admEscenas.crearEscenaSeleccionPersonaje();
+        admEscenas.setEscena(TipoEscena.ESCENA_SELECCION_PERSONAJE);
+        admEscenas.liberarEscenaAcercaDe();
     }
 
     @Override
     public TipoEscena getTipoEscena() {
-        return TipoEscena.ESCENA_MENU;
+        return TipoEscena.ESCENA_BATALLA;
     }
 
     @Override

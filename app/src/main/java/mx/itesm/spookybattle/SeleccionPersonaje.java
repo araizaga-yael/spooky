@@ -18,13 +18,16 @@ public class SeleccionPersonaje extends EscenaBase
 {
     // Regiones para las imágenes de la escena
     private ITextureRegion regionFondo;
-    private ITextureRegion regionBtnAcercaDe;
-    private ITextureRegion regionBtnJugar;
-    private ITextureRegion regionBtnHowTo;
-    private ITextureRegion regionTitulo;
+    private ITextureRegion regionBtnCurtis;
+    private ITextureRegion regionBtnGeronimo;
+
+    private ITextureRegion regionImagenCurtis;
+    private ITextureRegion regionNombreCurtis;
     private ITextureRegion regionAge;
     private ITextureRegion regionInfo;
     private ITextureRegion regionSelectTitle;
+
+    private ITextureRegion regionPlay;
 
 
 
@@ -33,30 +36,38 @@ public class SeleccionPersonaje extends EscenaBase
 
     // Un menú de tipo SceneMenu
     private MenuScene menu;     // Contenedor de las opciones
-    // Constantes para cada opción
-    private final int OPCION_ACERCA_DE = 0;
-    private final int OPCION_JUGAR = 1;
-    private final int OPCION_HOW_TO = 2;
-    private final int OPCION_TITULO = 3;
-    private final int OPCION_AGE = 4;
-    private final int OPCION_INFO = 5;
-    private final int OPCION_SELECT_TITLE = 6;
+    // Constantes para cada opción de personaje
+    private final int OPCION_CURTIS = 0;
+    private final int OPCION_Geronimo = 1;
+
+    private final int OPCION_IMAGEN_CURTIS = 20;
+    private final int OPCION_NOMBRE_CURTIS = 30;
+    private final int OPCION_AGE = 40;
+    private final int OPCION_INFO_CURTIS = 50;
+    private final int OPCION_SELECT_TITLE = 9000;
+
+    private final int OPCION_START = 9999;
     // Botones de cada opción
     private ButtonSprite btnAcercaDe;
     private ButtonSprite btnJugar;
+    //private ButtonSprite btnPlay;
 
     @Override
     public void cargarRecursos() {
         // Fondo
         regionFondo = cargarImagen("SelectScreen/FondoSelect.png");
-        // Botones del menú
-        regionBtnAcercaDe = cargarImagen("SelectScreen/DracoSelect.png");
-        regionBtnJugar = cargarImagen("SelectScreen/MummySelect.png");
-        regionBtnHowTo = cargarImagen("SelectScreen/DracoStand.png");
-        regionTitulo = cargarImagen("SelectScreen/NameTitle.png");
+        // Botones personajes
+        regionBtnCurtis = cargarImagen("SelectScreen/DracoSelect.png");
+        regionBtnGeronimo = cargarImagen("SelectScreen/MummySelect.png");
+        //info personajes
+        regionImagenCurtis = cargarImagen("SelectScreen/DracoStand.png");
+        regionNombreCurtis = cargarImagen("SelectScreen/NameTitle.png");
         regionAge = cargarImagen("SelectScreen/AgeLevel.png");
         regionInfo = cargarImagen("SelectScreen/InfoDraco.png");
+        //Select Character
         regionSelectTitle = cargarImagen("SelectScreen/SelectTitle.png");
+        //Boton Play
+        regionPlay = cargarImagen("BotonPlay.png");
     }
 
     @Override
@@ -71,17 +82,8 @@ public class SeleccionPersonaje extends EscenaBase
         setBackground(fondo);
         setBackgroundEnabled(true);
 
-        // Mostrar un recuadro atrás del menú
-        agregarFondoMenu();
         // Mostrar opciones de menú
         agregarMenu();
-    }
-
-    private void agregarFondoMenu() {
-       // Rectangle cuadro = new Rectangle(ControlJuego.ANCHO_CAMARA/2, ControlJuego.ALTO_CAMARA/2,
-         //       0.75f*ControlJuego.ANCHO_CAMARA, 0.75f*ControlJuego.ALTO_CAMARA, actividadJuego.getVertexBufferObjectManager());
-        //cuadro.setColor(0.8f, 0.8f, 0.8f, 0.4f);
-        //attachChild(cuadro);
     }
 
     private void agregarMenu() {
@@ -89,38 +91,46 @@ public class SeleccionPersonaje extends EscenaBase
         menu = new MenuScene(actividadJuego.camara);
         // Centrado en la pantalla
         menu.setPosition(ControlJuego.ANCHO_CAMARA/2,ControlJuego.ALTO_CAMARA/2);
-        // Crea las opciones (por ahora, acerca de y jugar)
-        IMenuItem opcionAcercaDe = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_ACERCA_DE,regionBtnAcercaDe, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
-        IMenuItem opcionJugar = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_JUGAR,regionBtnJugar, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
-        IMenuItem opcionHowTo = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_HOW_TO,regionBtnHowTo, actividadJuego.getVertexBufferObjectManager()), 1, 1);
-        IMenuItem titulo = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_TITULO,regionTitulo,actividadJuego.getVertexBufferObjectManager()),1,1);
+        // Crea las opciones
+        IMenuItem opcionCurtis = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_CURTIS,regionBtnCurtis, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
+        IMenuItem opcionGeronimo = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_Geronimo,regionBtnGeronimo, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
+        //info Curtis
+        IMenuItem imagenCurtis = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_IMAGEN_CURTIS,regionImagenCurtis, actividadJuego.getVertexBufferObjectManager()), 1, 1);
+        IMenuItem nombreCurtis = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_NOMBRE_CURTIS,regionNombreCurtis,actividadJuego.getVertexBufferObjectManager()),1,1);
         IMenuItem opcionAge = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_AGE,regionAge,actividadJuego.getVertexBufferObjectManager()),1,1);
-        IMenuItem opcionInfo = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_INFO,regionInfo,actividadJuego.getVertexBufferObjectManager()),1,1);
+        IMenuItem opcionInfoCurtis = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_INFO_CURTIS,regionInfo,actividadJuego.getVertexBufferObjectManager()),1,1);
+        //Infor general
         IMenuItem opcionSelectTitle = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_SELECT_TITLE,regionSelectTitle,actividadJuego.getVertexBufferObjectManager()),1,1);
+        IMenuItem opcionPlay = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_START,regionPlay,actividadJuego.getVertexBufferObjectManager()),1,1);
 
 
 
-        // Agrega las opciones al menú
-        menu.addMenuItem(opcionAcercaDe);
-        menu.addMenuItem(opcionJugar);
-        menu.addMenuItem(opcionHowTo);
-        menu.addMenuItem(titulo);
+        // Agrega las opciones de personaje
+        menu.addMenuItem(opcionCurtis);
+        menu.addMenuItem(opcionGeronimo);
+        //Curtis info
+        menu.addMenuItem(imagenCurtis);
+        menu.addMenuItem(nombreCurtis);
         menu.addMenuItem(opcionAge);
-        menu.addMenuItem(opcionInfo);
+        menu.addMenuItem(opcionInfoCurtis);
+        //general
         menu.addMenuItem(opcionSelectTitle);
+        menu.addMenuItem(opcionPlay);
 
         // Termina la configuración
         menu.buildAnimations();
         menu.setBackgroundEnabled(false);   // Completamente transparente
 
-        // Ubicar las opciones DENTRO del menú. El centro del menú huhh es (0,0)
-        opcionAcercaDe.setPosition(-450,-290);
-        opcionJugar.setPosition(-250, -290);
-        opcionHowTo.setPosition(450,100);
-        titulo.setPosition(-250,350);
+        // Ubicar las opciones DENTRO del menú. El centro del menú es (0,0)
+        opcionCurtis.setPosition(-450,-290);
+        opcionGeronimo.setPosition(-250, -290);
+
+        imagenCurtis.setPosition(450,100);
+        nombreCurtis.setPosition(-250,350);
         opcionAge.setPosition(425,-120);
-        opcionInfo.setPosition(-200,70);
+        opcionInfoCurtis.setPosition(-200,70);
         opcionSelectTitle.setPosition(-290, -175);
+        opcionPlay.setPosition(450, -290);
 
 
 
@@ -131,26 +141,12 @@ public class SeleccionPersonaje extends EscenaBase
                                              float pMenuItemLocalX, float pMenuItemLocalY) {
                 // El parámetro pMenuItem indica la opción oprimida
              switch(pMenuItem.getID()) {
-                    /*case OPCION_ACERCA_DE:
+                    case OPCION_START:
                         // Mostrar la escena de AcercaDe
-                        admEscenas.crearEscenaAcercaDe();
-                        admEscenas.setEscena(TipoEscena.ESCENA_ACERCA_DE);
-                        admEscenas.liberarEscenaMenu();
+                        admEscenas.crearEscenaBatalla();
+                        admEscenas.setEscena(TipoEscena.ESCENA_BATALLA);
+                        admEscenas.liberarEscenaSeleccionPersonaje();
                         break;
-
-                    case OPCION_JUGAR:
-                        // Mostrar la pantalla de juego
-                        admEscenas.crearSeleccionPersonaje();
-                        admEscenas.setEscena(TipoEscena.ESCENA_ACERCA_DE);
-                        admEscenas.liberarEscenaMenu();
-                        break;
-
-                    case OPCION_HOW_TO:
-                        admEscenas.crearNuclear();
-                        admEscenas.setEscena(TipoEscena.ESCENA_ACERCA_DE);
-                        admEscenas.liberarEscenaMenu();
-                        break;
-*/
                 }
                 return true;
             }
