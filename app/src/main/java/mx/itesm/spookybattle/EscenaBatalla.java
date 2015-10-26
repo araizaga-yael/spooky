@@ -41,6 +41,8 @@ public class EscenaBatalla extends EscenaBase
     private final int ATTCK4 = 4;
     private final int SUPER = 0;
 
+    public Main batalla1 = new Main();
+
     // Botones de cada opción
     private ButtonSprite btnAtk;
     private ButtonSprite btnDef;
@@ -61,7 +63,8 @@ public class EscenaBatalla extends EscenaBase
     @Override
     public void crearEscena() {
 
-
+        Main.battle();
+        //Main.dr
         // Creamos el sprite de manera óptima
         spriteFondo = cargarSprite(ControlJuego.ANCHO_CAMARA/2, ControlJuego.ALTO_CAMARA/2, regionFondo);
 
@@ -147,7 +150,7 @@ public class EscenaBatalla extends EscenaBase
     public void onBackKeyPressed() {
         admEscenas.crearEscenaSeleccionPersonaje();
         admEscenas.setEscena(TipoEscena.ESCENA_SELECCION_PERSONAJE);
-        admEscenas.liberarEscenaAcercaDe();
+        admEscenas.liberarEscenaBatalla();
     }
 
     @Override

@@ -1,9 +1,13 @@
 package mx.itesm.spookybattle;
+import android.util.Log;
+
 import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
-	
+
+    public Main(){};
+
 	static Scanner sc = new Scanner(System.in);
 	
 	//Creando ataques de dracula
@@ -16,7 +20,7 @@ public class Main {
 	//super ataque
 	static Attack vacuum = new Attack("Blood Vacuum","Suck Them Dry...Of Candy", 100, 0);
 	//Creando a dracula
-	static P_Character dracula = new P_Character("Curtis", 1, 100, 100, 8, 40, dracula_atks, vacuum, "Curtis Dracovich el ninio vampiro");
+	 public static P_Character dracula = new P_Character("Curtis", 1, 100, 100, 8, 40, dracula_atks, vacuum, "Curtis Dracovich el ninio vampiro");
 	
 	//Creando ataques de fantasma
 	static Attack boom = new Attack("Boooom", "Scare The Bejeezus Out Of Em", 10, 0);
@@ -28,7 +32,7 @@ public class Main {
 	//super ataque
 	static Attack twospooky = new Attack("2Spooky4me","Become Fear Itself", 100, 0);
 	//Creando a fantasma
-	static P_Character ghost = new P_Character("Gus", 1, 100, 100, 4, 0, ghost_atks, twospooky, "Un spooky dude");
+	public static P_Character ghost = new P_Character("Gus", 1, 100, 100, 4, 0, ghost_atks, twospooky, "Un spooky dude");
 	
 	//Creando ataques de momia
 	static Attack locust = new Attack("Locust Pocus", "tbh", 10, 4);
@@ -40,14 +44,14 @@ public class Main {
 	//super ataque
 	static Attack plague = new Attack("11th Plague","Buy 10 Egyptian Plagues, Get One More For Free!", 100, 0);
 	//Creando a momia
-	static P_Character mummy = new P_Character("Geronimo", 1, 100, 100, 4, 0, mummy_atks, plague, "Una momia cosa");
+	public static P_Character mummy = new P_Character("Geronimo", 1, 100, 100, 4, 0, mummy_atks, plague, "Una momia cosa");
 	
 	//Turno del jugador
 	private static void playerMove(P_Character player,P_Character ai ){
 		int dmgToDeal = 0;
 		String used = player.getName()+ " Used ";
 		boolean enoughMP = false;
-		
+
 		System.out.println("\nPlayer Choose An Attack: ");
 		System.out.println( player.attacksString() + "\n\n");
 		int n = 0;
@@ -163,6 +167,7 @@ public class Main {
 		int turn = 1;
 		int n;
 		boolean charChange = false;
+        Log.d("First choice: ", "\nInicia combate oh yea: ");
 		
 		while (player.getHP() > 0 && ai.getHP() > 0 ){
 			
@@ -274,25 +279,41 @@ public class Main {
 		double newDef = defender.getDef() * 1.3;
 		defender.setDef((int)Math.ceil(newDef));
 	}
+
+    public static void battle(){
+
+        Log.d("FUNCIONA BITCH", "Esto esta funcionando");
+       /* System.out.println(dracula.toString());
+        System.out.println(dracula.attacksString());
+
+        System.out.println("\n" +  ghost.toString());
+        System.out.println(ghost.attacksString());
+
+        System.out.println("\n" +  mummy.toString());
+        System.out.println(mummy.attacksString());*/
+		/**/
+
+       battleSys(dracula, ghost);
+    }
 	
-	
-	public static void main(String[] args) {
+
+    public static void main(String[] args) {
 
 		/* Comprobando creaci�n correcta*/
-		System.out.println(dracula.toString());
-		System.out.println(dracula.attacksString());
-		
-		System.out.println("\n" +  ghost.toString());
-		System.out.println(ghost.attacksString());
-		
-		System.out.println("\n" +  mummy.toString());
-		System.out.println(mummy.attacksString());
+        System.out.println(dracula.toString());
+        System.out.println(dracula.attacksString());
+
+        System.out.println("\n" +  ghost.toString());
+        System.out.println(ghost.attacksString());
+
+        System.out.println("\n" +  mummy.toString());
+        System.out.println(mummy.attacksString());
 		/**/
-		
-		battleSys(dracula, ghost);
-		
-		
-	}
+
+        battleSys(dracula, ghost);
+
+
+    }
 	
 	
 	
