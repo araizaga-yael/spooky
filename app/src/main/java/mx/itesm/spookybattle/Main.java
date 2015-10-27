@@ -47,7 +47,7 @@ public class Main {
 	public static P_Character mummy = new P_Character("Geronimo", 1, 100, 100, 4, 0, mummy_atks, plague, "Una momia cosa");
 	
 	//Turno del jugador
-	private static void playerMove(P_Character player,P_Character ai ){
+	private void playerMove(P_Character player,P_Character ai ){
 		int dmgToDeal = 0;
 		String used = player.getName()+ " Used ";
 		boolean enoughMP = false;
@@ -109,7 +109,7 @@ public class Main {
 	}
 	
 	//Turno del AI
-	private static void aiMove(P_Character player,P_Character ai ){
+	private void aiMove(P_Character player,P_Character ai ){
 		int dmgToDeal = 0;
 		String used = ai.getName()+ " Used ";
 		
@@ -161,13 +161,13 @@ public class Main {
 	}
 	
 	//metodo que inicia el combate
-	private static void battleSys(P_Character player,P_Character ai){
+	private void battleSys(P_Character player,P_Character ai){
 		int[] pStats = player.getStats();
 		int[] aiStats = ai.getStats();
 		int turn = 1;
 		int n;
 		boolean charChange = false;
-        Log.d("First choice: ", "\nInicia combate oh yea: ");
+        Log.d("First choice: ", "\nInicia combate oh yea   : ");
 		
 		while (player.getHP() > 0 && ai.getHP() > 0 ){
 			
@@ -248,22 +248,22 @@ public class Main {
 	
 	
 	//calcula damage de un ataque en un turno
-	private static int damageCalc(int atk, int def){
+	private  int damageCalc(int atk, int def){
 		int dmg = (atk-def);
 		if(dmg <=0) return 5;
 		return dmg;
 	}
 	//calcula damage de super ataque
-	private static int superDamageCalc(Attack superAtk){
+	private int superDamageCalc(Attack superAtk){
 		int dmg = superAtk.getBase_dmg();
 		return dmg;
 	}
 	//hace la damage calculada al oponente
-	private static void dealDmg(int dmg, P_Character victim){
+	private  void dealDmg(int dmg, P_Character victim){
 		victim.setHP(victim.getHP()-dmg);
 	}
 	//calcula la perdida y ganancia de MP
-	private static void drainGainMP(int dmg, int n, P_Character dealer){
+	private  void drainGainMP(int dmg, int n, P_Character dealer){
 		int atkDrain = dealer.getAtk_list()[n-1].getMp_drain();
 		dealer.setMP(dealer.getMP()-atkDrain);
 
@@ -271,18 +271,18 @@ public class Main {
 		dealer.setMP(dealer.getMP() + (dmg/2));
 	}
 	//representa la perdida de MP por super ataque
-	private static void drainSuper(P_Character dealer){
+	private void drainSuper(P_Character dealer){
 		dealer.setMP(0);
 	}
 	//aumenta la defensa de el usuario
-	private static void defend(P_Character defender){
+	private void defend(P_Character defender){
 		double newDef = defender.getDef() * 1.3;
 		defender.setDef((int)Math.ceil(newDef));
 	}
 
     public static void battle(){
 
-        Log.d("FUNCIONA BITCH", "Esto esta funcionando");
+        EscenaBatalla.s = "LOL";
        /* System.out.println(dracula.toString());
         System.out.println(dracula.attacksString());
 
@@ -293,27 +293,27 @@ public class Main {
         System.out.println(mummy.attacksString());*/
 		/**/
 
-       battleSys(dracula, ghost);
+      // battleSys(dracula, ghost);
     }
 	
 
-    public static void main(String[] args) {
+   // public static void main(String[] args) {
 
 		/* Comprobando creaci�n correcta*/
-        System.out.println(dracula.toString());
-        System.out.println(dracula.attacksString());
+       // System.out.println(dracula.toString());
+        //System.out.println(dracula.attacksString());
 
-        System.out.println("\n" +  ghost.toString());
-        System.out.println(ghost.attacksString());
+        //System.out.println("\n" +  ghost.toString());
+        //System.out.println(ghost.attacksString());
 
-        System.out.println("\n" +  mummy.toString());
-        System.out.println(mummy.attacksString());
-		/**/
-
-        battleSys(dracula, ghost);
+        //System.out.println("\n" +  mummy.toString());
+        //System.out.println(mummy.attacksString());
 
 
-    }
+        //battleSys(dracula, ghost);
+
+
+    //}
 	
 	
 	

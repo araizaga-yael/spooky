@@ -8,6 +8,16 @@ import org.andengine.entity.scene.menu.item.decorator.ScaleMenuItemDecorator;
 import org.andengine.entity.sprite.ButtonSprite;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.opengl.texture.region.ITextureRegion;
+import org.andengine.entity.text.Text;
+import org.andengine.opengl.font.Font;
+import org.andengine.opengl.font.FontFactory;
+import org.andengine.opengl.texture.TextureOptions;
+import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
+
+
+
+import android.graphics.Color;
+import android.graphics.Typeface;
 
 /**
  * Representa la escena de primer nivel
@@ -25,7 +35,11 @@ public class EscenaBatalla extends EscenaBase
     private ITextureRegion regionBtnHowTo;
     private ITextureRegion regionTitulo;
 
-
+    //cosas de texto
+    private BitmapTextureAtlas mFontTexture;
+    private Text  text;
+    private Font  font;
+    public static String s = "";
 
     // Sprites sobre la escena
     private Sprite spriteFondo;
@@ -58,13 +72,20 @@ public class EscenaBatalla extends EscenaBase
         regionBtnJugar = cargarImagen("BotonPlay.png");
         regionBtnHowTo = cargarImagen("BotonHowTo.png");
         regionTitulo = cargarImagen("Titulo.png");*/
+
+        this.mFontTexture = new BitmapTextureAtlas(actividadJuego.getTextureManager(),256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+
+        font = FontFactory.createFromAsset(actividadJuego.getFontManager(), actividadJuego.getTextureManager(), 1024, 1024, actividadJuego.getAssets(),
+                "fontf.ttf", 50, true, android.graphics.Color.BLACK);
+        font.load();
     }
 
     @Override
     public void crearEscena() {
 
+
         Main.battle();
-        //Main.dr
+
         // Creamos el sprite de manera óptima
         spriteFondo = cargarSprite(ControlJuego.ANCHO_CAMARA/2, ControlJuego.ALTO_CAMARA/2, regionFondo);
 
@@ -72,6 +93,11 @@ public class EscenaBatalla extends EscenaBase
         SpriteBackground fondo = new SpriteBackground(1,1,1,spriteFondo);
         setBackground(fondo);
         setBackgroundEnabled(true);
+
+        /*text = new Text(0, 0, font, "Hello Android", actividadJuego.getVertexBufferObjectManager());
+        this.attachChild(text);
+
+        text.setPosition(ControlJuego.ANCHO_CAMARA/2 - (text.getWidth()/2), ControlJuego.ALTO_CAMARA/4 - (text.getHeight()/2));*/
 
         // Mostrar un recuadro atrás del menú
         //agregarFondoMenu();
@@ -86,11 +112,20 @@ public class EscenaBatalla extends EscenaBase
         //attachChild(cuadro);
     }*/
 
+    public void agregaTexto(String s){
+        text = new Text(0, 0, font,s, actividadJuego.getVertexBufferObjectManager());
+        this.attachChild(text);
+
+        text.setPosition(ControlJuego.ANCHO_CAMARA/2 - (text.getWidth()/2), ControlJuego.ALTO_CAMARA/4 - (text.getHeight()/2));
+    }
+
     private void agregarMenu() {
         // Crea el objeto que representa el menú
         menu = new MenuScene(actividadJuego.camara);
         // Centrado en la pantalla
         menu.setPosition(ControlJuego.ANCHO_CAMARA/2,ControlJuego.ALTO_CAMARA/2);
+
+
         // Crea las opciones (por ahora, acerca de y jugar)
         //IMenuItem opcionAcercaDe = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_ACERCA_DE,regionBtnAcercaDe, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
         //IMenuItem opcionJugar = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_JUGAR,regionBtnJugar, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
@@ -142,6 +177,8 @@ public class EscenaBatalla extends EscenaBase
     @Override
     protected void onManagedUpdate(float pSecondsElapsed) {
         super.onManagedUpdate(pSecondsElapsed);
+
+        agregaTexto(s);
 
     }
 
