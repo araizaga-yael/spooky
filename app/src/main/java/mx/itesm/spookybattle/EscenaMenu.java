@@ -10,6 +10,9 @@ import org.andengine.entity.sprite.ButtonSprite;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.opengl.texture.region.ITextureRegion;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * Representa la escena del MENU PRINCIPAL
  *
@@ -19,16 +22,24 @@ public class EscenaMenu extends EscenaBase
 {
     // Regiones para las imágenes de la escena
     private ITextureRegion regionFondo;
+    private ITextureRegion regionFondo2;
+    private ITextureRegion regionFondo3;
     private ITextureRegion regionBtnAcercaDe;
     private ITextureRegion regionBtnJugar;
     private ITextureRegion regionBtnHowTo;
     private ITextureRegion regionTitulo;
 
 
-
+    //Variables para timers
+    private Timer tiempo;
+    private Timer tiempo2;
+    private boolean activo = false;
+    private boolean relampago = false;
 
     // Sprites sobre la escena
     private Sprite spriteFondo;
+    private Sprite spriteFondo2;
+    private Sprite spriteFondo3;
 
     // Un menú de tipo SceneMenu
     private MenuScene menu;     // Contenedor de las opciones
@@ -45,6 +56,8 @@ public class EscenaMenu extends EscenaBase
     public void cargarRecursos() {
         // Fondo
         regionFondo = cargarImagen("MenuPrincipal1.png");
+        regionFondo2 = cargarImagen("MenuPrincipal2.png");
+        regionFondo3 = cargarImagen("Relampago.png");
         // Botones del menú
         regionBtnAcercaDe = cargarImagen("BotonAboutUs.png");
         regionBtnJugar = cargarImagen("BotonPlay.png");
@@ -57,15 +70,88 @@ public class EscenaMenu extends EscenaBase
 
 
         // Creamos el sprite de manera óptima
-        spriteFondo = cargarSprite(ControlJuego.ANCHO_CAMARA/2, ControlJuego.ALTO_CAMARA/2, regionFondo);
 
+        spriteFondo = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, regionFondo);
+        spriteFondo2 = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, regionFondo2);
+        spriteFondo3 = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, regionFondo3);
+
+        spriteFondo2.setColor(1,1,1,0);
         // Crea el fondo de la pantalla
-        SpriteBackground fondo = new SpriteBackground(1,1,1,spriteFondo);
-        setBackground(fondo);
-        setBackgroundEnabled(true);
+        //fondo = new SpriteBackground(1, 1, 1, spriteFondo);
+        //setBackground(fondo);
+        //setBackgroundEnabled(true);
 
+
+        // Mostrar un recuadro atrás del menú
+        //agregarFondoMenu();
         // Mostrar opciones de menú
         agregarMenu();
+        attachChild(spriteFondo3);
+        attachChild(spriteFondo2);
+        attachChild(spriteFondo);
+        beginTimer();
+    }
+    private void beginTimer(){
+
+
+        tiempo = new Timer();
+        tiempo.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                actividadJuego.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (!activo) {
+                            beginTimer2();
+
+                            activo=true;
+                            relampago = false;
+                        }
+                        else {
+                            beginTimer2();
+
+                            activo = false;
+                            relampago = false;
+
+                        }
+                    }
+                });
+            }
+        },10000,10000);
+    }
+
+    private void beginTimer2(){
+        tiempo2 = new Timer();
+        tiempo2.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                actividadJuego.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (!relampago) {
+                            spriteFondo.setColor(1, 1, 1, 0);
+                            spriteFondo2.setColor(1, 1, 1, 0);
+                            spriteFondo3.setColor(1, 1, 1, 1);
+                            relampago = true;
+
+                        }
+                        else {
+                            spriteFondo3.setColor(1, 1, 1, 0);
+                            if(!activo) {
+                                spriteFondo.setColor(1, 1, 1, 1);
+                                spriteFondo2.setColor(1, 1, 1, 0);
+                            }else{
+                                spriteFondo.setColor(1, 1, 1, 0);
+                                spriteFondo2.setColor(1, 1, 1, 1);
+                            }
+                        }
+
+                    }
+                });
+            }
+        }, 400, 400);
+
+
     }
 
     private void agregarMenu() {

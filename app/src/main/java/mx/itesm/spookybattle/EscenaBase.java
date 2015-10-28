@@ -6,9 +6,16 @@ import org.andengine.engine.camera.Camera;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.opengl.texture.ITexture;
+import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
+import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
+import org.andengine.opengl.texture.atlas.bitmap.BuildableBitmapTextureAtlas;
+import org.andengine.opengl.texture.atlas.bitmap.source.IBitmapTextureAtlasSource;
+import org.andengine.opengl.texture.atlas.buildable.builder.BlackPawnTextureAtlasBuilder;
+import org.andengine.opengl.texture.atlas.buildable.builder.ITextureAtlasBuilder;
 import org.andengine.opengl.texture.bitmap.AssetBitmapTexture;
 import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.texture.region.TextureRegionFactory;
+import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.opengl.util.GLState;
 
 import java.io.IOException;
@@ -33,6 +40,21 @@ public abstract class EscenaBase extends Scene
         this.actividadJuego = admEscenas.actividadJuego;
         cargarRecursos(); // Este método debe implementarse en la subclase
         crearEscena();  // Este método debe implementarse en la subclase
+    }
+    // Método auxiliar para cargar las imágenes de las regiones de tipo MOSAICO
+    protected TiledTextureRegion cargarImagenMosaico(String archivo, int ancho, int alto, int renglones, int columnas) {
+        // Carga las imágenes para el sprite Animado
+        BuildableBitmapTextureAtlas texturaMosaico = new BuildableBitmapTextureAtlas(actividadJuego.getTextureManager(),ancho,alto);
+        TiledTextureRegion region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                texturaMosaico, actividadJuego, archivo, columnas, renglones);
+        texturaMosaico.load();
+        try {
+            texturaMosaico.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 0, 0));
+        } catch (ITextureAtlasBuilder.TextureAtlasBuilderException e) {
+            Log.d("cargarImagenMosaico()", "No se puede cargar la imagen: " + archivo);
+        }
+
+        return region;
     }
 
     // Método auxiliar para cargar las imágenes de las regiones

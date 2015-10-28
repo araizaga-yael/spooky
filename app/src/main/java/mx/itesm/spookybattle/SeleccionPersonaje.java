@@ -170,7 +170,7 @@ public class SeleccionPersonaje extends EscenaBase
         // Regresar al menú principal
         admEscenas.crearEscenaMenu();
         admEscenas.setEscena(TipoEscena.ESCENA_MENU);
-        admEscenas.liberarEscenaAcercaDe();
+        admEscenas.liberarEscenaSeleccionPersonaje();
     }
 
     @Override
