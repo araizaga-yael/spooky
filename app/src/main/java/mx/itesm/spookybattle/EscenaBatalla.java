@@ -84,6 +84,9 @@ public class EscenaBatalla extends EscenaBase
     P_Character player = Main.dracula;
     P_Character ai = Main.mummy;
 
+    //BOTONES
+    IMenuItem opcionAttack1;
+    boolean attacking = false;
 
 
     public Main batalla1 = new Main();
@@ -119,6 +122,7 @@ public class EscenaBatalla extends EscenaBase
     @Override
     public void crearEscena() {
 
+        attacking = false;
         // Creamos el sprite de manera óptima
         spriteFondo = cargarSprite(ControlJuego.ANCHO_CAMARA/2, ControlJuego.ALTO_CAMARA/2, regionFondo);
 
@@ -170,7 +174,6 @@ public class EscenaBatalla extends EscenaBase
         IMenuItem opcionAttack = new ScaleMenuItemDecorator(new SpriteMenuItem(ATTACK,regionBtnAtk, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
         IMenuItem opcionDefense = new ScaleMenuItemDecorator(new SpriteMenuItem(DEFEND,regionBtnDef, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
 
-
         // Agrega las opciones al menú
         menu.addMenuItem(opcionAttack);
         menu.addMenuItem(opcionDefense);
@@ -219,7 +222,7 @@ public class EscenaBatalla extends EscenaBase
         boolean enoughMP = false;
 
 
-        IMenuItem opcionAttack1 = new ScaleMenuItemDecorator(new SpriteMenuItem(ATTCK1,regionBtnAtk1,actividadJuego.getVertexBufferObjectManager()),1.5f,1);
+        opcionAttack1 = new ScaleMenuItemDecorator(new SpriteMenuItem(ATTCK1,regionBtnAtk1,actividadJuego.getVertexBufferObjectManager()),1.5f,1);
         IMenuItem opcionAttack2 = new ScaleMenuItemDecorator(new SpriteMenuItem(ATTCK2,regionBtnAtk2,actividadJuego.getVertexBufferObjectManager()),1.5f,1);
         IMenuItem opcionAttack3 = new ScaleMenuItemDecorator(new SpriteMenuItem(ATTCK3,regionBtnAtk3,actividadJuego.getVertexBufferObjectManager()),1.5f,1);
         IMenuItem opcionAttack4 = new ScaleMenuItemDecorator(new SpriteMenuItem(SUPER,regionBtnAtk4,actividadJuego.getVertexBufferObjectManager()),1.5f,1);
@@ -245,6 +248,10 @@ public class EscenaBatalla extends EscenaBase
 
                 switch (pMenuItem.getID()) {
                     case ATTCK1:
+                        if(attacking == true) break;
+                        attacking = true;
+                        opcionAttack1.setVisible(false);
+                        //opcionAttack1.setAlpha(0);
                         attackChoice = pMenuItem.getID();
                         playerMove(player, ai,attackChoice);
                         //animacionNight();
