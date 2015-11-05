@@ -23,6 +23,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -76,7 +77,14 @@ public class EscenaBatalla extends EscenaBase
     //Logica del juego /////
     public int attackChoice = 0;
     public boolean winner = false;
-    public boolean buttonPressed = false;
+    private int turn = 1;
+
+    int[] pStats;
+    int[] aiStats;
+    P_Character player = Main.dracula;
+    P_Character ai = Main.mummy;
+
+
 
     public Main batalla1 = new Main();
 
@@ -89,14 +97,14 @@ public class EscenaBatalla extends EscenaBase
         // Fondo
         regionFondo = cargarImagen("Batalla1/FondosBatalla1.png");
         regionCurtisAnimado = cargarImagenMosaico("AnimacionesCurtis/WaitingBattle/CurtisWaitingSheet.png", 1986, 331, 1, 6);
-        regionGeronimoAnimado =cargarImagenMosaico("AnimacionesGeronimo/Spritechit.png", 1945, 389, 1, 5);
+        regionGeronimoAnimado =cargarImagenMosaico("AnimacionesGeronimo/GeronimoWaitingSheet.png", 2723,389 ,1,7);
 
         regionBtnAtk = cargarImagen("BotonesCurtis/BotonAttack.png");
         regionBtnDef = cargarImagen("BotonesCurtis/BotonDefense.png");
 
-        regionBtnAtk1 = cargarImagen("BotonesCurtis/BotonCurtisAtt3.png");
-        regionBtnAtk2 = cargarImagen("BotonesCurtis/BotonCurtisAtt2.png");
-        regionBtnAtk3 = cargarImagen("BotonesCurtis/BotonCurtisAtt4.png");
+        regionBtnAtk1 = cargarImagen("BotonesCurtis/BotonCurtisAtt4.png");
+        regionBtnAtk2 = cargarImagen("BotonesCurtis/BotonCurtisAtt3.png");
+        regionBtnAtk3 = cargarImagen("BotonesCurtis/BotonCurtisAtt2.png");
         regionBtnAtk4 = cargarImagen("BotonesCurtis/BotonCurtisAtt1.png");
 
         this.mFontTexture = new BitmapTextureAtlas(actividadJuego.getTextureManager(),256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
@@ -104,6 +112,8 @@ public class EscenaBatalla extends EscenaBase
         font = FontFactory.createFromAsset(actividadJuego.getFontManager(), actividadJuego.getTextureManager(), 1024, 1024, actividadJuego.getAssets(),
                 "fontf.ttf", 50, true, Color.GREEN);
         font.load();
+
+        initialization(Main.dracula, Main.ghost);
     }
 
     @Override
@@ -187,13 +197,11 @@ public class EscenaBatalla extends EscenaBase
                         menu.resetAnimations();
                         agregarMenu2();
                         attackChoice = pMenuItem.getID();
-                        buttonPressed = true;
                         s= "Choose An Attack";
                         break;
 
                     case DEFEND:
                         attackChoice = pMenuItem.getID();
-                        buttonPressed = true;
                         s= "Curtis Defended";
                         break;
 
@@ -208,6 +216,7 @@ public class EscenaBatalla extends EscenaBase
     }
 
     private void agregarMenu2(){
+        boolean enoughMP = false;
 
 
         IMenuItem opcionAttack1 = new ScaleMenuItemDecorator(new SpriteMenuItem(ATTCK1,regionBtnAtk1,actividadJuego.getVertexBufferObjectManager()),1.5f,1);
@@ -232,31 +241,30 @@ public class EscenaBatalla extends EscenaBase
             public boolean onMenuItemClicked(MenuScene pMenuScene, IMenuItem pMenuItem,
                                              float pMenuItemLocalX, float pMenuItemLocalY) {
                 // El parámetro pMenuItem indica la opción oprimida
+
+
                 switch (pMenuItem.getID()) {
                     case ATTCK1:
-                        animacionNight();
                         attackChoice = pMenuItem.getID();
-                        buttonPressed = true;
-                        s= "Curtis Used I Am The Night";
+                        playerMove(player, ai,attackChoice);
+                        //animacionNight();
+                        //s= "Curtis Used I Am The Night";
                         break;
 
                     case ATTCK2:
-                        animacionChoke();
                         attackChoice = pMenuItem.getID();
-                        buttonPressed = true;
-                        s= "Curtis Used Vamp Choke";
+                        playerMove(player, ai,attackChoice);
+                        //s= "Curtis Used Vamp Choke";
                         break;
 
                     case ATTCK3:
-                        animacionBattack();
                         attackChoice = pMenuItem.getID();
-                        buttonPressed = true;
-                        s= "Curtis Used Battack";
+                        playerMove(player, ai,attackChoice);
+                        //s= "Curtis Used Battack";
                         break;
                     case SUPER:
-                        animacionSuper();
                         attackChoice = pMenuItem.getID();
-                        buttonPressed = true;
+                        playerMove(player, ai,attackChoice);
                         break;
 
                 }
@@ -460,8 +468,6 @@ public class EscenaBatalla extends EscenaBase
 
         agregaTexto(s);
 
-       // if(winner == false) {   battleSys(Main.dracula, Main.ghost);}
-
 
     }
 
@@ -493,15 +499,33 @@ public class EscenaBatalla extends EscenaBase
 
     /////////LOGICA DEL JUEGO //////////////////
 
-    private void battleSys(P_Character player, P_Character ai){
-        int[] pStats = player.getStats();
-        int[] aiStats = ai.getStats();
-        int turn = 1;
-        int n;
-        boolean charChange = false;
-        //EscenaBatalla.s = "Inicia combate";
+    private void initialization(P_Character player, P_Character ai){
+        pStats = player.getStats();
+        aiStats = ai.getStats();
+    }
 
-        while (player.getHP() > 0 && ai.getHP() > 0 ){
+    private void finishBattle(P_Character player, P_Character ai){
+        ai.resetStats(aiStats);
+        player.resetStats(pStats);
+    }
+
+    private void checkHP(P_Character player, P_Character ai){
+       int pHP=  player.getHP();
+       int aiHP = player.getHP();
+
+       if(pHP <= 0){
+           s= player.getName() + " wins";
+           //abort
+       }
+        if(aiHP <= 0){
+            s= ai.getName() + " wins";
+            //abort
+        }
+    }
+
+    private void battleTurn(P_Character player, P_Character ai){
+        int n = 0;
+        boolean charChange = false;
 
             if(charChange == true){
                 player.setDef(pStats[3]);
@@ -510,16 +534,11 @@ public class EscenaBatalla extends EscenaBase
 
             EscenaBatalla.s = "Choose an action: ";
 
-            while(buttonPressed == false){};
-            buttonPressed = false;
-            n = attackChoice;
-            if(n >= 3) n = 2;
-
             if(player.getSpd() > ai.getSpd()){
 
                 switch(n){
                     case 1:
-                        playerMove(player, ai);
+                        //playerMove(player, ai);
                         s = "HP AI: " + ai.getHP() + " MP AI: " + ai.getMP() +
                                 "\nHP Player: " + player.getHP() + " MP Player: " + player.getMP();
                         break;
@@ -530,7 +549,7 @@ public class EscenaBatalla extends EscenaBase
                         break;
 
                 }
-                if(ai.getHP() <= 0) break;
+                //if(ai.getHP() <= 0) break;
 
                 //aiMove(player,ai);
                 s = "HP AI: " + ai.getHP() + " MP AI: " + ai.getMP() +
@@ -551,24 +570,14 @@ public class EscenaBatalla extends EscenaBase
                 s = "HP AI: " + ai.getHP() + " MP AI: " + ai.getMP() +
                         "\nHP Player: " + player.getHP() + " MP Player: " + player.getMP();
 
-                if(player.getHP() <= 0) break;
+                //if(player.getHP() <= 0) break;
 
-                playerMove(player, ai);
+                //playerMove(player, ai);
                 s = "HP AI: " + ai.getHP() + " MP AI: " + ai.getMP() +
                         "\nHP Player: " + player.getHP() + " MP Player: " + player.getMP();
 
             }
             turn++;
-
-        }
-
-
-        //if(player.getHP() > 0) EscenaBatalla.s=player.getName()+ " wins";
-        //else EscenaBatalla.s = ai.getName()+ " wins";
-
-        ai.resetStats(aiStats);
-        player.resetStats(pStats);
-
     }
 
     private static void defend(P_Character defender){
@@ -603,18 +612,12 @@ public class EscenaBatalla extends EscenaBase
         return dmg;
     }
 
-    private  void playerMove(P_Character player,P_Character ai ){
+    private  void playerMove(P_Character player,P_Character ai , int n){
         int dmgToDeal = 0;
         String used = player.getName()+ " Used ";
         boolean enoughMP = false;
 
         //System.out.println("\nPlayer Choose An Attack: ");
-        int n = 0;
-
-        while(enoughMP == false){
-            while(buttonPressed == false){};
-            buttonPressed = false;
-            n = attackChoice; if(n>= 5) n=4;
 
             if(n == 0 && (player.getMP() != player.getbase_MP())){
                 n = 5;
@@ -627,8 +630,10 @@ public class EscenaBatalla extends EscenaBase
                 else enoughMP = true;
             }
 
+        if(enoughMP == false){n = 5;}
 
-            switch(n){
+
+        switch(n){
 
                 case 0:
                     s= used + "SUPER ATTACK " + player.getSuperAtk().getName();
@@ -636,33 +641,90 @@ public class EscenaBatalla extends EscenaBase
                     break;
                 case 1:
                     s=used + player.getAtk_list()[0].getName();
+                    animacionBattack();
                     dmgToDeal = damageCalc(player.getAtk_list()[0].getBase_dmg(), ai.getDef());
                     break;
                 case 2:
                     s=used + player.getAtk_list()[1].getName();
+                    animacionNight();
                     dmgToDeal = damageCalc(player.getAtk_list()[1].getBase_dmg(), ai.getDef());
                     break;
                 case 3:
                     s=used + player.getAtk_list()[2].getName();
+                    animacionChoke();
                     dmgToDeal = damageCalc(player.getAtk_list()[2].getBase_dmg(), ai.getDef());
                     break;
                 case 4:
                     s=used + player.getAtk_list()[3].getName();
+                    animacionSuper();
                     dmgToDeal = damageCalc(player.getAtk_list()[3].getBase_dmg(), ai.getDef());
                     break;
                 case 5:
                     s="Not enough MP";
                     break;
             }
-        }
+
 
         if(n == 0){
             drainSuper(player);
             dealDmg(dmgToDeal, ai);
         }
+        else if(n == 5){
+        }
         else{
             drainGainMP(dmgToDeal, n, player);
             dealDmg(dmgToDeal, ai);
+        }
+    }
+
+    private void aiMove(P_Character player,P_Character ai ){
+        int dmgToDeal = 0;
+        String used = ai.getName()+ " Used ";
+
+        s= ai.attacksString() + "\n\n";
+
+        //ai no escoge ataques que no puede hacer
+        Random rn = new Random();
+        int n = rn.nextInt(4) + 1;
+        boolean enoughMP = false;
+
+        while(enoughMP == false){
+            n = rn.nextInt(4) + 1;
+            if(ai.getAtk_list()[n-1].getMp_drain() > ai.getMP()) n = (n+ 1)%4;
+            else enoughMP = true;
+
+            if(ai.getMP() == ai.getbase_MP()) n = 0;
+        }
+        switch(n){
+            case 0:
+                s= used + "SUPER ATTACK " + ai.getSuperAtk().getName();
+                dmgToDeal = superDamageCalc(ai.getSuperAtk());
+                break;
+            case 1:
+                s= used + ai.getAtk_list()[0].getName();
+                dmgToDeal = damageCalc(ai.getAtk_list()[0].getBase_dmg(), player.getDef());
+                break;
+            case 2:
+                s= used + ai.getAtk_list()[1].getName();
+                dmgToDeal = damageCalc(ai.getAtk_list()[1].getBase_dmg(), player.getDef());
+                break;
+            case 3:
+                s= used + ai.getAtk_list()[2].getName();
+                dmgToDeal = damageCalc(ai.getAtk_list()[2].getBase_dmg(), player.getDef());
+                break;
+            case 4:
+                s= used + ai.getAtk_list()[3].getName();
+                dmgToDeal = damageCalc(ai.getAtk_list()[3].getBase_dmg(), player.getDef());
+                break;
+        }
+
+        if(n == 0){
+            drainSuper(ai);
+            dealDmg(dmgToDeal, player);
+        }
+        else{
+            drainGainMP(dmgToDeal, n, ai);
+            dealDmg(dmgToDeal, player);
         }
     }
 
