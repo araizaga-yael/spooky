@@ -74,7 +74,8 @@ public class EscenaMenu extends EscenaBase
     @Override
     public void crearEscena() {
 
-
+        tiempo = new Timer();
+        tiempo2 = new Timer();
         // Creamos el sprite de manera óptima
 
         spriteFondo = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, regionFondo);
@@ -91,16 +92,17 @@ public class EscenaMenu extends EscenaBase
         // Mostrar un recuadro atrás del menú
         //agregarFondoMenu();
         // Mostrar opciones de menú
+        beginTimer();
         agregarMenu();
         attachChild(spriteFondo3);
         attachChild(spriteFondo2);
         attachChild(spriteFondo);
-        beginTimer();
+
     }
     private void beginTimer(){
 
 
-        tiempo = new Timer();
+
         tiempo.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -127,7 +129,7 @@ public class EscenaMenu extends EscenaBase
     }
 
     private void beginTimer2(){
-        tiempo2 = new Timer();
+
         tiempo2.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -202,6 +204,8 @@ public class EscenaMenu extends EscenaBase
                         admEscenas.crearEscenaAcercaDe();
                         admEscenas.setEscena(TipoEscena.ESCENA_ACERCA_DE);
                         admEscenas.liberarEscenaMenu();
+                        tiempo2.cancel();
+                        tiempo.cancel();
                         break;
 
                     case OPCION_JUGAR:
@@ -209,12 +213,16 @@ public class EscenaMenu extends EscenaBase
                         admEscenas.crearEscenaSeleccionPersonaje();
                         admEscenas.setEscena(TipoEscena.ESCENA_SELECCION_PERSONAJE);
                         admEscenas.liberarEscenaMenu();
+                        tiempo2.cancel();
+                        tiempo.cancel();
                         break;
 
                     case OPCION_HOW_TO:
                         admEscenas.crearNuclear();
                         admEscenas.setEscena(TipoEscena.ESCENA_ACERCA_DE);
                         admEscenas.liberarEscenaMenu();
+                        tiempo2.cancel();
+                        tiempo.cancel();
                         break;
 
                 }
@@ -256,5 +264,8 @@ public class EscenaMenu extends EscenaBase
     public void liberarRecursos() {
         regionFondo.getTexture().unload();
         regionFondo = null;
+        tiempo = null;
+        tiempo2 = null;
+
     }
 }
