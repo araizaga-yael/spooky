@@ -1,5 +1,6 @@
 package mx.itesm.spookybattle;
 
+import org.andengine.audio.sound.Sound;
 import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.scene.background.SpriteBackground;
 import org.andengine.entity.scene.menu.MenuScene;
@@ -52,6 +53,9 @@ public class EscenaMenu extends EscenaBase
     private ButtonSprite btnAcercaDe;
     private ButtonSprite btnJugar;
 
+    //Sonidos
+    private Sound relampagoSonido;
+
     @Override
     public void cargarRecursos() {
         // Fondo
@@ -63,6 +67,8 @@ public class EscenaMenu extends EscenaBase
         regionBtnJugar = cargarImagen("BotonPlay.png");
         regionBtnHowTo = cargarImagen("BotonHowTo.png");
         regionTitulo = cargarImagen("Titulo.png");
+
+        relampagoSonido = cargarEfecto("Sonidos/single_lightning_bolt.wav");
     }
 
     @Override
@@ -132,6 +138,7 @@ public class EscenaMenu extends EscenaBase
                             spriteFondo.setColor(1, 1, 1, 0);
                             spriteFondo2.setColor(1, 1, 1, 0);
                             spriteFondo3.setColor(1, 1, 1, 1);
+                            relampagoSonido.play();
                             relampago = true;
 
                         }

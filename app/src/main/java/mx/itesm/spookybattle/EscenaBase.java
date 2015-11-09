@@ -2,6 +2,8 @@ package mx.itesm.spookybattle;
 
 import android.util.Log;
 
+import org.andengine.audio.sound.Sound;
+import org.andengine.audio.sound.SoundFactory;
 import org.andengine.engine.camera.Camera;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.sprite.Sprite;
@@ -71,6 +73,17 @@ public abstract class EscenaBase extends Scene
             Log.i("cargarImagen()", "No se puede cargar: " + archivo);
         }
         return region;
+    }
+    protected Sound cargarEfecto(String archivo) {
+        try {
+            Sound sonidoEfecto =
+                    SoundFactory.createSoundFromAsset(actividadJuego.getSoundManager(),
+                            actividadJuego, archivo);
+            return sonidoEfecto;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     // Método auxiliar para crear un Sprite.

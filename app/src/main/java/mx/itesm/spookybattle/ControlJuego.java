@@ -35,8 +35,11 @@ public class ControlJuego extends SimpleBaseGameActivity
     @Override
     public EngineOptions onCreateEngineOptions() {
         camara = new Camera(0,0,ANCHO_CAMARA,ALTO_CAMARA);
-        return new EngineOptions(true, ScreenOrientation.LANDSCAPE_FIXED,
+        EngineOptions opciones = new EngineOptions(true, ScreenOrientation.LANDSCAPE_FIXED,
                 new FillResolutionPolicy(), camara);
+        opciones.getAudioOptions().setNeedsSound(true);
+        opciones.getAudioOptions().setNeedsMusic(true);
+        return opciones;
     }
 
     // Crea los recursos del juego.

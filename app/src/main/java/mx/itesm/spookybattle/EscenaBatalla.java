@@ -75,9 +75,10 @@ public class EscenaBatalla extends EscenaBase
     private final int SUPER = 0;
 
     //Logica del juego /////
-    public int attackChoice = 0;
+    private int attackChoice = 0;
     public boolean winner = false;
     private int turn = 1;
+    private boolean aiFirst = false;
 
     int[] pStats;
     int[] aiStats;
@@ -86,11 +87,14 @@ public class EscenaBatalla extends EscenaBase
 
     //BOTONES
     IMenuItem opcionAttack1;
+    IMenuItem opcionAttack2;
+    IMenuItem opcionAttack3;
+    IMenuItem opcionAttack4;
     boolean attacking = false;
-
 
     public Main batalla1 = new Main();
 
+    //Animaciones
     private Timer tiempo;
     private int numImagenes;
     private Sprite spriteFrame;
@@ -122,13 +126,20 @@ public class EscenaBatalla extends EscenaBase
     @Override
     public void crearEscena() {
 
+
         attacking = false;
+
+
+
         // Creamos el sprite de manera óptima
         spriteFondo = cargarSprite(ControlJuego.ANCHO_CAMARA/2, ControlJuego.ALTO_CAMARA/2, regionFondo);
 
         // Mostrar un recuadro atrás del menú
 
         // Mostrar opciones de menú
+
+        int textLength = 200;
+        text = new Text(0, 0, font,s,textLength, actividadJuego.getVertexBufferObjectManager());
 
         agregarMenu();
 
@@ -155,12 +166,14 @@ public class EscenaBatalla extends EscenaBase
     }*/
 
     public void agregaTexto(String s){
-        this.detachChild(text);
+        text.setText(s);
+        this.attachChild(text);
+        /*this.detachChild(text);
         text = new Text(0, 0, font,s, actividadJuego.getVertexBufferObjectManager());
         this.attachChild(text);
         text.setColor(0f, 1f, 0f);
 
-        text.setPosition(500 - (text.getWidth() / 2), 700 - (text.getHeight() / 2));
+        text.setPosition(500 - (text.getWidth() / 2), 700 - (text.getHeight() / 2));*/
     }
 
     private void agregarMenu() {
@@ -169,8 +182,8 @@ public class EscenaBatalla extends EscenaBase
         // Centrado en la pantalla
         menu.setPosition(ControlJuego.ANCHO_CAMARA/2,ControlJuego.ALTO_CAMARA/7);
 
+        s= "Choose An Action";
 
-        // Crea las opciones (por ahora, acerca de y jugar)
         IMenuItem opcionAttack = new ScaleMenuItemDecorator(new SpriteMenuItem(ATTACK,regionBtnAtk, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
         IMenuItem opcionDefense = new ScaleMenuItemDecorator(new SpriteMenuItem(DEFEND,regionBtnDef, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
 
@@ -194,20 +207,20 @@ public class EscenaBatalla extends EscenaBase
             public boolean onMenuItemClicked(MenuScene pMenuScene, IMenuItem pMenuItem,
                                              float pMenuItemLocalX, float pMenuItemLocalY) {
                 // El parámetro pMenuItem indica la opción oprimida
-                switch(pMenuItem.getID()) {
+                switch (pMenuItem.getID()) {
                     case ATTACK:
                         menu.clearMenuItems();
                         menu.resetAnimations();
                         agregarMenu2();
                         attackChoice = pMenuItem.getID();
-                        s= "Choose An Attack";
+                        s = "Choose An Attack";
                         break;
 
                     case DEFEND:
-                        attackChoice = pMenuItem.getID();
-                        s= "Curtis Defended";
+                        defend(player);
+                        s = "Curtis Defended";
+                        aiMove(player, ai);
                         break;
-
 
 
                 }
@@ -223,9 +236,9 @@ public class EscenaBatalla extends EscenaBase
 
 
         opcionAttack1 = new ScaleMenuItemDecorator(new SpriteMenuItem(ATTCK1,regionBtnAtk1,actividadJuego.getVertexBufferObjectManager()),1.5f,1);
-        IMenuItem opcionAttack2 = new ScaleMenuItemDecorator(new SpriteMenuItem(ATTCK2,regionBtnAtk2,actividadJuego.getVertexBufferObjectManager()),1.5f,1);
-        IMenuItem opcionAttack3 = new ScaleMenuItemDecorator(new SpriteMenuItem(ATTCK3,regionBtnAtk3,actividadJuego.getVertexBufferObjectManager()),1.5f,1);
-        IMenuItem opcionAttack4 = new ScaleMenuItemDecorator(new SpriteMenuItem(SUPER,regionBtnAtk4,actividadJuego.getVertexBufferObjectManager()),1.5f,1);
+        opcionAttack2 = new ScaleMenuItemDecorator(new SpriteMenuItem(ATTCK2,regionBtnAtk2,actividadJuego.getVertexBufferObjectManager()),1.5f,1);
+        opcionAttack3 = new ScaleMenuItemDecorator(new SpriteMenuItem(ATTCK3,regionBtnAtk3,actividadJuego.getVertexBufferObjectManager()),1.5f,1);
+        opcionAttack4 = new ScaleMenuItemDecorator(new SpriteMenuItem(SUPER,regionBtnAtk4,actividadJuego.getVertexBufferObjectManager()),1.5f,1);
 
         menu.addMenuItem(opcionAttack1);
         menu.addMenuItem(opcionAttack2);
@@ -245,36 +258,52 @@ public class EscenaBatalla extends EscenaBase
                                              float pMenuItemLocalX, float pMenuItemLocalY) {
                 // El parámetro pMenuItem indica la opción oprimida
 
-
                 switch (pMenuItem.getID()) {
                     case ATTCK1:
-                        if(attacking == true) break;
+                        if (attacking == true) break;
                         attacking = true;
-                        opcionAttack1.setVisible(false);
-                        //opcionAttack1.setAlpha(0);
+                        hideButtons();
                         attackChoice = pMenuItem.getID();
-                        playerMove(player, ai,attackChoice);
-                        //animacionNight();
-                        //s= "Curtis Used I Am The Night";
+
+                        if (aiFirst == true) aiMove(player, ai);
+
+                        playerMove(player, ai, attackChoice);
                         break;
 
                     case ATTCK2:
+                        if (attacking == true) break;
+                        attacking = true;
+                        hideButtons();
                         attackChoice = pMenuItem.getID();
-                        playerMove(player, ai,attackChoice);
-                        //s= "Curtis Used Vamp Choke";
+
+                        if (aiFirst == true) aiMove(player, ai);
+
+                        playerMove(player, ai, attackChoice);
                         break;
 
                     case ATTCK3:
+                        if (attacking == true) break;
+                        attacking = true;
+                        hideButtons();
                         attackChoice = pMenuItem.getID();
-                        playerMove(player, ai,attackChoice);
-                        //s= "Curtis Used Battack";
+
+                        if (aiFirst == true) aiMove(player, ai);
+
+                        playerMove(player, ai, attackChoice);
                         break;
                     case SUPER:
+                        if (attacking == true) break;
+                        attacking = true;
+                        hideButtons();
                         attackChoice = pMenuItem.getID();
-                        playerMove(player, ai,attackChoice);
+
+                        if (aiFirst == true) aiMove(player, ai);
+
+                        playerMove(player, ai, attackChoice);
                         break;
 
                 }
+                if (aiFirst == false) aiMove(player, ai);
                 return true;
             }
         });
@@ -282,52 +311,62 @@ public class EscenaBatalla extends EscenaBase
 
     }
     private void animacionSuper() {
-        final ArrayList<ITextureRegion> arrayImagenes = new ArrayList<>();
 
-        for (int i = 0; i < 8; i++) {
-            ITextureRegion imagen = cargarImagen("AnimacionesCurtis/Darkness/Darkness0" + (i) + ".png");
-            arrayImagenes.add(i, imagen);
+        try {
+            final ArrayList<ITextureRegion> arrayImagenes = new ArrayList<>();
+            numImagenes = 0;
+            for (int i = 0; i < 8; i++) {
+                ITextureRegion imagen = cargarImagen("AnimacionesCurtis/Darkness/Darkness0" + (i) + ".png");
+                arrayImagenes.add(i, imagen);
 
-        }
-
-
-        numImagenes = 0;
-        tiempo = new Timer();
-        tiempo.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                actividadJuego.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        //A partir de aqui puedes agregrar las instrucciones que quieres que realice el timer
-                        if (numImagenes < 8) {
-                            spriteCurtisAnimado.setAlpha(0);
-
-                            if (tagSpriteChild != null)
-                                detachChild(tagSpriteChild);
-
-                            spriteFrame = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, arrayImagenes.get(numImagenes));
-                            attachChild(spriteFrame);
-                            tagSpriteChild = spriteFrame;
-
-                            numImagenes++;
-                        } else {
-
-                            reset();
-                            crearEscena();
-                            numImagenes = 0;
-                            tiempo.cancel();
-                        }
-
-
-                    }
-                });
             }
-        }, 300, 300);
+
+
+            numImagenes = 0;
+            tiempo = new Timer();
+            tiempo.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    actividadJuego.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            //A partir de aqui puedes agregrar las instrucciones que quieres que realice el timer
+                            if (numImagenes < 8) {
+                                spriteCurtisAnimado.setAlpha(0);
+
+                                if (tagSpriteChild != null)
+                                    detachChild(tagSpriteChild);
+
+                                spriteFrame = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, arrayImagenes.get(numImagenes));
+                                attachChild(spriteFrame);
+                                tagSpriteChild = spriteFrame;
+
+                                numImagenes++;
+                            } else {
+                                for (int i = 0; i < 8; i++) {
+
+                                    arrayImagenes.get(i).getTexture().unload();
+                                }
+                                reset();
+                                crearEscena();
+                                numImagenes = 0;
+                                tiempo.cancel();
+                            }
+
+
+                        }
+                    });
+                }
+            }, 300, 300);
+        }catch(IndexOutOfBoundsException e){
+
+            System.out.println("Error Super");
+        }
     }
     private void animacionBattack(){
+        try{
         final ArrayList<ITextureRegion> arrayImagenes = new ArrayList<>();
-
+        numImagenes= 0;
         for (int i = 0; i <6 ; i++) {
             ITextureRegion imagen = cargarImagen("AnimacionesCurtis/Battack/Battack0"+(i) + ".png");
             arrayImagenes.add(i,imagen);
@@ -358,6 +397,10 @@ public class EscenaBatalla extends EscenaBase
                             numImagenes++;
                         } else {
 
+                            for (int i = 0; i < 6 ; i++) {
+
+                                arrayImagenes.get(i).getTexture().unload();
+                            }
                             reset();
                             crearEscena();
                             numImagenes = 0;
@@ -370,101 +413,119 @@ public class EscenaBatalla extends EscenaBase
             }
         }, 300, 300);
 
-    }
-    private void animacionNight(){
-        final ArrayList<ITextureRegion> arrayImagenes = new ArrayList<>();
+    }catch(IndexOutOfBoundsException e){
 
-        for (int i = 0; i <7 ; i++) {
-            ITextureRegion imagen = cargarImagen("AnimacionesCurtis/Night/Night0"+(i+1) + ".png");
-            arrayImagenes.add(i,imagen);
-
+            System.out.println("Error Battack");
         }
+    }
 
+    private void animacionNight(){
+        try {
+            final ArrayList<ITextureRegion> arrayImagenes = new ArrayList<>();
+            numImagenes = 0;
+            for (int i = 0; i < 7; i++) {
+                ITextureRegion imagen = cargarImagen("AnimacionesCurtis/Night/Night0" + (i + 1) + ".png");
+                arrayImagenes.add(i, imagen);
 
-
-        numImagenes= 0;
-        tiempo = new Timer();
-        tiempo.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                actividadJuego.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        //A partir de aqui puedes agregrar las instrucciones que quieres que realice el timer
-                        if (numImagenes < 7) {
-                            spriteCurtisAnimado.setAlpha(0);
-
-                            if(tagSpriteChild!= null)
-                                detachChild(tagSpriteChild);
-
-                            spriteFrame = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, arrayImagenes.get(numImagenes));
-                            attachChild(spriteFrame);
-                            tagSpriteChild = spriteFrame;
-
-                            numImagenes++;
-                        } else {
-
-                            reset();
-                            crearEscena();
-                            numImagenes = 0;
-                            tiempo.cancel();
-                        }
-
-
-                    }
-                });
             }
-        }, 300, 300);
 
+
+            numImagenes = 0;
+            tiempo = new Timer();
+            tiempo.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    actividadJuego.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            //A partir de aqui puedes agregrar las instrucciones que quieres que realice el timer
+                            if (numImagenes < 7) {
+                                spriteCurtisAnimado.setAlpha(0);
+
+                                if (tagSpriteChild != null)
+                                    detachChild(tagSpriteChild);
+
+                                spriteFrame = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, arrayImagenes.get(numImagenes));
+                                attachChild(spriteFrame);
+                                tagSpriteChild = spriteFrame;
+
+                                numImagenes++;
+                            } else {
+
+                                for (int i = 0; i < 7; i++) {
+
+                                    arrayImagenes.get(i).getTexture().unload();
+                                }
+                                reset();
+                                crearEscena();
+                                numImagenes = 0;
+                                tiempo.cancel();
+                            }
+
+
+                        }
+                    });
+                }
+            }, 300, 300);
+        }catch(IndexOutOfBoundsException e){
+
+            System.out.println("Error Night");
+        }
     }
     private void animacionChoke(){
-        final ArrayList<ITextureRegion> arrayImagenes = new ArrayList<>();
+        try {
+            final ArrayList<ITextureRegion> arrayImagenes = new ArrayList<>();
+            numImagenes = 0;
+            for (int i = 0; i < 7; i++) {
+                ITextureRegion imagen = cargarImagen("AnimacionesCurtis/Choke/VampChoke0" + (i + 1) + ".png");
+                arrayImagenes.add(i, imagen);
 
-        for (int i = 0; i <7 ; i++) {
-            ITextureRegion imagen = cargarImagen("AnimacionesCurtis/Choke/VampChoke0"+(i+1) + ".png");
-            arrayImagenes.add(i,imagen);
-
-        }
-
-
-
-        numImagenes= 0;
-
-        tiempo = new Timer();
-
-        tiempo.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                actividadJuego.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        //A partir de aqui puedes agregrar las instrucciones que quieres que realice el timer
-
-                        if(numImagenes<7) {
-                            spriteCurtisAnimado.setAlpha(0);
-
-                            if(tagSpriteChild!= null)
-                                detachChild(tagSpriteChild);
-
-                            spriteFrame = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, arrayImagenes.get(numImagenes));
-                            attachChild(spriteFrame);
-                            tagSpriteChild = spriteFrame;
-
-                            numImagenes++;
-                        }
-                        else{
-
-                            reset();
-                            crearEscena();
-                            numImagenes = 0;
-                            tiempo.cancel();
-                        }
-
-
-                    }
-                });
             }
-        },300,300);
+
+
+            numImagenes = 0;
+
+            tiempo = new Timer();
+
+            tiempo.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    actividadJuego.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            //A partir de aqui puedes agregrar las instrucciones que quieres que realice el timer
+
+                            if (numImagenes < 7) {
+                                spriteCurtisAnimado.setAlpha(0);
+
+                                if (tagSpriteChild != null)
+                                    detachChild(tagSpriteChild);
+
+                                spriteFrame = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, arrayImagenes.get(numImagenes));
+                                attachChild(spriteFrame);
+                                tagSpriteChild = spriteFrame;
+
+                                numImagenes++;
+                            } else {
+                                for (int i = 0; i < 7; i++) {
+
+                                    arrayImagenes.get(i).getTexture().unload();
+                                }
+                                reset();
+                                crearEscena();
+                                numImagenes = 0;
+                                tiempo.cancel();
+                            }
+
+
+                        }
+                    });
+                }
+            }, 300, 300);
+        }catch(IndexOutOfBoundsException e){
+
+            System.out.println("Error Choke");
+        }
 
     }
     // La escena se debe actualizar en este método que se repite "varias" veces por segundo
@@ -472,6 +533,11 @@ public class EscenaBatalla extends EscenaBase
     @Override
     protected void onManagedUpdate(float pSecondsElapsed){
         super.onManagedUpdate(pSecondsElapsed);
+
+        this.detachChild(text);
+        text.setColor(0f, 1f, 0f);
+
+        text.setPosition(500 - (text.getWidth() / 2), 700 - (text.getHeight() / 2));
 
         agregaTexto(s);
 
@@ -504,6 +570,14 @@ public class EscenaBatalla extends EscenaBase
         regionFondo = null;
     }
 
+    private void hideButtons(){
+        opcionAttack1.setVisible(false);
+        opcionAttack2.setVisible(false);
+        opcionAttack3.setVisible(false);
+        opcionAttack4.setVisible(false);
+
+    }
+
     /////////LOGICA DEL JUEGO //////////////////
 
     private void initialization(P_Character player, P_Character ai){
@@ -517,74 +591,81 @@ public class EscenaBatalla extends EscenaBase
     }
 
     private void checkHP(P_Character player, P_Character ai){
-       int pHP=  player.getHP();
-       int aiHP = player.getHP();
+        int pHP=  player.getHP();
+        int aiHP = player.getHP();
 
-       if(pHP <= 0){
-           s= player.getName() + " wins";
-           //abort
-       }
+        if(pHP <= 0){
+            s= player.getName() + " wins";
+            //abort
+        }
         if(aiHP <= 0){
             s= ai.getName() + " wins";
             //abort
         }
     }
 
+    private void checkTurn(P_Character player, P_Character ai){
+        if (player.getSpd()< ai.getSpd())
+            aiFirst = true;
+        else
+            aiFirst = false;
+    }
+
     private void battleTurn(P_Character player, P_Character ai){
         int n = 0;
         boolean charChange = false;
 
-            if(charChange == true){
-                player.setDef(pStats[3]);
-                charChange = false;
-            }
+        if(charChange == true){
+            player.setDef(pStats[3]);
+            charChange = false;
+        }
 
-            EscenaBatalla.s = "Choose an action: ";
+        EscenaBatalla.s = "Choose an action: ";
 
-            if(player.getSpd() > ai.getSpd()){
+        if(player.getSpd() > ai.getSpd()){
 
-                switch(n){
-                    case 1:
-                        //playerMove(player, ai);
-                        s = "HP AI: " + ai.getHP() + " MP AI: " + ai.getMP() +
-                                "\nHP Player: " + player.getHP() + " MP Player: " + player.getMP();
-                        break;
-                    case 2:
-                        s =player.getName() + " defended";
-                        defend(player);
-                        charChange = true;
-                        break;
-
-                }
-                //if(ai.getHP() <= 0) break;
-
-                //aiMove(player,ai);
-                s = "HP AI: " + ai.getHP() + " MP AI: " + ai.getMP() +
-                        "\nHP Player: " + player.getHP() + " MP Player: " + player.getMP();
+            switch(n){
+                case 1:
+                    //playerMove(player, ai);
+                    s = "HP AI: " + ai.getHP() + " MP AI: " + ai.getMP() +
+                            "\nHP Player: " + player.getHP() + " MP Player: " + player.getMP();
+                    break;
+                case 2:
+                    s =player.getName() + " defended";
+                    defend(player);
+                    charChange = true;
+                    break;
 
             }
-            else{
+            //if(ai.getHP() <= 0) break;
 
-                switch(n){
-                    case 2:
-                        s = player.getName() + " defended";
-                        defend(player);
-                        charChange = true;
-                        break;
-                }
+            //aiMove(player,ai);
+            s = "HP AI: " + ai.getHP() + " MP AI: " + ai.getMP() +
+                    "\nHP Player: " + player.getHP() + " MP Player: " + player.getMP();
 
-                //aiMove(player,ai);
-                s = "HP AI: " + ai.getHP() + " MP AI: " + ai.getMP() +
-                        "\nHP Player: " + player.getHP() + " MP Player: " + player.getMP();
+        }
+        else{
 
-                //if(player.getHP() <= 0) break;
-
-                //playerMove(player, ai);
-                s = "HP AI: " + ai.getHP() + " MP AI: " + ai.getMP() +
-                        "\nHP Player: " + player.getHP() + " MP Player: " + player.getMP();
-
+            switch(n){
+                case 2:
+                    s = player.getName() + " defended";
+                    defend(player);
+                    charChange = true;
+                    break;
             }
-            turn++;
+
+            //aiMove(player,ai);
+            s = "HP AI: " + ai.getHP() + " MP AI: " + ai.getMP() +
+                    "\nHP Player: " + player.getHP() + " MP Player: " + player.getMP();
+
+            //if(player.getHP() <= 0) break;
+
+            //playerMove(player, ai);
+            s = "HP AI: " + ai.getHP() + " MP AI: " + ai.getMP() +
+                    "\nHP Player: " + player.getHP() + " MP Player: " + player.getMP();
+
+        }
+        turn++;
     }
 
     private static void defend(P_Character defender){
@@ -626,50 +707,50 @@ public class EscenaBatalla extends EscenaBase
 
         //System.out.println("\nPlayer Choose An Attack: ");
 
-            if(n == 0 && (player.getMP() != player.getbase_MP())){
-                n = 5;
-            }
-            else if(n == 0 && player.getMP() == player.getbase_MP()){
-                enoughMP = true;
-            }
-            else if(n >= 1){
-                if(player.getAtk_list()[n-1].getMp_drain() > player.getMP()) n = 5;
-                else enoughMP = true;
-            }
+        if(n == 0 && (player.getMP() != player.getbase_MP())){
+            n = 5;
+        }
+        else if(n == 0 && player.getMP() == player.getbase_MP()){
+            enoughMP = true;
+        }
+        else if(n >= 1){
+            if(player.getAtk_list()[n-1].getMp_drain() > player.getMP()) n = 5;
+            else enoughMP = true;
+        }
 
         if(enoughMP == false){n = 5;}
 
 
         switch(n){
 
-                case 0:
-                    s= used + "SUPER ATTACK " + player.getSuperAtk().getName();
-                    dmgToDeal = superDamageCalc(player.getSuperAtk());
-                    break;
-                case 1:
-                    s=used + player.getAtk_list()[0].getName();
-                    animacionBattack();
-                    dmgToDeal = damageCalc(player.getAtk_list()[0].getBase_dmg(), ai.getDef());
-                    break;
-                case 2:
-                    s=used + player.getAtk_list()[1].getName();
-                    animacionNight();
-                    dmgToDeal = damageCalc(player.getAtk_list()[1].getBase_dmg(), ai.getDef());
-                    break;
-                case 3:
-                    s=used + player.getAtk_list()[2].getName();
-                    animacionChoke();
-                    dmgToDeal = damageCalc(player.getAtk_list()[2].getBase_dmg(), ai.getDef());
-                    break;
-                case 4:
-                    s=used + player.getAtk_list()[3].getName();
-                    animacionSuper();
-                    dmgToDeal = damageCalc(player.getAtk_list()[3].getBase_dmg(), ai.getDef());
-                    break;
-                case 5:
-                    s="Not enough MP";
-                    break;
-            }
+            case 0:
+                s= used + "SUPER ATTACK " + player.getSuperAtk().getName();
+                dmgToDeal = superDamageCalc(player.getSuperAtk());
+                break;
+            case 1:
+                s=used + player.getAtk_list()[0].getName();
+                animacionBattack();
+                dmgToDeal = damageCalc(player.getAtk_list()[0].getBase_dmg(), ai.getDef());
+                break;
+            case 2:
+                s=used + player.getAtk_list()[1].getName();
+                animacionNight();
+                dmgToDeal = damageCalc(player.getAtk_list()[1].getBase_dmg(), ai.getDef());
+                break;
+            case 3:
+                s=used + player.getAtk_list()[2].getName();
+                animacionChoke();
+                dmgToDeal = damageCalc(player.getAtk_list()[2].getBase_dmg(), ai.getDef());
+                break;
+            case 4:
+                s=used + player.getAtk_list()[3].getName();
+                animacionSuper();
+                dmgToDeal = damageCalc(player.getAtk_list()[3].getBase_dmg(), ai.getDef());
+                break;
+            case 5:
+                s="Not enough MP";
+                break;
+        }
 
 
         if(n == 0){
