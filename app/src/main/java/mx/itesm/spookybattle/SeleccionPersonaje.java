@@ -1,5 +1,7 @@
 package mx.itesm.spookybattle;
 
+import android.graphics.Color;
+
 import org.andengine.entity.scene.background.SpriteBackground;
 import org.andengine.entity.scene.menu.MenuScene;
 import org.andengine.entity.scene.menu.item.IMenuItem;
@@ -8,6 +10,13 @@ import org.andengine.entity.scene.menu.item.decorator.ScaleMenuItemDecorator;
 import org.andengine.entity.sprite.ButtonSprite;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.opengl.texture.region.ITextureRegion;
+
+import org.andengine.opengl.texture.region.ITextureRegion;
+import org.andengine.entity.text.Text;
+import org.andengine.opengl.font.Font;
+import org.andengine.opengl.font.FontFactory;
+import org.andengine.opengl.texture.TextureOptions;
+import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 
 /**
  * Representa la escena del MENU PRINCIPAL
@@ -48,9 +57,12 @@ public class SeleccionPersonaje extends EscenaBase
 
     private final int OPCION_START = 9999;
     // Botones de cada opción
-    private ButtonSprite btnAcercaDe;
-    private ButtonSprite btnJugar;
-    //private ButtonSprite btnPlay;
+
+    //Cosas del texto
+    private BitmapTextureAtlas mFontTexture;
+    private Text  text;
+    private Font  font;
+    public static String s = "Likes catsup";
 
     @Override
     public void cargarRecursos() {
@@ -68,6 +80,13 @@ public class SeleccionPersonaje extends EscenaBase
         regionSelectTitle = cargarImagen("SelectScreen/SelectTitle.png");
         //Boton Play
         regionPlay = cargarImagen("BotonPlay.png");
+
+        //font del texto
+        this.mFontTexture = new BitmapTextureAtlas(actividadJuego.getTextureManager(),256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+
+        font = FontFactory.createFromAsset(actividadJuego.getFontManager(), actividadJuego.getTextureManager(), 1024, 1024, actividadJuego.getAssets(),
+                "fontf.ttf", 50, true, Color.RED);
+        font.load();
     }
 
     @Override
@@ -81,6 +100,9 @@ public class SeleccionPersonaje extends EscenaBase
         SpriteBackground fondo = new SpriteBackground(1,1,1,spriteFondo);
         setBackground(fondo);
         setBackgroundEnabled(true);
+
+
+        text = new Text(0, 0, font,"LOLOLOLOololololololLOLOL", actividadJuego.getVertexBufferObjectManager());
 
         // Mostrar opciones de menú
         agregarMenu();
@@ -112,7 +134,7 @@ public class SeleccionPersonaje extends EscenaBase
         menu.addMenuItem(imagenCurtis);
         menu.addMenuItem(nombreCurtis);
         menu.addMenuItem(opcionAge);
-        menu.addMenuItem(opcionInfoCurtis);
+        // menu.addMenuItem(opcionInfoCurtis);
         //general
         menu.addMenuItem(opcionSelectTitle);
         menu.addMenuItem(opcionPlay);
@@ -132,6 +154,9 @@ public class SeleccionPersonaje extends EscenaBase
         opcionSelectTitle.setPosition(-290, -175);
         opcionPlay.setPosition(450, -290);
 
+        text.setPosition(-220 - (text.getWidth() / 2), 70 - (text.getHeight() / 2));
+        menu.attachChild(text);
+
 
 
         // Registra el Listener para atender las opciones
@@ -140,7 +165,7 @@ public class SeleccionPersonaje extends EscenaBase
             public boolean onMenuItemClicked(MenuScene pMenuScene, IMenuItem pMenuItem,
                                              float pMenuItemLocalX, float pMenuItemLocalY) {
                 // El parámetro pMenuItem indica la opción oprimida
-             switch(pMenuItem.getID()) {
+                switch(pMenuItem.getID()) {
                     case OPCION_START:
                         // Mostrar la escena de AcercaDe
                         admEscenas.crearEscenaBatalla();
@@ -161,7 +186,6 @@ public class SeleccionPersonaje extends EscenaBase
     @Override
     protected void onManagedUpdate(float pSecondsElapsed) {
         super.onManagedUpdate(pSecondsElapsed);
-
     }
 
 
