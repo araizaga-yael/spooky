@@ -1,5 +1,7 @@
 package mx.itesm.spookybattle;
 
+import org.andengine.engine.handler.timer.ITimerCallback;
+import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.entity.IEntity;
 import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.scene.background.SpriteBackground;
@@ -99,6 +101,8 @@ public class EscenaBatalla extends EscenaBase
     private int numImagenes;
     private Sprite spriteFrame;
     private IEntity tagSpriteChild;
+
+    private ArrayList<ITextureRegion> arrayImagenes;
     @Override
     public void cargarRecursos() {
         // Fondo
@@ -113,6 +117,8 @@ public class EscenaBatalla extends EscenaBase
         regionBtnAtk2 = cargarImagen("BotonesCurtis/BotonCurtisAtt3.png");
         regionBtnAtk3 = cargarImagen("BotonesCurtis/BotonCurtisAtt2.png");
         regionBtnAtk4 = cargarImagen("BotonesCurtis/BotonCurtisAtt1.png");
+
+        numImagenes = 0;
 
         this.mFontTexture = new BitmapTextureAtlas(actividadJuego.getTextureManager(),256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 
@@ -310,26 +316,57 @@ public class EscenaBatalla extends EscenaBase
 
 
     }
+
+    private void getImagesCurtis(int opcionAtaque)
+    {
+        arrayImagenes = new ArrayList<>();
+        switch(opcionAtaque){
+
+            case 1:
+                for (int i = 0; i < 6; i++) {
+                    ITextureRegion imagen = cargarImagen("AnimacionesCurtis/Battack/Battack0" + (i) + ".png");
+                    arrayImagenes.add(i, imagen);
+                }
+                break;
+
+            case 2:
+                for (int i = 0; i < 7; i++) {
+                    ITextureRegion imagen = cargarImagen("AnimacionesCurtis/Night/Night0" + (i + 1) + ".png");
+                    arrayImagenes.add(i, imagen);
+                }
+                break;
+            case 3:
+                for (int i = 0; i < 7; i++) {
+                    ITextureRegion imagen = cargarImagen("AnimacionesCurtis/Choke/VampChoke0" + (i + 1) + ".png");
+                    arrayImagenes.add(i, imagen);
+                }
+                break;
+            case 4:
+                for (int i = 0; i < 8; i++) {
+                    ITextureRegion imagen = cargarImagen("AnimacionesCurtis/Darkness/Darkness0" + (i) + ".png");
+                    arrayImagenes.add(i, imagen);
+
+                }
+                break;
+
+        }
+    }
     private void animacionSuper() {
 
-        try {
-            final ArrayList<ITextureRegion> arrayImagenes = new ArrayList<>();
-            numImagenes = 0;
-            for (int i = 0; i < 8; i++) {
-                ITextureRegion imagen = cargarImagen("AnimacionesCurtis/Darkness/Darkness0" + (i) + ".png");
-                arrayImagenes.add(i, imagen);
 
-            }
+           // arrayImagenes = new ArrayList<>();
+            //numImagenes = 0;
+            //for (int i = 0; i < 8; i++) {
+            //    ITextureRegion imagen = cargarImagen("AnimacionesCurtis/Darkness/Darkness0" + (i) + ".png");
+            //    arrayImagenes.add(i, imagen);
+
+            //}
 
 
-            numImagenes = 0;
-            tiempo = new Timer();
-            tiempo.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    actividadJuego.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
+
+            registerUpdateHandler(new TimerHandler(0.3f, new ITimerCallback() {
+            @Override
+            public void onTimePassed(TimerHandler pTimerHandler) {
                             //A partir de aqui puedes agregrar las instrucciones que quieres que realice el timer
                             if (numImagenes < 8) {
                                 spriteCurtisAnimado.setAlpha(0);
@@ -342,52 +379,86 @@ public class EscenaBatalla extends EscenaBase
                                 tagSpriteChild = spriteFrame;
 
                                 numImagenes++;
+                                animacionSuper();
                             } else {
                                 for (int i = 0; i < 8; i++) {
 
                                     arrayImagenes.get(i).getTexture().unload();
                                 }
+                                arrayImagenes.clear();
                                 reset();
                                 crearEscena();
                                 numImagenes = 0;
-                                tiempo.cancel();
+                                    
                             }
 
 
                         }
-                    });
-                }
-            }, 300, 300);
-        }catch(IndexOutOfBoundsException e){
+            }));
 
-            System.out.println("Error Super");
-        }
     }
     private void animacionBattack(){
-        try{
-        final ArrayList<ITextureRegion> arrayImagenes = new ArrayList<>();
-        numImagenes= 0;
-        for (int i = 0; i <6 ; i++) {
-            ITextureRegion imagen = cargarImagen("AnimacionesCurtis/Battack/Battack0"+(i) + ".png");
-            arrayImagenes.add(i,imagen);
 
+            /*arrayImagenes = new ArrayList<>();
+            numImagenes = 0;
+            for (int i = 0; i < 6; i++) {
+                ITextureRegion imagen = cargarImagen("AnimacionesCurtis/Battack/Battack0" + (i) + ".png");
+                arrayImagenes.add(i, imagen);
+
+            }*/
+
+
+
+            registerUpdateHandler(new TimerHandler(0.3f, new ITimerCallback() {
+                @Override
+                public void onTimePassed(TimerHandler pTimerHandler) {
+                    //A partir de aqui puedes agregrar las instrucciones que quieres que realice el timer
+                    if (numImagenes < 6) {
+                        spriteCurtisAnimado.setAlpha(0);
+
+                        if (tagSpriteChild != null)
+                            detachChild(tagSpriteChild);
+
+                        spriteFrame = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, arrayImagenes.get(numImagenes));
+                        attachChild(spriteFrame);
+                        tagSpriteChild = spriteFrame;
+
+                        numImagenes++;
+                        animacionBattack();
+                    } else {
+
+                        for (int i = 0; i < 6; i++) {
+
+                            arrayImagenes.get(i).getTexture().unload();
+                        }
+                        arrayImagenes.clear();
+                        reset();
+                        crearEscena();
+                        numImagenes = 0;
+                        //tiempo.cancel();
+                    }
+
+
+                }
+            }));
         }
 
+    private void animacionNight(){
 
-
-        numImagenes= 0;
-        tiempo = new Timer();
-        tiempo.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                actividadJuego.runOnUiThread(new Runnable() {
+            /*arrayImagenes = new ArrayList<>();
+            numImagenes = 0;
+            for (int i = 0; i < 7; i++) {
+                ITextureRegion imagen = cargarImagen("AnimacionesCurtis/Night/Night0" + (i + 1) + ".png");
+                arrayImagenes.add(i, imagen);
+            }*/
+                registerUpdateHandler(new TimerHandler(0.3f, new ITimerCallback() {
                     @Override
-                    public void run() {
+                    public void onTimePassed(TimerHandler pTimerHandler) {
                         //A partir de aqui puedes agregrar las instrucciones que quieres que realice el timer
-                        if (numImagenes < 6) {
+                        if (numImagenes < 7) {
                             spriteCurtisAnimado.setAlpha(0);
 
-                            if(tagSpriteChild!= null)
+                            if (tagSpriteChild != null)
                                 detachChild(tagSpriteChild);
 
                             spriteFrame = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, arrayImagenes.get(numImagenes));
@@ -395,137 +466,67 @@ public class EscenaBatalla extends EscenaBase
                             tagSpriteChild = spriteFrame;
 
                             numImagenes++;
+                            animacionNight();
                         } else {
 
-                            for (int i = 0; i < 6 ; i++) {
+                            for (int i = 0; i < 7; i++) {
 
                                 arrayImagenes.get(i).getTexture().unload();
                             }
+                            arrayImagenes.clear();
                             reset();
                             crearEscena();
                             numImagenes = 0;
-                            tiempo.cancel();
+
                         }
 
 
                     }
-                });
-            }
-        }, 300, 300);
+                }));
 
-    }catch(IndexOutOfBoundsException e){
-
-            System.out.println("Error Battack");
-        }
     }
+    private void animacionChoke() {
 
-    private void animacionNight(){
-        try {
-            final ArrayList<ITextureRegion> arrayImagenes = new ArrayList<>();
-            numImagenes = 0;
-            for (int i = 0; i < 7; i++) {
-                ITextureRegion imagen = cargarImagen("AnimacionesCurtis/Night/Night0" + (i + 1) + ".png");
-                arrayImagenes.add(i, imagen);
+        /*arrayImagenes = new ArrayList<>();
+        numImagenes = 0;
+        for (int i = 0; i < 7; i++) {
+            ITextureRegion imagen = cargarImagen("AnimacionesCurtis/Choke/VampChoke0" + (i + 1) + ".png");
+            arrayImagenes.add(i, imagen);
+        }*/
+
+
+        registerUpdateHandler(new TimerHandler(0.3f, new ITimerCallback() {
+            @Override
+            public void onTimePassed(TimerHandler pTimerHandler) {
+                //A partir de aqui puedes agregrar las instrucciones que quieres que realice el timer
+
+                if (numImagenes < 7) {
+                    spriteCurtisAnimado.setAlpha(0);
+
+                    if (tagSpriteChild != null)
+                        detachChild(tagSpriteChild);
+
+                    spriteFrame = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, arrayImagenes.get(numImagenes));
+                    attachChild(spriteFrame);
+                    tagSpriteChild = spriteFrame;
+
+                    numImagenes++;
+                    animacionChoke();
+                } else {
+                    for (int i = 0; i < 7; i++) {
+
+                        arrayImagenes.get(i).getTexture().unload();
+                    }
+                    arrayImagenes.clear();
+                    reset();
+                    crearEscena();
+                    numImagenes = 0;
+
+                }
+
 
             }
-
-
-            numImagenes = 0;
-            tiempo = new Timer();
-            tiempo.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    actividadJuego.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            //A partir de aqui puedes agregrar las instrucciones que quieres que realice el timer
-                            if (numImagenes < 7) {
-                                spriteCurtisAnimado.setAlpha(0);
-
-                                if (tagSpriteChild != null)
-                                    detachChild(tagSpriteChild);
-
-                                spriteFrame = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, arrayImagenes.get(numImagenes));
-                                attachChild(spriteFrame);
-                                tagSpriteChild = spriteFrame;
-
-                                numImagenes++;
-                            } else {
-
-                                for (int i = 0; i < 7; i++) {
-
-                                    arrayImagenes.get(i).getTexture().unload();
-                                }
-                                reset();
-                                crearEscena();
-                                numImagenes = 0;
-                                tiempo.cancel();
-                            }
-
-
-                        }
-                    });
-                }
-            }, 300, 300);
-        }catch(IndexOutOfBoundsException e){
-
-            System.out.println("Error Night");
-        }
-    }
-    private void animacionChoke(){
-        try {
-            final ArrayList<ITextureRegion> arrayImagenes = new ArrayList<>();
-            numImagenes = 0;
-            for (int i = 0; i < 7; i++) {
-                ITextureRegion imagen = cargarImagen("AnimacionesCurtis/Choke/VampChoke0" + (i + 1) + ".png");
-                arrayImagenes.add(i, imagen);
-
-            }
-
-
-            numImagenes = 0;
-
-            tiempo = new Timer();
-
-            tiempo.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    actividadJuego.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            //A partir de aqui puedes agregrar las instrucciones que quieres que realice el timer
-
-                            if (numImagenes < 7) {
-                                spriteCurtisAnimado.setAlpha(0);
-
-                                if (tagSpriteChild != null)
-                                    detachChild(tagSpriteChild);
-
-                                spriteFrame = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, arrayImagenes.get(numImagenes));
-                                attachChild(spriteFrame);
-                                tagSpriteChild = spriteFrame;
-
-                                numImagenes++;
-                            } else {
-                                for (int i = 0; i < 7; i++) {
-
-                                    arrayImagenes.get(i).getTexture().unload();
-                                }
-                                reset();
-                                crearEscena();
-                                numImagenes = 0;
-                                tiempo.cancel();
-                            }
-
-
-                        }
-                    });
-                }
-            }, 300, 300);
-        }catch(IndexOutOfBoundsException e){
-
-            System.out.println("Error Choke");
-        }
+        }));
 
     }
     // La escena se debe actualizar en este método que se repite "varias" veces por segundo
@@ -729,21 +730,25 @@ public class EscenaBatalla extends EscenaBase
                 break;
             case 1:
                 s=used + player.getAtk_list()[0].getName();
+                getImagesCurtis(1);
                 animacionBattack();
                 dmgToDeal = damageCalc(player.getAtk_list()[0].getBase_dmg(), ai.getDef());
                 break;
             case 2:
                 s=used + player.getAtk_list()[1].getName();
+                getImagesCurtis(2);
                 animacionNight();
                 dmgToDeal = damageCalc(player.getAtk_list()[1].getBase_dmg(), ai.getDef());
                 break;
             case 3:
                 s=used + player.getAtk_list()[2].getName();
+                getImagesCurtis(3);
                 animacionChoke();
                 dmgToDeal = damageCalc(player.getAtk_list()[2].getBase_dmg(), ai.getDef());
                 break;
             case 4:
                 s=used + player.getAtk_list()[3].getName();
+                getImagesCurtis(4);
                 animacionSuper();
                 dmgToDeal = damageCalc(player.getAtk_list()[3].getBase_dmg(), ai.getDef());
                 break;

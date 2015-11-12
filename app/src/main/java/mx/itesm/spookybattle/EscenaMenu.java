@@ -3,8 +3,6 @@ package mx.itesm.spookybattle;
 import org.andengine.audio.sound.Sound;
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
-import org.andengine.entity.primitive.Rectangle;
-import org.andengine.entity.scene.background.SpriteBackground;
 import org.andengine.entity.scene.menu.MenuScene;
 import org.andengine.entity.scene.menu.item.IMenuItem;
 import org.andengine.entity.scene.menu.item.SpriteMenuItem;
@@ -14,7 +12,6 @@ import org.andengine.entity.sprite.Sprite;
 import org.andengine.opengl.texture.region.ITextureRegion;
 
 import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * Representa la escena del MENU PRINCIPAL
@@ -36,7 +33,7 @@ public class EscenaMenu extends EscenaBase
     //Variables para timers
     private Timer tiempo;
     private Timer tiempo2;
-    private boolean activo = false;
+    private boolean fondoPrincipalActivado = false;
     private boolean relampago = false;
 
     // Sprites sobre la escena
@@ -106,16 +103,15 @@ public class EscenaMenu extends EscenaBase
         registerUpdateHandler(new TimerHandler(5, new ITimerCallback() {
             @Override
             public void onTimePassed(TimerHandler pTimerHandler) {
-                if (!activo) {
+                if (!fondoPrincipalActivado) {
                     beginTimer2();
 
-                    activo=true;
+                    fondoPrincipalActivado = true;
                     relampago = false;
-                }
-                else {
+                } else {
                     beginTimer2();
 
-                    activo = false;
+                    fondoPrincipalActivado = false;
                     relampago = false;
 
                 }
@@ -129,16 +125,16 @@ public class EscenaMenu extends EscenaBase
                 actividadJuego.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if (!activo) {
+                        if (!fondoPrincipalActivado) {
                             beginTimer2();
 
-                            activo=true;
+                            fondoPrincipalActivado=true;
                             relampago = false;
                         }
                         else {
                             beginTimer2();
 
-                            activo = false;
+                            fondoPrincipalActivado = false;
                             relampago = false;
 
                         }
@@ -149,7 +145,33 @@ public class EscenaMenu extends EscenaBase
     }
 
     private void beginTimer2(){
-        tiempo2 = new Timer();
+
+        registerUpdateHandler(new TimerHandler(0.4f, new ITimerCallback() {
+            @Override
+            public void onTimePassed(TimerHandler pTimerHandler) {
+                if (!relampago) {
+                    spriteFondo.setColor(1, 1, 1, 0);
+                    spriteFondo2.setColor(1, 1, 1, 0);
+                    spriteFondo3.setColor(1, 1, 1, 1);
+                    relampagoSonido.play();
+                    relampago = true;
+
+                }
+                else {
+                    spriteFondo3.setColor(1, 1, 1, 0);
+                    if(!fondoPrincipalActivado) {
+                        spriteFondo.setColor(1, 1, 1, 1);
+                        spriteFondo2.setColor(1, 1, 1, 0);
+                    }else{
+                        spriteFondo.setColor(1, 1, 1, 0);
+                        spriteFondo2.setColor(1, 1, 1, 1);
+                    }
+                }
+                beginTimer2();
+            }
+        }));
+
+        /*tiempo2 = new Timer();
 
         tiempo2.schedule(new TimerTask() {
             @Override
@@ -167,7 +189,7 @@ public class EscenaMenu extends EscenaBase
                         }
                         else {
                             spriteFondo3.setColor(1, 1, 1, 0);
-                            if(!activo) {
+                            if(!fondoPrincipalActivado) {
                                 spriteFondo.setColor(1, 1, 1, 1);
                                 spriteFondo2.setColor(1, 1, 1, 0);
                             }else{
@@ -180,7 +202,7 @@ public class EscenaMenu extends EscenaBase
                     }
                 });
             }
-        }, 400, 400);
+        }, 400, 400);*/
 
 
     }
