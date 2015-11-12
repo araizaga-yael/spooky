@@ -1,6 +1,8 @@
 package mx.itesm.spookybattle;
 
 import org.andengine.audio.sound.Sound;
+import org.andengine.engine.handler.timer.ITimerCallback;
+import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.scene.background.SpriteBackground;
 import org.andengine.entity.scene.menu.MenuScene;
@@ -74,8 +76,8 @@ public class EscenaMenu extends EscenaBase
     @Override
     public void crearEscena() {
 
-        tiempo = new Timer();
-        tiempo2 = new Timer();
+        //tiempo = new Timer();
+
         // Creamos el sprite de manera óptima
 
         spriteFondo = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, regionFondo);
@@ -101,9 +103,27 @@ public class EscenaMenu extends EscenaBase
     }
     private void beginTimer(){
 
+        registerUpdateHandler(new TimerHandler(5, new ITimerCallback() {
+            @Override
+            public void onTimePassed(TimerHandler pTimerHandler) {
+                if (!activo) {
+                    beginTimer2();
 
+                    activo=true;
+                    relampago = false;
+                }
+                else {
+                    beginTimer2();
 
-        tiempo.schedule(new TimerTask() {
+                    activo = false;
+                    relampago = false;
+
+                }
+                beginTimer();
+            }
+        }));
+
+        /*tiempo.schedule(new TimerTask() {
             @Override
             public void run() {
                 actividadJuego.runOnUiThread(new Runnable() {
@@ -125,10 +145,11 @@ public class EscenaMenu extends EscenaBase
                     }
                 });
             }
-        },10000,10000);
+        },10000,10000);*/
     }
 
     private void beginTimer2(){
+        tiempo2 = new Timer();
 
         tiempo2.schedule(new TimerTask() {
             @Override
@@ -153,6 +174,7 @@ public class EscenaMenu extends EscenaBase
                                 spriteFondo.setColor(1, 1, 1, 0);
                                 spriteFondo2.setColor(1, 1, 1, 1);
                             }
+                            tiempo2.cancel();
                         }
 
                     }
@@ -204,8 +226,7 @@ public class EscenaMenu extends EscenaBase
                         admEscenas.crearEscenaAcercaDe();
                         admEscenas.setEscena(TipoEscena.ESCENA_ACERCA_DE);
                         admEscenas.liberarEscenaMenu();
-                        tiempo2.cancel();
-                        tiempo.cancel();
+
                         break;
 
                     case OPCION_JUGAR:
@@ -213,16 +234,14 @@ public class EscenaMenu extends EscenaBase
                         admEscenas.crearEscenaSeleccionPersonaje();
                         admEscenas.setEscena(TipoEscena.ESCENA_SELECCION_PERSONAJE);
                         admEscenas.liberarEscenaMenu();
-                        tiempo2.cancel();
-                        tiempo.cancel();
+
                         break;
 
                     case OPCION_HOW_TO:
                         admEscenas.crearNuclear();
                         admEscenas.setEscena(TipoEscena.ESCENA_ACERCA_DE);
                         admEscenas.liberarEscenaMenu();
-                        tiempo2.cancel();
-                        tiempo.cancel();
+
                         break;
 
                 }
