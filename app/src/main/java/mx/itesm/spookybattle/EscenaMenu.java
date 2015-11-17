@@ -153,7 +153,7 @@ public class EscenaMenu extends EscenaBase
                     spriteFondo.setColor(1, 1, 1, 0);
                     spriteFondo2.setColor(1, 1, 1, 0);
                     spriteFondo3.setColor(1, 1, 1, 1);
-                    relampagoSonido.play();
+                    //relampagoSonido.play();
                     relampago = true;
 
                 }

@@ -62,6 +62,11 @@ public class EscenaBatalla extends EscenaBase
     private Font  font;
     public static String s = "";
 
+    private Font  fontCurt;
+    private Font  fontGeronimo;
+    private Text  TextPlayerName;
+    private Text  TextAIName;
+
     // Sprites sobre la escena
     private Sprite spriteFondo;
 
@@ -84,8 +89,14 @@ public class EscenaBatalla extends EscenaBase
 
     int[] pStats;
     int[] aiStats;
-    P_Character player = Main.dracula;
-    P_Character ai = Main.mummy;
+    P_Character player;
+    P_Character ai;
+
+    String SplayerName = player.toString();
+    String SAIName = ai.toString();
+
+
+
 
     //BOTONES
     IMenuItem opcionAttack1;
@@ -124,9 +135,22 @@ public class EscenaBatalla extends EscenaBase
 
         font = FontFactory.createFromAsset(actividadJuego.getFontManager(), actividadJuego.getTextureManager(), 1024, 1024, actividadJuego.getAssets(),
                 "fontf.ttf", 50, true, Color.GREEN);
+        fontCurt = FontFactory.createFromAsset(actividadJuego.getFontManager(), actividadJuego.getTextureManager(), 1024, 1024, actividadJuego.getAssets(),
+                "fontf.ttf", 50, true, Color.CYAN);
+        fontGeronimo = FontFactory.createFromAsset(actividadJuego.getFontManager(), actividadJuego.getTextureManager(), 1024, 1024, actividadJuego.getAssets(),
+                "fontf.ttf", 50, true, Color.YELLOW);
         font.load();
 
-        initialization(Main.dracula, Main.ghost);
+        //IF CURTIS
+        fontCurt.load();
+
+        //IF GERONIMO
+        fontGeronimo.load();
+
+        player = Main.dracula;
+        ai = Main.mummy;
+
+        initialization(Main.dracula, Main.mummy);
     }
 
     @Override
@@ -146,6 +170,8 @@ public class EscenaBatalla extends EscenaBase
 
         int textLength = 200;
         text = new Text(0, 0, font,s,textLength, actividadJuego.getVertexBufferObjectManager());
+        TextPlayerName = new Text(0, 0, fontCurt,player.toString(), actividadJuego.getVertexBufferObjectManager());
+        TextAIName = new Text(0, 0, fontGeronimo,ai.toString(), actividadJuego.getVertexBufferObjectManager());
 
         agregarMenu();
 
@@ -205,6 +231,11 @@ public class EscenaBatalla extends EscenaBase
         opcionAttack.setPosition(-200, -20);
         opcionDefense.setPosition(200, -20);
 
+        TextPlayerName.setPosition(-320 - (TextPlayerName.getWidth() / 2), 520 - (TextPlayerName.getHeight() / 2));
+        TextAIName.setPosition(460 - (TextAIName.getWidth() / 2), 520 - (TextAIName.getHeight() / 2));
+
+        menu.attachChild(TextPlayerName);
+        menu.attachChild(TextAIName);
 
 
         // Registra el Listener para atender las opciones
@@ -538,7 +569,7 @@ public class EscenaBatalla extends EscenaBase
         this.detachChild(text);
         text.setColor(0f, 1f, 0f);
 
-        text.setPosition(500 - (text.getWidth() / 2), 700 - (text.getHeight() / 2));
+        text.setPosition(800 - (text.getWidth() / 2), 750 - (text.getHeight() / 2));
 
         agregaTexto(s);
 
@@ -576,7 +607,8 @@ public class EscenaBatalla extends EscenaBase
         opcionAttack2.setVisible(false);
         opcionAttack3.setVisible(false);
         opcionAttack4.setVisible(false);
-
+        TextPlayerName.setVisible(false);
+        TextAIName.setVisible(false);
     }
 
     /////////LOGICA DEL JUEGO //////////////////

@@ -62,7 +62,7 @@ public class SeleccionPersonaje extends EscenaBase
     private BitmapTextureAtlas mFontTexture;
     private Text  text;
     private Font  font;
-    public static String s = "Likes catsup";
+    public static String desc = "Likes catsup";
 
     @Override
     public void cargarRecursos() {
@@ -102,7 +102,7 @@ public class SeleccionPersonaje extends EscenaBase
         setBackgroundEnabled(true);
 
 
-        text = new Text(0, 0, font,"LOLOLOLOololololololLOLOL", actividadJuego.getVertexBufferObjectManager());
+        text = new Text(0, 0, font,desc, actividadJuego.getVertexBufferObjectManager());
 
         // Mostrar opciones de menú
         agregarMenu();

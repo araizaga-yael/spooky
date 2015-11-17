@@ -31,11 +31,7 @@ public class P_Character{
 	
 	@Override
 	public String toString() {
-		return "Level " + this.lvl + " " + this.name + 
-				"\nHP: " + this.HP +
-				"\nMP: " + this.base_MP +
-				"\nDef: " + this.Def +
-				"\nSpeed: " + this.Spd;
+		return "Level " + this.lvl + " " + this.name;
 	}
 	
 	public String attacksString(){
