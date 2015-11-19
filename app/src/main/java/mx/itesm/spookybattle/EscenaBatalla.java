@@ -419,8 +419,15 @@ public class EscenaBatalla extends EscenaBase
                 }
                 break;
             case 4:
-                for (int i = 0; i < 8; i++) {
+                for (int i = 0; i < 7; i++) {
                     ITextureRegion imagen = cargarImagen("AnimacionesCurtis/Darkness/Darkness0" + (i) + ".png");
+                    arrayImagenes.add(i, imagen);
+
+                }
+                break;
+            case 5:
+                for (int i = 0; i < 8; i++) {
+                    ITextureRegion imagen = cargarImagen("AnimacionesCurtis/Super/Super0" + (i) + ".png");
                     arrayImagenes.add(i, imagen);
 
                 }
@@ -563,6 +570,50 @@ public class EscenaBatalla extends EscenaBase
 
     }
     private void animacionChoke() {
+
+        /*arrayImagenes = new ArrayList<>();
+        numImagenes = 0;
+        for (int i = 0; i < 7; i++) {
+            ITextureRegion imagen = cargarImagen("AnimacionesCurtis/Choke/VampChoke0" + (i + 1) + ".png");
+            arrayImagenes.add(i, imagen);
+        }*/
+
+
+        registerUpdateHandler(new TimerHandler(0.3f, new ITimerCallback() {
+            @Override
+            public void onTimePassed(TimerHandler pTimerHandler) {
+                //A partir de aqui puedes agregrar las instrucciones que quieres que realice el timer
+
+                if (numImagenes < 7) {
+                    spriteCurtisAnimado.setAlpha(0);
+
+                    if (tagSpriteChild != null)
+                        detachChild(tagSpriteChild);
+
+                    spriteFrame = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, arrayImagenes.get(numImagenes));
+                    attachChild(spriteFrame);
+                    tagSpriteChild = spriteFrame;
+
+                    numImagenes++;
+                    animacionChoke();
+                } else {
+                    for (int i = 0; i < 7; i++) {
+
+                        arrayImagenes.get(i).getTexture().unload();
+                    }
+                    arrayImagenes.clear();
+                    reset();
+                    crearEscena();
+                    numImagenes = 0;
+
+                }
+
+
+            }
+        }));
+
+    }
+    private void animacionDarkness() {
 
         /*arrayImagenes = new ArrayList<>();
         numImagenes = 0;
