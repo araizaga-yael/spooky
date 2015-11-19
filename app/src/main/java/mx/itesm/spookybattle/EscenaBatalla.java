@@ -64,8 +64,17 @@ public class EscenaBatalla extends EscenaBase
 
     private Font  fontCurt;
     private Font  fontGeronimo;
+    private Font  fontHP;
+    private Font  fontMP;
+
     private Text  TextPlayerName;
+    private Text  TextPlayerHP;
+    private Text  TextPlayerMP;
+
     private Text  TextAIName;
+    private Text  TextAIHP;
+    private Text  TextAIMP;
+
 
     // Sprites sobre la escena
     private Sprite spriteFondo;
@@ -92,8 +101,25 @@ public class EscenaBatalla extends EscenaBase
     P_Character player;
     P_Character ai;
 
-    String SplayerName = player.toString();
-    String SAIName = ai.toString();
+    //String SplayerName = player.toString();
+    //String SAIName = ai.toString();
+
+    String SplayerName;
+    String SAIName;
+
+/*
+    String SplayerstartingHP = player.getHP() +"";
+    String SAIStartingHP = ai.getHP()+ "";
+
+    String SplayerHP = player.getHP() +"";
+    String SAIHP = ai.getHP()+ "";
+    */
+
+    String SplayerstartingHP;
+    String SAIStartingHP;
+
+    String SplayerHP;
+    String SAIHP;
 
 
 
@@ -139,7 +165,14 @@ public class EscenaBatalla extends EscenaBase
                 "fontf.ttf", 50, true, Color.CYAN);
         fontGeronimo = FontFactory.createFromAsset(actividadJuego.getFontManager(), actividadJuego.getTextureManager(), 1024, 1024, actividadJuego.getAssets(),
                 "fontf.ttf", 50, true, Color.YELLOW);
+
+        fontHP  = FontFactory.createFromAsset(actividadJuego.getFontManager(), actividadJuego.getTextureManager(), 1024, 1024, actividadJuego.getAssets(),
+                "numbers.ttf", 50, true, Color.RED);
+        fontMP = FontFactory.createFromAsset(actividadJuego.getFontManager(), actividadJuego.getTextureManager(), 1024, 1024, actividadJuego.getAssets(),
+                "numbers.ttf", 50, true, Color.BLUE);
         font.load();
+        fontHP.load();
+        fontMP.load();
 
         //IF CURTIS
         fontCurt.load();
@@ -149,6 +182,15 @@ public class EscenaBatalla extends EscenaBase
 
         player = Main.dracula;
         ai = Main.mummy;
+
+        SplayerName = player.toString();
+        SAIName = ai.toString();
+
+        SplayerstartingHP = player.getHP() +"";
+        SAIStartingHP = ai.getHP()+ "";
+
+        SplayerHP = player.getHP() +"";
+        SAIHP = ai.getHP()+ "";
 
         initialization(Main.dracula, Main.mummy);
     }
@@ -170,8 +212,13 @@ public class EscenaBatalla extends EscenaBase
 
         int textLength = 200;
         text = new Text(0, 0, font,s,textLength, actividadJuego.getVertexBufferObjectManager());
-        TextPlayerName = new Text(0, 0, fontCurt,player.toString(), actividadJuego.getVertexBufferObjectManager());
-        TextAIName = new Text(0, 0, fontGeronimo,ai.toString(), actividadJuego.getVertexBufferObjectManager());
+        TextPlayerHP = new Text(0, 0, fontHP,SplayerHP + "/" + SplayerstartingHP,textLength, actividadJuego.getVertexBufferObjectManager());
+        TextAIHP = new Text(0, 0, fontHP,SAIHP + "/" + SAIStartingHP,textLength, actividadJuego.getVertexBufferObjectManager());
+
+
+
+        TextPlayerName = new Text(0, 0, fontCurt,SplayerName, actividadJuego.getVertexBufferObjectManager());
+        TextAIName = new Text(0, 0, fontGeronimo,SAIName, actividadJuego.getVertexBufferObjectManager());
 
         agregarMenu();
 
@@ -200,12 +247,11 @@ public class EscenaBatalla extends EscenaBase
     public void agregaTexto(String s){
         text.setText(s);
         this.attachChild(text);
-        /*this.detachChild(text);
-        text = new Text(0, 0, font,s, actividadJuego.getVertexBufferObjectManager());
-        this.attachChild(text);
-        text.setColor(0f, 1f, 0f);
 
-        text.setPosition(500 - (text.getWidth() / 2), 700 - (text.getHeight() / 2));*/
+        TextPlayerHP.setText(player.getHP()+"/"+SplayerstartingHP);
+        this.attachChild(TextPlayerHP);
+        TextAIHP.setText(ai.getHP()+"/"+SAIStartingHP);
+        this.attachChild(TextAIHP);
     }
 
     private void agregarMenu() {
@@ -567,9 +613,16 @@ public class EscenaBatalla extends EscenaBase
         super.onManagedUpdate(pSecondsElapsed);
 
         this.detachChild(text);
+        this.detachChild(TextPlayerHP);
+        this.detachChild(TextAIHP);
+
+
         text.setColor(0f, 1f, 0f);
 
         text.setPosition(800 - (text.getWidth() / 2), 750 - (text.getHeight() / 2));
+        TextPlayerHP.setPosition(280 , 555);
+        TextAIHP.setPosition(1040 , 555);
+
 
         agregaTexto(s);
 
