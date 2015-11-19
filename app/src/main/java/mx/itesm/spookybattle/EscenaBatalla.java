@@ -121,6 +121,9 @@ public class EscenaBatalla extends EscenaBase
     String SplayerHP;
     String SAIHP;
 
+    String SplayerMP;
+    String SAIMP;
+
 
 
 
@@ -192,6 +195,9 @@ public class EscenaBatalla extends EscenaBase
         SplayerHP = player.getHP() +"";
         SAIHP = ai.getHP()+ "";
 
+        SplayerMP = player.getMP()+"";
+        SAIMP = ai.getMP()+"";
+
         initialization(Main.dracula, Main.mummy);
     }
 
@@ -214,6 +220,8 @@ public class EscenaBatalla extends EscenaBase
         text = new Text(0, 0, font,s,textLength, actividadJuego.getVertexBufferObjectManager());
         TextPlayerHP = new Text(0, 0, fontHP,SplayerHP + "/" + SplayerstartingHP,textLength, actividadJuego.getVertexBufferObjectManager());
         TextAIHP = new Text(0, 0, fontHP,SAIHP + "/" + SAIStartingHP,textLength, actividadJuego.getVertexBufferObjectManager());
+        TextPlayerMP =new Text(0, 0, fontMP,SplayerMP + "/" + player.getbase_MP(),textLength, actividadJuego.getVertexBufferObjectManager());
+        TextAIMP =new Text(0, 0, fontMP,SAIMP + "/" + ai.getbase_MP(),textLength, actividadJuego.getVertexBufferObjectManager());
 
 
 
@@ -252,6 +260,12 @@ public class EscenaBatalla extends EscenaBase
         this.attachChild(TextPlayerHP);
         TextAIHP.setText(ai.getHP()+"/"+SAIStartingHP);
         this.attachChild(TextAIHP);
+
+        TextPlayerMP.setText(player.getMP()+"/"+player.getbase_MP());
+        this.attachChild(TextPlayerMP);
+        TextAIMP.setText(ai.getMP()+"/"+ai.getbase_MP());
+        this.attachChild(TextAIMP);
+
     }
 
     private void agregarMenu() {
@@ -666,6 +680,8 @@ public class EscenaBatalla extends EscenaBase
         this.detachChild(text);
         this.detachChild(TextPlayerHP);
         this.detachChild(TextAIHP);
+        this.detachChild(TextPlayerMP);
+        this.detachChild(TextAIMP);
 
 
         text.setColor(0f, 1f, 0f);
@@ -673,6 +689,9 @@ public class EscenaBatalla extends EscenaBase
         text.setPosition(800 - (text.getWidth() / 2), 750 - (text.getHeight() / 2));
         TextPlayerHP.setPosition(280 , 555);
         TextAIHP.setPosition(1040 , 555);
+
+        TextPlayerMP.setPosition(280 , 525);
+        TextAIMP.setPosition(1040 , 525);
 
 
         agregaTexto(s);

@@ -35,7 +35,7 @@ public class Main {
 	public static P_Character ghost = new P_Character("Gus", 1, 100, 100, 4, 0, ghost_atks, twospooky, "Un spooky dude");
 	
 	//Creando ataques de momia
-	static Attack locust = new Attack("Locust Pocus", "tbh", 10, 4);
+	static Attack locust = new Attack("Locust Pocus", "tbh", 10, 0);
 	static Attack mummify = new Attack("Mummify Mortify", "tbh", 15, 10);	
 	static Attack anubis = new Attack("Anubis Eye", "tbh", 5, 2);
 	static Attack osiris = new Attack("Osiris' Knights", "Strike With The Mighty Force Of the Underworld", 10, 8);
