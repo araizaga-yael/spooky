@@ -45,7 +45,7 @@ public class EscenaBatalla extends EscenaBase
     private ITextureRegion regionBtnAtk2;
     private ITextureRegion regionBtnAtk3;
     private ITextureRegion regionBtnAtk4;
-
+    private ITextureRegion regionBtnAtk5;
 
     //SpriteAnimado
     private AnimatedSprite spriteCurtisAnimado;
@@ -132,6 +132,7 @@ public class EscenaBatalla extends EscenaBase
     IMenuItem opcionAttack2;
     IMenuItem opcionAttack3;
     IMenuItem opcionAttack4;
+    IMenuItem opcionSuper;
     boolean attacking = false;
 
     public Main batalla1 = new Main();
@@ -157,6 +158,7 @@ public class EscenaBatalla extends EscenaBase
         regionBtnAtk2 = cargarImagen("BotonesCurtis/BotonCurtisAtt3.png");
         regionBtnAtk3 = cargarImagen("BotonesCurtis/BotonCurtisAtt2.png");
         regionBtnAtk4 = cargarImagen("BotonesCurtis/BotonCurtisAtt1.png");
+        regionBtnAtk5 = cargarImagen("BotonesCurtis/BotonSuper.png");
 
         numImagenes = 0;
 
@@ -335,12 +337,14 @@ public class EscenaBatalla extends EscenaBase
         opcionAttack1 = new ScaleMenuItemDecorator(new SpriteMenuItem(ATTCK1,regionBtnAtk1,actividadJuego.getVertexBufferObjectManager()),1.5f,1);
         opcionAttack2 = new ScaleMenuItemDecorator(new SpriteMenuItem(ATTCK2,regionBtnAtk2,actividadJuego.getVertexBufferObjectManager()),1.5f,1);
         opcionAttack3 = new ScaleMenuItemDecorator(new SpriteMenuItem(ATTCK3,regionBtnAtk3,actividadJuego.getVertexBufferObjectManager()),1.5f,1);
-        opcionAttack4 = new ScaleMenuItemDecorator(new SpriteMenuItem(SUPER,regionBtnAtk4,actividadJuego.getVertexBufferObjectManager()),1.5f,1);
+        opcionAttack4 = new ScaleMenuItemDecorator(new SpriteMenuItem(ATTCK4,regionBtnAtk4,actividadJuego.getVertexBufferObjectManager()),1.5f,1);
+        opcionSuper = new ScaleMenuItemDecorator(new SpriteMenuItem(SUPER,regionBtnAtk5,actividadJuego.getVertexBufferObjectManager()),1.5f,1);
 
         menu.addMenuItem(opcionAttack1);
         menu.addMenuItem(opcionAttack2);
         menu.addMenuItem(opcionAttack3);
         menu.addMenuItem(opcionAttack4);
+        menu.addMenuItem(opcionSuper);
 
         menu.buildAnimations();
         menu.setBackgroundEnabled(false);
@@ -348,6 +352,7 @@ public class EscenaBatalla extends EscenaBase
         opcionAttack2.setPosition(-200, -20);
         opcionAttack3.setPosition(200, -20);
         opcionAttack4.setPosition(500, -20);
+        opcionSuper.setPosition(0, 150);
 
         menu.setOnMenuItemClickListener(new MenuScene.IOnMenuItemClickListener() {
             @Override
@@ -379,6 +384,16 @@ public class EscenaBatalla extends EscenaBase
                         break;
 
                     case ATTCK3:
+                        if (attacking == true) break;
+                        attacking = true;
+                        hideButtons();
+                        attackChoice = pMenuItem.getID();
+
+                        if (aiFirst == true) aiMove(player, ai);
+
+                        playerMove(player, ai, attackChoice);
+                        break;
+                    case ATTCK4:
                         if (attacking == true) break;
                         attacking = true;
                         hideButtons();
@@ -434,7 +449,7 @@ public class EscenaBatalla extends EscenaBase
                 break;
             case 4:
                 for (int i = 0; i < 7; i++) {
-                    ITextureRegion imagen = cargarImagen("AnimacionesCurtis/Darkness/Darkness0" + (i) + ".png");
+                    ITextureRegion imagen = cargarImagen("AnimacionesCurtis/Darkness/Darkness0" + (i+1) + ".png");
                     arrayImagenes.add(i, imagen);
 
                 }
@@ -730,6 +745,7 @@ public class EscenaBatalla extends EscenaBase
         opcionAttack2.setVisible(false);
         opcionAttack3.setVisible(false);
         opcionAttack4.setVisible(false);
+        opcionSuper.setVisible(false);
         TextPlayerName.setVisible(false);
         TextAIName.setVisible(false);
     }
@@ -904,7 +920,7 @@ public class EscenaBatalla extends EscenaBase
             case 4:
                 s=used + player.getAtk_list()[3].getName();
                 getImagesCurtis(4);
-                animacionSuper();
+                animacionDarkness();
                 dmgToDeal = damageCalc(player.getAtk_list()[3].getBase_dmg(), ai.getDef());
                 break;
             case 5:
