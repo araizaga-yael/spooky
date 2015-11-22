@@ -47,6 +47,9 @@ public class EscenaBatalla extends EscenaBase
     private ITextureRegion regionBtnAtk4;
     private ITextureRegion regionBtnAtk5;
 
+    private ITextureRegion regionWinner;
+    private ITextureRegion regionLoser;
+
     //SpriteAnimado
     private AnimatedSprite spriteCurtisAnimado;
     private TiledTextureRegion regionCurtisAnimado;
@@ -78,6 +81,9 @@ public class EscenaBatalla extends EscenaBase
 
     // Sprites sobre la escena
     private Sprite spriteFondo;
+    private Sprite SpriteWinner;
+    private Sprite SpriteLoser;
+
 
     // Un menú de tipo SceneMenu
     private MenuScene menu;     // Contenedor de las opciones
@@ -92,7 +98,8 @@ public class EscenaBatalla extends EscenaBase
 
     //Logica del juego /////
     private int attackChoice = 0;
-    public boolean winner = false;
+    private boolean winner = false;
+    private boolean playerwin = false;
     private int turn = 1;
     private boolean aiFirst = false;
 
@@ -148,6 +155,9 @@ public class EscenaBatalla extends EscenaBase
     public void cargarRecursos() {
         // Fondo
         regionFondo = cargarImagen("Batalla1/FondosBatalla1.png");
+        regionWinner = cargarImagen("EscenasFinales/PantallaGanadora.png");
+        regionLoser = cargarImagen("EscenasFinales/PantallaPerdedora.png");
+
         regionCurtisAnimado = cargarImagenMosaico("AnimacionesCurtis/WaitingBattle/CurtisWaitingSheet.png", 1986, 331, 1, 6);
         regionGeronimoAnimado =cargarImagenMosaico("AnimacionesGeronimo/GeronimoWaitingSheet.png", 2723,389 ,1,7);
 
@@ -205,44 +215,52 @@ public class EscenaBatalla extends EscenaBase
 
     @Override
     public void crearEscena() {
+        if(winner == true) {
+            if(playerwin){
+                attachChild(SpriteWinner);
+            }
+            else{
+                attachChild(SpriteLoser);
+            }
+
+        }
+        else {
+
+            attacking = false;
 
 
-        attacking = false;
+            // Creamos el sprite de manera óptima
+            spriteFondo = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, regionFondo);
+
+            // Mostrar un recuadro atrás del menú
+
+            // Mostrar opciones de menú
+
+            int textLength = 200;
+            text = new Text(0, 0, font, s, textLength, actividadJuego.getVertexBufferObjectManager());
+            TextPlayerHP = new Text(0, 0, fontHP, SplayerHP + "/" + SplayerstartingHP, textLength, actividadJuego.getVertexBufferObjectManager());
+            TextAIHP = new Text(0, 0, fontHP, SAIHP + "/" + SAIStartingHP, textLength, actividadJuego.getVertexBufferObjectManager());
+            TextPlayerMP = new Text(0, 0, fontMP, SplayerMP + "/" + player.getbase_MP(), textLength, actividadJuego.getVertexBufferObjectManager());
+            TextAIMP = new Text(0, 0, fontMP, SAIMP + "/" + ai.getbase_MP(), textLength, actividadJuego.getVertexBufferObjectManager());
 
 
+            TextPlayerName = new Text(0, 0, fontCurt, SplayerName, actividadJuego.getVertexBufferObjectManager());
+            TextAIName = new Text(0, 0, fontGeronimo, SAIName, actividadJuego.getVertexBufferObjectManager());
 
-        // Creamos el sprite de manera óptima
-        spriteFondo = cargarSprite(ControlJuego.ANCHO_CAMARA/2, ControlJuego.ALTO_CAMARA/2, regionFondo);
-
-        // Mostrar un recuadro atrás del menú
-
-        // Mostrar opciones de menú
-
-        int textLength = 200;
-        text = new Text(0, 0, font,s,textLength, actividadJuego.getVertexBufferObjectManager());
-        TextPlayerHP = new Text(0, 0, fontHP,SplayerHP + "/" + SplayerstartingHP,textLength, actividadJuego.getVertexBufferObjectManager());
-        TextAIHP = new Text(0, 0, fontHP,SAIHP + "/" + SAIStartingHP,textLength, actividadJuego.getVertexBufferObjectManager());
-        TextPlayerMP =new Text(0, 0, fontMP,SplayerMP + "/" + player.getbase_MP(),textLength, actividadJuego.getVertexBufferObjectManager());
-        TextAIMP =new Text(0, 0, fontMP,SAIMP + "/" + ai.getbase_MP(),textLength, actividadJuego.getVertexBufferObjectManager());
+            agregarMenu();
 
 
-
-        TextPlayerName = new Text(0, 0, fontCurt,SplayerName, actividadJuego.getVertexBufferObjectManager());
-        TextAIName = new Text(0, 0, fontGeronimo,SAIName, actividadJuego.getVertexBufferObjectManager());
-
-        agregarMenu();
-
-
-        spriteCurtisAnimado = new AnimatedSprite(ControlJuego.ANCHO_CAMARA/6,ControlJuego.ALTO_CAMARA/2-100,regionCurtisAnimado,actividadJuego.getVertexBufferObjectManager());
-        spriteCurtisAnimado.animate(500);
-        attachChild(spriteFondo);
-        attachChild(spriteCurtisAnimado);
+            spriteCurtisAnimado = new AnimatedSprite(ControlJuego.ANCHO_CAMARA / 6, ControlJuego.ALTO_CAMARA / 2 - 100, regionCurtisAnimado, actividadJuego.getVertexBufferObjectManager());
+            spriteCurtisAnimado.animate(500);
+            attachChild(spriteFondo);
+            attachChild(spriteCurtisAnimado);
 
 
-        spriteGeronimoAnimado = new AnimatedSprite(ControlJuego.ANCHO_CAMARA/2 + 350,ControlJuego.ALTO_CAMARA/2-80,regionGeronimoAnimado,actividadJuego.getVertexBufferObjectManager());
-        spriteGeronimoAnimado.animate(500);
-        attachChild(spriteGeronimoAnimado);
-        //agregarCuadroVida();
+            spriteGeronimoAnimado = new AnimatedSprite(ControlJuego.ANCHO_CAMARA / 2 + 350, ControlJuego.ALTO_CAMARA / 2 - 80, regionGeronimoAnimado, actividadJuego.getVertexBufferObjectManager());
+            spriteGeronimoAnimado.animate(500);
+            attachChild(spriteGeronimoAnimado);
+
+        }   //agregarCuadroVida();
     }
 
     /*private void agregarCuadroVida() {
@@ -258,14 +276,25 @@ public class EscenaBatalla extends EscenaBase
         text.setText(s);
         this.attachChild(text);
 
-        TextPlayerHP.setText(player.getHP()+"/"+SplayerstartingHP);
-        this.attachChild(TextPlayerHP);
-        TextAIHP.setText(ai.getHP()+"/"+SAIStartingHP);
-        this.attachChild(TextAIHP);
+        if(winner == false) {
+            TextPlayerHP.setText(player.getHP() + "/" + SplayerstartingHP);
+            TextAIHP.setText(ai.getHP() + "/" + SAIStartingHP);
 
-        TextPlayerMP.setText(player.getMP()+"/"+player.getbase_MP());
+            TextPlayerMP.setText(player.getMP() + "/" + player.getbase_MP());
+            TextAIMP.setText(ai.getMP() + "/" + ai.getbase_MP());
+        }
+        else{
+            TextPlayerHP.setText("");
+            TextAIHP.setText("");
+
+            TextPlayerMP.setText("");
+            TextAIMP.setText("");
+
+        }
+
+        this.attachChild(TextPlayerHP);
+        this.attachChild(TextAIHP);
         this.attachChild(TextPlayerMP);
-        TextAIMP.setText(ai.getMP()+"/"+ai.getbase_MP());
         this.attachChild(TextAIMP);
 
     }
@@ -353,6 +382,10 @@ public class EscenaBatalla extends EscenaBase
         opcionAttack3.setPosition(200, -20);
         opcionAttack4.setPosition(500, -20);
         opcionSuper.setPosition(0, 150);
+
+        if (player.getMP() != player.getbase_MP()){
+            opcionSuper.setVisible(false);
+        }
 
         menu.setOnMenuItemClickListener(new MenuScene.IOnMenuItemClickListener() {
             @Override
@@ -746,8 +779,13 @@ public class EscenaBatalla extends EscenaBase
         opcionAttack3.setVisible(false);
         opcionAttack4.setVisible(false);
         opcionSuper.setVisible(false);
+
         TextPlayerName.setVisible(false);
         TextAIName.setVisible(false);
+        TextPlayerHP.setVisible(false);
+        TextPlayerMP.setVisible(false);
+        TextAIHP.setVisible(false);
+        TextAIMP.setVisible(false);
     }
 
     /////////LOGICA DEL JUEGO //////////////////
@@ -768,11 +806,17 @@ public class EscenaBatalla extends EscenaBase
 
         if(pHP <= 0){
             s= player.getName() + " wins";
-            //abort
+            hideButtons();
+            SpriteWinner = cargarSprite(ControlJuego.ANCHO_CAMARA/2, ControlJuego.ALTO_CAMARA/2, regionWinner);
+            playerwin = true;
+            winner = true;
         }
         if(aiHP <= 0){
             s= ai.getName() + " wins";
-            //abort
+            hideButtons();
+            SpriteLoser = cargarSprite(ControlJuego.ANCHO_CAMARA/2, ControlJuego.ALTO_CAMARA/2, regionLoser);
+            playerwin = false;
+            winner = true;
         }
     }
 
@@ -939,6 +983,7 @@ public class EscenaBatalla extends EscenaBase
             drainGainMP(dmgToDeal, n, player);
             dealDmg(dmgToDeal, ai);
         }
+     checkHP(player,ai);
     }
 
     private void aiMove(P_Character player,P_Character ai ){
@@ -990,6 +1035,8 @@ public class EscenaBatalla extends EscenaBase
             drainGainMP(dmgToDeal, n, ai);
             dealDmg(dmgToDeal, player);
         }
+
+        checkHP(player,ai);
     }
 
 }
