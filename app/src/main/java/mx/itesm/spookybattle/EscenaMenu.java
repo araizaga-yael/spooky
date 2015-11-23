@@ -3,14 +3,24 @@ package mx.itesm.spookybattle;
 import org.andengine.audio.sound.Sound;
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
+import org.andengine.entity.particle.BatchedSpriteParticleSystem;
+import org.andengine.entity.particle.emitter.CircleParticleEmitter;
+import org.andengine.entity.particle.initializer.AccelerationParticleInitializer;
+import org.andengine.entity.particle.initializer.ExpireParticleInitializer;
+import org.andengine.entity.particle.initializer.ScaleParticleInitializer;
+import org.andengine.entity.particle.initializer.VelocityParticleInitializer;
+import org.andengine.entity.particle.modifier.AlphaParticleModifier;
+import org.andengine.entity.particle.modifier.RotationParticleModifier;
 import org.andengine.entity.scene.menu.MenuScene;
 import org.andengine.entity.scene.menu.item.IMenuItem;
 import org.andengine.entity.scene.menu.item.SpriteMenuItem;
 import org.andengine.entity.scene.menu.item.decorator.ScaleMenuItemDecorator;
 import org.andengine.entity.sprite.ButtonSprite;
 import org.andengine.entity.sprite.Sprite;
+import org.andengine.entity.sprite.UncoloredSprite;
 import org.andengine.opengl.texture.region.ITextureRegion;
 
+import java.util.ResourceBundle;
 import java.util.Timer;
 
 /**
@@ -29,12 +39,28 @@ public class EscenaMenu extends EscenaBase
     private ITextureRegion regionBtnHowTo;
     private ITextureRegion regionTitulo;
 
+    //Sprites Fondos
+
+    private Sprite spriteFondoAdultos;
+    private Sprite spriteFondoNinos;
+    private Sprite spriteFondoCielo;
+    private Sprite spriteFondoCasas;
+    private Sprite spriteNubeNegra;
+
+    //Regiones Fondo
+
+    private ITextureRegion regionFondoAdultos;
+    private ITextureRegion regionFondoNinos;
+    private ITextureRegion regionFondoCasas;
+    private ITextureRegion regionFondoCielo;
+    private ITextureRegion regionNubeNegra;
 
     //Variables para timers
     private Timer tiempo;
     private Timer tiempo2;
     private boolean fondoPrincipalActivado = false;
     private boolean relampago = false;
+    private boolean reiniciarTimer2=false;
 
     // Sprites sobre la escena
     private Sprite spriteFondo;
@@ -67,19 +93,24 @@ public class EscenaMenu extends EscenaBase
         regionBtnHowTo = cargarImagen("BotonHowTo.png");
         regionTitulo = cargarImagen("Titulo.png");
 
+        regionFondoAdultos = cargarImagen("MenuPrincipal/MenuPrincipalAdultos.png");
+        regionFondoCasas = cargarImagen("MenuPrincipal/MenuPrincipalCasas.png");
+        regionFondoCielo = cargarImagen("MenuPrincipal/MenuPrincipalCielo.png");
+        regionFondoNinos = cargarImagen("MenuPrincipal/Menu.png");
+        regionNubeNegra = cargarImagen("MenuPrincipal/cloud_black.png");
+
         relampagoSonido = cargarEfecto("Sonidos/single_lightning_bolt.wav");
     }
 
     @Override
     public void crearEscena() {
 
-        //tiempo = new Timer();
+        /*//tiempo = new Timer();
 
         // Creamos el sprite de manera óptima
 
         spriteFondo = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, regionFondo);
         spriteFondo2 = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, regionFondo2);
-        spriteFondo3 = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, regionFondo3);
 
         spriteFondo2.setColor(1,1,1,0);
         // Crea el fondo de la pantalla
@@ -95,8 +126,53 @@ public class EscenaMenu extends EscenaBase
         agregarMenu();
         attachChild(spriteFondo3);
         attachChild(spriteFondo2);
-        attachChild(spriteFondo);
+        attachChild(spriteFondo);*/
 
+
+
+        spriteFondoAdultos = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, regionFondoAdultos);
+        spriteFondoNinos = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, regionFondoNinos);
+        spriteFondoCielo = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, regionFondoCielo);
+        spriteFondoCasas = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, regionFondoCasas);
+        spriteFondo3 = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, regionFondo3);
+
+        spriteFondoAdultos.setColor(1,1,1,0);
+        spriteFondo3.setColor(1,1,1,0);
+        beginTimer();
+        agregarMenu();
+        attachChild(spriteFondoCielo);
+        agregarHumo();
+        attachChild(spriteFondoCasas);
+        attachChild(spriteFondo3);
+        attachChild(spriteFondoAdultos);
+        attachChild(spriteFondoNinos);
+
+    }
+
+    private void agregarHumo() {
+
+        CircleParticleEmitter circulo = new CircleParticleEmitter(ControlJuego.ANCHO_CAMARA/5,
+                ControlJuego.ALTO_CAMARA/2,10);
+        BatchedSpriteParticleSystem sistema = new BatchedSpriteParticleSystem(circulo,
+                20, 30, 200, regionNubeNegra, actividadJuego.getVertexBufferObjectManager());
+
+        // Velocidad de las partículas minX, maxX, minY, maxY
+        sistema.addParticleInitializer(new VelocityParticleInitializer<UncoloredSprite>(50,20,20,-20));
+        // Aceleración
+        sistema.addParticleInitializer(new AccelerationParticleInitializer<UncoloredSprite>(0,0));
+
+        float tiempoVida = 15;   // Segundos de vida de cada partícula
+        // Tiempo para que las partículas expiren.
+        sistema.addParticleInitializer(new ExpireParticleInitializer<UncoloredSprite>(tiempoVida));
+        // Escala
+        sistema.addParticleInitializer(new ScaleParticleInitializer<UncoloredSprite>(0.5f, 1.0f));
+        // Rotación
+        //sistema.addParticleModifier(new RotationParticleModifier<UncoloredSprite>(1, 4, 0, 360));
+        // Alpha de las partículas, recibe el rango de tiempo y el rango de alpha
+        sistema.addParticleModifier(new AlphaParticleModifier<UncoloredSprite>(tiempoVida - 2, tiempoVida + 1, 1, 0.3f));
+
+        // Se agrega a la escena, como cualquier Sprite
+        attachChild(sistema);
     }
     private void beginTimer(){
 
@@ -108,11 +184,13 @@ public class EscenaMenu extends EscenaBase
 
                     fondoPrincipalActivado = true;
                     relampago = false;
+                    reiniciarTimer2=false;
                 } else {
                     beginTimer2();
 
                     fondoPrincipalActivado = false;
                     relampago = false;
+                    reiniciarTimer2=false;
 
                 }
                 beginTimer();
@@ -146,12 +224,12 @@ public class EscenaMenu extends EscenaBase
 
     private void beginTimer2(){
 
-        registerUpdateHandler(new TimerHandler(0.4f, new ITimerCallback() {
+        registerUpdateHandler(new TimerHandler(0.6f, new ITimerCallback() {
             @Override
             public void onTimePassed(TimerHandler pTimerHandler) {
                 if (!relampago) {
-                    spriteFondo.setColor(1, 1, 1, 0);
-                    spriteFondo2.setColor(1, 1, 1, 0);
+                    spriteFondoNinos.setColor(1, 1, 1, 0);
+                    spriteFondoAdultos.setColor(1, 1, 1, 0);
                     spriteFondo3.setColor(1, 1, 1, 1);
                     //relampagoSonido.play();
                     relampago = true;
@@ -160,14 +238,16 @@ public class EscenaMenu extends EscenaBase
                 else {
                     spriteFondo3.setColor(1, 1, 1, 0);
                     if(!fondoPrincipalActivado) {
-                        spriteFondo.setColor(1, 1, 1, 1);
-                        spriteFondo2.setColor(1, 1, 1, 0);
+                        spriteFondoNinos.setColor(1, 1, 1, 1);
+                        spriteFondoAdultos.setColor(1, 1, 1, 0);
                     }else{
-                        spriteFondo.setColor(1, 1, 1, 0);
-                        spriteFondo2.setColor(1, 1, 1, 1);
+                        spriteFondoNinos.setColor(1, 1, 1, 0);
+                        spriteFondoAdultos.setColor(1, 1, 1, 1);
                     }
+                    reiniciarTimer2=true;
                 }
-                beginTimer2();
+                if(!reiniciarTimer2)
+                    beginTimer2();
             }
         }));
 
