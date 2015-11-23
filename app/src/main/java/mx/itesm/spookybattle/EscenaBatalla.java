@@ -21,8 +21,11 @@ import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -196,6 +199,12 @@ public class EscenaBatalla extends EscenaBase
         fontGeronimo.load();
 
         player = Main.dracula;
+        SharedPreferences preferences = actividadJuego.getSharedPreferences("levels", Context.MODE_PRIVATE);
+
+        int playerLvl = preferences.getInt(player.getName(),1);
+
+        Log.i("Leyendo nivel", "Nivel = " + playerLvl);
+
         ai = Main.mummy;
 
         SplayerName = player.toString();
@@ -216,10 +225,12 @@ public class EscenaBatalla extends EscenaBase
     @Override
     public void crearEscena() {
         if(winner == true) {
-            if(playerwin){
+            if(playerwin == true){
                 attachChild(SpriteWinner);
+                player.levelUp();
+                savelevel(player);
             }
-            else{
+            else if(playerwin ==false){
                 attachChild(SpriteLoser);
             }
 
@@ -262,6 +273,15 @@ public class EscenaBatalla extends EscenaBase
 
         }   //agregarCuadroVida();
     }
+
+    private void savelevel(P_Character player) {
+        SharedPreferences preferences = actividadJuego.getSharedPreferences("levels", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt(player.getName(), player.getLvl());
+        editor.commit();
+    }
+
+
 
     /*private void agregarCuadroVida() {
        Rectangle cuadro = new Rectangle(ControlJuego.ANCHO_CAMARA/7, ControlJuego.ALTO_CAMARA/4,
@@ -802,17 +822,17 @@ public class EscenaBatalla extends EscenaBase
 
     private void checkHP(P_Character player, P_Character ai){
         int pHP=  player.getHP();
-        int aiHP = player.getHP();
+        int aiHP = ai.getHP();
 
-        if(pHP <= 0){
-            s= player.getName() + " wins";
+        if(aiHP <= 0){
+            s= "";
             hideButtons();
             SpriteWinner = cargarSprite(ControlJuego.ANCHO_CAMARA/2, ControlJuego.ALTO_CAMARA/2, regionWinner);
             playerwin = true;
             winner = true;
         }
-        if(aiHP <= 0){
-            s= ai.getName() + " wins";
+        if(pHP <= 0){
+            s= "";
             hideButtons();
             SpriteLoser = cargarSprite(ControlJuego.ANCHO_CAMARA/2, ControlJuego.ALTO_CAMARA/2, regionLoser);
             playerwin = false;
