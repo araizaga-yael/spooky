@@ -84,8 +84,8 @@ public class EscenaMenu extends EscenaBase
     @Override
     public void cargarRecursos() {
         // Fondo
-        regionFondo = cargarImagen("MenuPrincipal1.png");
-        regionFondo2 = cargarImagen("MenuPrincipal2.png");
+        //regionFondo = cargarImagen("MenuPrincipal1.png");
+        //regionFondo2 = cargarImagen("MenuPrincipal2.png");
         regionFondo3 = cargarImagen("Relampago.png");
         // Botones del menú
         regionBtnAcercaDe = cargarImagen("BotonAboutUs.png");
@@ -383,8 +383,13 @@ public class EscenaMenu extends EscenaBase
 
     @Override
     public void liberarRecursos() {
-        regionFondo.getTexture().unload();
-        regionFondo = null;
+        regionFondoAdultos.getTexture().unload();
+        regionFondoAdultos = null;
+        regionFondoNinos.getTexture().unload();
+        regionFondoNinos = null;
+        regionFondo3.getTexture().unload();
+        regionFondo3 = null;
+
         tiempo = null;
         tiempo2 = null;
 
