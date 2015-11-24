@@ -134,6 +134,7 @@ public class P_Character{
 		this.base_MP = stats[1];
 		this.Spd = stats[2];
 		this.Def = stats[3];
+        this.MP = stats[1]/2;
 	}
 	
 	public int[] getStats(){

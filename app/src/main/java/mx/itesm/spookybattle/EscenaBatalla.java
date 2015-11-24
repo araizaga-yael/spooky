@@ -229,9 +229,11 @@ public class EscenaBatalla extends EscenaBase
                 attachChild(SpriteWinner);
                 player.levelUp();
                 savelevel(player);
+                finishBattle(player,ai);
             }
             else if(playerwin ==false){
                 attachChild(SpriteLoser);
+                finishBattle(player,ai);
             }
 
         }
@@ -770,6 +772,7 @@ public class EscenaBatalla extends EscenaBase
 
     @Override
     public void onBackKeyPressed() {
+        finishBattle(player,ai);
         admEscenas.crearEscenaSeleccionPersonaje();
         admEscenas.setEscena(TipoEscena.ESCENA_SELECCION_PERSONAJE);
         admEscenas.liberarEscenaBatalla();
