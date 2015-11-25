@@ -4,13 +4,11 @@ import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.entity.IEntity;
 import org.andengine.entity.primitive.Rectangle;
-import org.andengine.entity.scene.background.SpriteBackground;
 import org.andengine.entity.scene.menu.MenuScene;
 import org.andengine.entity.scene.menu.item.IMenuItem;
 import org.andengine.entity.scene.menu.item.SpriteMenuItem;
 import org.andengine.entity.scene.menu.item.decorator.ScaleMenuItemDecorator;
 import org.andengine.entity.sprite.AnimatedSprite;
-import org.andengine.entity.sprite.ButtonSprite;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.entity.text.Text;
@@ -24,13 +22,11 @@ import org.andengine.opengl.texture.region.TiledTextureRegion;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * Representa la escena de primer nivel
@@ -241,6 +237,7 @@ public class EscenaBatalla extends EscenaBase
                     player.levelUp();
                 }
                 savelevel(player);
+                player.resetLevel();
             }
             else if(playerwin ==false){
                 attachChild(SpriteLoser);
@@ -379,7 +376,7 @@ public class EscenaBatalla extends EscenaBase
 
                     case DEFEND:
                         defend(player);
-                        s = "Curtis Defended";
+                        s = player.getName()+ " Defended";
                         aiMove(player, ai);
                         break;
 
@@ -784,6 +781,7 @@ public class EscenaBatalla extends EscenaBase
     @Override
     public void onBackKeyPressed() {
         finishBattle(player,ai);
+        player.resetLevel();
         admEscenas.crearEscenaSeleccionPersonaje();
         admEscenas.setEscena(TipoEscena.ESCENA_SELECCION_PERSONAJE);
         admEscenas.liberarEscenaBatalla();
@@ -808,6 +806,8 @@ public class EscenaBatalla extends EscenaBase
     }
 
     private void hideButtons(){
+
+        // BUG Nota, esto regresa null pointer si se llama al metodo cuando se defiende despues de el super de una enemigo
         opcionAttack1.setVisible(false);
         opcionAttack2.setVisible(false);
         opcionAttack3.setVisible(false);

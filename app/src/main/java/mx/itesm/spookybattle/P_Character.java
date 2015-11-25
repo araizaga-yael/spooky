@@ -160,6 +160,7 @@ public class P_Character{
 			this.lvl += 1;
 			this.HP += (this.HP * .246);
 			this.base_MP += (this.base_MP * .246);
+            this.MP = this.base_MP/2;
 			this.Spd += 1;
 			this.Def += (this.Def * .1);
 		}
