@@ -178,11 +178,11 @@ public class EscenaBatalla extends EscenaBase
         this.mFontTexture = new BitmapTextureAtlas(actividadJuego.getTextureManager(),256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 
         font = FontFactory.createFromAsset(actividadJuego.getFontManager(), actividadJuego.getTextureManager(), 1024, 1024, actividadJuego.getAssets(),
-                "fontf.ttf", 50, true, Color.GREEN);
+                "spookyfont.ttf", 50, true, Color.GREEN);
         fontCurt = FontFactory.createFromAsset(actividadJuego.getFontManager(), actividadJuego.getTextureManager(), 1024, 1024, actividadJuego.getAssets(),
-                "fontf.ttf", 50, true, Color.CYAN);
+                "spookyfont.ttf", 50, true, Color.parseColor("#FF00FF"));
         fontGeronimo = FontFactory.createFromAsset(actividadJuego.getFontManager(), actividadJuego.getTextureManager(), 1024, 1024, actividadJuego.getAssets(),
-                "fontf.ttf", 50, true, Color.YELLOW);
+                "spookyfont.ttf", 50, true, Color.YELLOW);
 
         fontHP  = FontFactory.createFromAsset(actividadJuego.getFontManager(), actividadJuego.getTextureManager(), 1024, 1024, actividadJuego.getAssets(),
                 "numbers.ttf", 50, true, Color.RED);
@@ -199,9 +199,17 @@ public class EscenaBatalla extends EscenaBase
         fontGeronimo.load();
 
         player = Main.dracula;
-        SharedPreferences preferences = actividadJuego.getSharedPreferences("levels", Context.MODE_PRIVATE);
+       /* Para resetear nivel
+        player.resetLevel();
+        savelevel(player);
+        */
 
+        SharedPreferences preferences = actividadJuego.getSharedPreferences("levels", Context.MODE_PRIVATE);
         int playerLvl = preferences.getInt(player.getName(),1);
+
+        for(int ilvl = 1;ilvl < playerLvl-1; ilvl++){
+            player.levelUp();
+        }
 
         Log.i("Leyendo nivel", "Nivel = " + playerLvl);
 
@@ -227,9 +235,9 @@ public class EscenaBatalla extends EscenaBase
         if(winner == true) {
             if(playerwin == true){
                 attachChild(SpriteWinner);
+                finishBattle(player,ai);
                 player.levelUp();
                 savelevel(player);
-                finishBattle(player,ai);
             }
             else if(playerwin ==false){
                 attachChild(SpriteLoser);

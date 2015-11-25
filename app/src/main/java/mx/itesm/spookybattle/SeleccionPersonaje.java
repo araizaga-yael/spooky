@@ -62,7 +62,13 @@ public class SeleccionPersonaje extends EscenaBase
     private BitmapTextureAtlas mFontTexture;
     private Text  text;
     private Font  font;
-    public static String desc = "Likes catsup";
+    public static String desc = "Likes catsup, cramberry juice, and strawberry jam... Among 'other'\n" +
+            "red liquids. He's got ancestors from Transylvania. Or so he says \n"+
+            "Once, he tripped and accidentally bit someone...He strangely \n" +
+            "liked it. His classmates are afraid of him since \n\n"+
+            "Curtis is often described as a freak and a weirdo, \n" +
+            "seeing as how he is an expert in flying mammals and \n" +
+            "gothic horror novels, even for his young age";
 
     @Override
     public void cargarRecursos() {
@@ -75,7 +81,6 @@ public class SeleccionPersonaje extends EscenaBase
         regionImagenCurtis = cargarImagen("SelectScreen/DracoStand.png");
         regionNombreCurtis = cargarImagen("SelectScreen/NameTitle.png");
         regionAge = cargarImagen("SelectScreen/AgeLevel.png");
-        regionInfo = cargarImagen("SelectScreen/InfoDraco.png");
         //Select Character
         regionSelectTitle = cargarImagen("SelectScreen/SelectTitle.png");
         //Boton Play
@@ -85,7 +90,7 @@ public class SeleccionPersonaje extends EscenaBase
         this.mFontTexture = new BitmapTextureAtlas(actividadJuego.getTextureManager(),256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 
         font = FontFactory.createFromAsset(actividadJuego.getFontManager(), actividadJuego.getTextureManager(), 1024, 1024, actividadJuego.getAssets(),
-                "fontf.ttf", 50, true, Color.RED);
+                "spookyfont.ttf", 50, true,Color.parseColor("#FF00FF"));
         font.load();
     }
 
@@ -154,7 +159,7 @@ public class SeleccionPersonaje extends EscenaBase
         opcionSelectTitle.setPosition(-290, -175);
         opcionPlay.setPosition(450, -290);
 
-        text.setPosition(-220 - (text.getWidth() / 2), 70 - (text.getHeight() / 2));
+        text.setPosition(370 - (text.getWidth() / 2), 290 - (text.getHeight() / 2));
         menu.attachChild(text);
 
 
