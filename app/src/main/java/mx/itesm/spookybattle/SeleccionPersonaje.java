@@ -1,5 +1,7 @@
 package mx.itesm.spookybattle;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 
 import org.andengine.entity.scene.background.SpriteBackground;
@@ -33,7 +35,6 @@ public class SeleccionPersonaje extends EscenaBase
     private ITextureRegion regionImagenCurtis;
     private ITextureRegion regionNombreCurtis;
     private ITextureRegion regionAge;
-    private ITextureRegion regionInfo;
     private ITextureRegion regionSelectTitle;
 
     private ITextureRegion regionPlay;
@@ -52,7 +53,6 @@ public class SeleccionPersonaje extends EscenaBase
     private final int OPCION_IMAGEN_CURTIS = 20;
     private final int OPCION_NOMBRE_CURTIS = 30;
     private final int OPCION_AGE = 40;
-    private final int OPCION_INFO_CURTIS = 50;
     private final int OPCION_SELECT_TITLE = 9000;
 
     private final int OPCION_START = 9999;
@@ -61,8 +61,10 @@ public class SeleccionPersonaje extends EscenaBase
     //Cosas del texto
     private BitmapTextureAtlas mFontTexture;
     private Text  text;
-    private Font  font;
-    public static String desc = "Likes catsup, cramberry juice, and strawberry jam... Among 'other'\n" +
+    private Text  TextcurrCharLevel;
+    private Font  fontCurtis;
+    private Font  fontLevel;
+    public static String Curtisdesc = "Likes catsup, cramberry juice, and strawberry jam... Among 'other'\n" +
             "red liquids. He's got ancestors from Transylvania. Or so he says \n"+
             "Once, he tripped and accidentally bit someone...He strangely \n" +
             "liked it. His classmates are afraid of him since \n\n"+
@@ -89,9 +91,12 @@ public class SeleccionPersonaje extends EscenaBase
         //font del texto
         this.mFontTexture = new BitmapTextureAtlas(actividadJuego.getTextureManager(),256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 
-        font = FontFactory.createFromAsset(actividadJuego.getFontManager(), actividadJuego.getTextureManager(), 1024, 1024, actividadJuego.getAssets(),
+        fontCurtis = FontFactory.createFromAsset(actividadJuego.getFontManager(), actividadJuego.getTextureManager(), 1024, 1024, actividadJuego.getAssets(),
                 "spookyfont.ttf", 50, true,Color.parseColor("#FF00FF"));
-        font.load();
+        fontLevel = FontFactory.createFromAsset(actividadJuego.getFontManager(), actividadJuego.getTextureManager(), 1024, 1024, actividadJuego.getAssets(),
+                "spookyfont.ttf", 65, true,Color.parseColor("#800000"));
+        fontCurtis.load();
+        fontLevel.load();
     }
 
     @Override
@@ -107,7 +112,12 @@ public class SeleccionPersonaje extends EscenaBase
         setBackgroundEnabled(true);
 
 
-        text = new Text(0, 0, font,desc, actividadJuego.getVertexBufferObjectManager());
+        text = new Text(0, 0, fontCurtis,Curtisdesc, actividadJuego.getVertexBufferObjectManager());
+
+        SharedPreferences preferences = actividadJuego.getSharedPreferences("levels", Context.MODE_PRIVATE);
+        int CurtisLevel = preferences.getInt("Curtis",1);
+
+        TextcurrCharLevel =new Text(0, 0, fontLevel,CurtisLevel +"", actividadJuego.getVertexBufferObjectManager());
 
         // Mostrar opciones de menú
         agregarMenu();
@@ -159,6 +169,9 @@ public class SeleccionPersonaje extends EscenaBase
 
         text.setPosition(370 - (text.getWidth() / 2), 290 - (text.getHeight() / 2));
         menu.attachChild(text);
+
+        TextcurrCharLevel.setPosition(570,-120);
+        menu.attachChild(TextcurrCharLevel);
 
 
 

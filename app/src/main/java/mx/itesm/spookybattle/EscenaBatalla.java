@@ -199,19 +199,20 @@ public class EscenaBatalla extends EscenaBase
         fontGeronimo.load();
 
         player = Main.dracula;
-       /* Para resetear nivel
-        player.resetLevel();
-        savelevel(player);
-        */
+       // Para resetear nivel
+        //player.resetLevel();
+        //savelevel(player);
 
         SharedPreferences preferences = actividadJuego.getSharedPreferences("levels", Context.MODE_PRIVATE);
         int playerLvl = preferences.getInt(player.getName(),1);
 
-        for(int ilvl = 1;ilvl < playerLvl-1; ilvl++){
+        for(int ilvl = 1;ilvl <= playerLvl-1; ilvl++){
             player.levelUp();
+            Log.i("Level UP", "UP = " + "1");
         }
 
         Log.i("Leyendo nivel", "Nivel = " + playerLvl);
+        Log.i("Nivel real", "Real = " + player.getLvl());
 
         ai = Main.mummy;
 
