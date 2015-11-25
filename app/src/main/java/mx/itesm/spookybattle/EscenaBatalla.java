@@ -227,7 +227,7 @@ public class EscenaBatalla extends EscenaBase
         SplayerMP = player.getMP()+"";
         SAIMP = ai.getMP()+"";
 
-        initialization(Main.dracula, Main.mummy);
+        initialization(player, ai);
     }
 
     @Override
@@ -236,7 +236,9 @@ public class EscenaBatalla extends EscenaBase
             if(playerwin == true){
                 attachChild(SpriteWinner);
                 finishBattle(player,ai);
-                player.levelUp();
+                if(player.getLvl() == 1) {
+                    player.levelUp();
+                }
                 savelevel(player);
             }
             else if(playerwin ==false){

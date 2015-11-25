@@ -125,7 +125,6 @@ public class SeleccionPersonaje extends EscenaBase
         IMenuItem imagenCurtis = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_IMAGEN_CURTIS,regionImagenCurtis, actividadJuego.getVertexBufferObjectManager()), 1, 1);
         IMenuItem nombreCurtis = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_NOMBRE_CURTIS,regionNombreCurtis,actividadJuego.getVertexBufferObjectManager()),1,1);
         IMenuItem opcionAge = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_AGE,regionAge,actividadJuego.getVertexBufferObjectManager()),1,1);
-        IMenuItem opcionInfoCurtis = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_INFO_CURTIS,regionInfo,actividadJuego.getVertexBufferObjectManager()),1,1);
         //Infor general
         IMenuItem opcionSelectTitle = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_SELECT_TITLE,regionSelectTitle,actividadJuego.getVertexBufferObjectManager()),1,1);
         IMenuItem opcionPlay = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_START,regionPlay,actividadJuego.getVertexBufferObjectManager()),1,1);
@@ -155,7 +154,6 @@ public class SeleccionPersonaje extends EscenaBase
         imagenCurtis.setPosition(450,100);
         nombreCurtis.setPosition(-250,350);
         opcionAge.setPosition(425,-120);
-        opcionInfoCurtis.setPosition(-200,70);
         opcionSelectTitle.setPosition(-290, -175);
         opcionPlay.setPosition(450, -290);
 
