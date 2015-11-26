@@ -107,6 +107,7 @@ public class EscenaBatalla extends EscenaBase
     P_Character player;
     P_Character ai;
 
+
     //String SplayerName = player.toString();
     //String SAIName = ai.toString();
 
@@ -146,10 +147,13 @@ public class EscenaBatalla extends EscenaBase
     //Animaciones
     private Timer tiempo;
     private int numImagenes;
+    private int numImagenesGeronimo;
     private Sprite spriteFrame;
+    private Sprite spriteFrameGeronimo;
     private IEntity tagSpriteChild;
 
     private ArrayList<ITextureRegion> arrayImagenes;
+    private ArrayList<ITextureRegion> arrayImagenesGeronimo;
     @Override
     public void cargarRecursos() {
         // Fondo
@@ -376,7 +380,7 @@ public class EscenaBatalla extends EscenaBase
 
                     case DEFEND:
                         defend(player);
-                        s = player.getName()+ " Defended";
+                        s = player.getName() + " Defended";
                         aiMove(player, ai);
                         break;
 
@@ -478,7 +482,7 @@ public class EscenaBatalla extends EscenaBase
                         break;
 
                 }
-                if (aiFirst == false) aiMove(player, ai);
+
                 return true;
             }
         });
@@ -486,6 +490,83 @@ public class EscenaBatalla extends EscenaBase
 
     }
 
+    private void getImagesGeronimo(int opcionAtaque)
+    {
+        arrayImagenesGeronimo = new ArrayList<>();
+        switch(opcionAtaque){
+
+            case 1:
+                for (int i = 0; i < 10; i++) {
+                    ITextureRegion imagen = cargarImagen("AnimacionesGeronimo/LotusPocus/Geronimo0" + (i) + ".png");
+                    arrayImagenesGeronimo.add(i, imagen);
+                }
+                break;
+
+            case 2:
+                for (int i = 0; i < 7; i++) {
+                    ITextureRegion imagen = cargarImagen("AnimacionesCurtis/Night/Night0" + (i + 1) + ".png");
+                    arrayImagenesGeronimo.add(i, imagen);
+                }
+                break;
+            case 3:
+                for (int i = 0; i < 7; i++) {
+                    ITextureRegion imagen = cargarImagen("AnimacionesCurtis/Choke/VampChoke0" + (i + 1) + ".png");
+                    arrayImagenesGeronimo.add(i, imagen);
+                }
+                break;
+            case 4:
+                for (int i = 0; i < 7; i++) {
+                    ITextureRegion imagen = cargarImagen("AnimacionesCurtis/Darkness/Darkness0" + (i+1) + ".png");
+                    arrayImagenes.add(i, imagen);
+
+                }
+                break;
+            case 5:
+                for (int i = 0; i < 8; i++) {
+                    ITextureRegion imagen = cargarImagen("AnimacionesCurtis/Super/Super0" + (i) + ".png");
+                    arrayImagenes.add(i, imagen);
+
+                }
+                break;
+
+        }
+    }
+
+    private void animacionLotus(){
+
+        registerUpdateHandler(new TimerHandler(0.3f, new ITimerCallback() {
+            @Override
+            public void onTimePassed(TimerHandler pTimerHandler) {
+                //A partir de aqui puedes agregrar las instrucciones que quieres que realice el timer
+                if (numImagenesGeronimo < 10) {
+                    spriteGeronimoAnimado.setAlpha(0);
+
+                    if (tagSpriteChild != null)
+                        detachChild(tagSpriteChild);
+
+                    spriteFrameGeronimo = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, arrayImagenesGeronimo.get(numImagenesGeronimo));
+                    attachChild(spriteFrameGeronimo);
+                    tagSpriteChild = spriteFrameGeronimo;
+
+                    numImagenesGeronimo++;
+                    animacionLotus();
+                } else {
+
+                    for (int i = 0; i < 10; i++) {
+
+                        arrayImagenesGeronimo.get(i).getTexture().unload();
+                    }
+                    arrayImagenesGeronimo.clear();
+                    reset();
+                    crearEscena();
+                    numImagenesGeronimo = 0;
+                    //tiempo.cancel();
+                }
+
+
+            }
+        }));
+    }
     private void getImagesCurtis(int opcionAtaque)
     {
         arrayImagenes = new ArrayList<>();
@@ -575,16 +656,6 @@ public class EscenaBatalla extends EscenaBase
     }
     private void animacionBattack(){
 
-            /*arrayImagenes = new ArrayList<>();
-            numImagenes = 0;
-            for (int i = 0; i < 6; i++) {
-                ITextureRegion imagen = cargarImagen("AnimacionesCurtis/Battack/Battack0" + (i) + ".png");
-                arrayImagenes.add(i, imagen);
-
-            }*/
-
-
-
             registerUpdateHandler(new TimerHandler(0.3f, new ITimerCallback() {
                 @Override
                 public void onTimePassed(TimerHandler pTimerHandler) {
@@ -603,14 +674,16 @@ public class EscenaBatalla extends EscenaBase
                         animacionBattack();
                     } else {
 
-                        for (int i = 0; i < 6; i++) {
+                        if(arrayImagenes.size()!=0) {
+                            for (int i = 0; i < 6; i++) {
 
-                            arrayImagenes.get(i).getTexture().unload();
+                                arrayImagenes.get(i).getTexture().unload();
+                            }
+                            arrayImagenes.clear();
+                            reset();
+                            crearEscena();
+                            aiMove(player,ai);
                         }
-                        arrayImagenes.clear();
-                        reset();
-                        crearEscena();
-                        numImagenes = 0;
                         //tiempo.cancel();
                     }
 
@@ -979,6 +1052,7 @@ public class EscenaBatalla extends EscenaBase
                 break;
             case 1:
                 s=used + player.getAtk_list()[0].getName();
+                numImagenes= 0;
                 getImagesCurtis(1);
                 animacionBattack();
                 dmgToDeal = damageCalc(player.getAtk_list()[0].getBase_dmg(), ai.getDef());
@@ -1021,6 +1095,7 @@ public class EscenaBatalla extends EscenaBase
     }
 
     private void aiMove(P_Character player,P_Character ai ){
+
         int dmgToDeal = 0;
         String used = ai.getName()+ " Used ";
 
@@ -1038,25 +1113,35 @@ public class EscenaBatalla extends EscenaBase
 
             if(ai.getMP() == ai.getbase_MP()) n = 0;
         }
+        n=1;
         switch(n){
             case 0:
                 s= used + "SUPER ATTACK " + ai.getSuperAtk().getName();
                 dmgToDeal = superDamageCalc(ai.getSuperAtk());
                 break;
             case 1:
+
                 s= used + ai.getAtk_list()[0].getName();
+                getImagesGeronimo(1);
+                animacionLotus();
                 dmgToDeal = damageCalc(ai.getAtk_list()[0].getBase_dmg(), player.getDef());
                 break;
             case 2:
                 s= used + ai.getAtk_list()[1].getName();
+                getImagesGeronimo(1);
+                animacionLotus();
                 dmgToDeal = damageCalc(ai.getAtk_list()[1].getBase_dmg(), player.getDef());
                 break;
             case 3:
                 s= used + ai.getAtk_list()[2].getName();
+                getImagesGeronimo(1);
+                animacionLotus();
                 dmgToDeal = damageCalc(ai.getAtk_list()[2].getBase_dmg(), player.getDef());
                 break;
             case 4:
                 s= used + ai.getAtk_list()[3].getName();
+                getImagesGeronimo(1);
+                animacionLotus();
                 dmgToDeal = damageCalc(ai.getAtk_list()[3].getBase_dmg(), player.getDef());
                 break;
         }
