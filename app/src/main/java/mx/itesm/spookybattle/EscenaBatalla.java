@@ -96,11 +96,14 @@ public class EscenaBatalla extends EscenaBase
     private final int SUPER = 0;
 
     //Logica del juego /////
+    private boolean charChange = false;
     private int attackChoice = 0;
     private boolean winner = false;
     private boolean playerwin = false;
-    private int turn = 1;
+    private int turn = 0;
     private boolean aiFirst = false;
+    private boolean escena1 = true;
+    private boolean escena2= false;
 
     int[] pStats;
     int[] aiStats;
@@ -135,6 +138,9 @@ public class EscenaBatalla extends EscenaBase
 
 
     //BOTONES
+    IMenuItem opcionAttack;
+    IMenuItem opcionDefense;
+
     IMenuItem opcionAttack1;
     IMenuItem opcionAttack2;
     IMenuItem opcionAttack3;
@@ -233,6 +239,8 @@ public class EscenaBatalla extends EscenaBase
 
     @Override
     public void crearEscena() {
+        turn++;
+
         if(winner == true) {
             if(playerwin == true){
                 attachChild(SpriteWinner);
@@ -252,6 +260,12 @@ public class EscenaBatalla extends EscenaBase
         else {
 
             attacking = false;
+
+            if(charChange == true){
+                player.setDef(pStats[3]);
+                charChange = false;
+                checkTurn(player,ai);
+            }
 
 
             // Creamos el sprite de manera óptima
@@ -334,15 +348,20 @@ public class EscenaBatalla extends EscenaBase
     }
 
     private void agregarMenu() {
+        escena2 = false;
+        escena1 = true;
+
         // Crea el objeto que representa el menú
         menu = new MenuScene(actividadJuego.camara);
         // Centrado en la pantalla
         menu.setPosition(ControlJuego.ANCHO_CAMARA/2,ControlJuego.ALTO_CAMARA/7);
 
-        s= "Choose An Action";
+        if(turn == 1) {
+            s = "Choose An Action";
+        }
 
-        IMenuItem opcionAttack = new ScaleMenuItemDecorator(new SpriteMenuItem(ATTACK,regionBtnAtk, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
-        IMenuItem opcionDefense = new ScaleMenuItemDecorator(new SpriteMenuItem(DEFEND,regionBtnDef, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
+        opcionAttack = new ScaleMenuItemDecorator(new SpriteMenuItem(ATTACK,regionBtnAtk, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
+        opcionDefense = new ScaleMenuItemDecorator(new SpriteMenuItem(DEFEND,regionBtnDef, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
 
         // Agrega las opciones al menú
         menu.addMenuItem(opcionAttack);
@@ -371,16 +390,26 @@ public class EscenaBatalla extends EscenaBase
                 // El parámetro pMenuItem indica la opción oprimida
                 switch (pMenuItem.getID()) {
                     case ATTACK:
+                        //Esto solo se usa una vez
+                        if(turn == 1) turn++;
+
+                        //accion del boton
                         menu.clearMenuItems();
                         menu.resetAnimations();
                         agregarMenu2();
                         attackChoice = pMenuItem.getID();
                         s = "Choose An Attack";
+                        checkTurn(player,ai);
                         break;
 
                     case DEFEND:
+                        //Esto solo se usa una vez
+                        if(turn == 1) turn++;
+                        //accion del boton
                         defend(player);
+                        hideButtons();
                         s = player.getName() + " Defended";
+                        aiFirst = false;
                         aiMove(player, ai);
                         break;
 
@@ -395,6 +424,8 @@ public class EscenaBatalla extends EscenaBase
 
     private void agregarMenu2(){
         boolean enoughMP = false;
+        escena1 = false;
+        escena2= true;
 
 
         opcionAttack1 = new ScaleMenuItemDecorator(new SpriteMenuItem(ATTCK1,regionBtnAtk1,actividadJuego.getVertexBufferObjectManager()),1.5f,1);
@@ -434,9 +465,12 @@ public class EscenaBatalla extends EscenaBase
                         hideButtons();
                         attackChoice = pMenuItem.getID();
 
-                        if (aiFirst == true) aiMove(player, ai);
-
-                        playerMove(player, ai, attackChoice);
+                        if (aiFirst == true) {
+                            aiMove(player, ai);
+                        }
+                        else {
+                            playerMove(player, ai, attackChoice);
+                        }
                         break;
 
                     case ATTCK2:
@@ -445,9 +479,12 @@ public class EscenaBatalla extends EscenaBase
                         hideButtons();
                         attackChoice = pMenuItem.getID();
 
-                        if (aiFirst == true) aiMove(player, ai);
-
-                        playerMove(player, ai, attackChoice);
+                        if (aiFirst == true) {
+                            aiMove(player, ai);
+                        }
+                        else {
+                            playerMove(player, ai, attackChoice);
+                        }
                         break;
 
                     case ATTCK3:
@@ -456,9 +493,12 @@ public class EscenaBatalla extends EscenaBase
                         hideButtons();
                         attackChoice = pMenuItem.getID();
 
-                        if (aiFirst == true) aiMove(player, ai);
-
-                        playerMove(player, ai, attackChoice);
+                        if (aiFirst == true) {
+                            aiMove(player, ai);
+                        }
+                        else {
+                            playerMove(player, ai, attackChoice);
+                        }
                         break;
                     case ATTCK4:
                         if (attacking == true) break;
@@ -466,9 +506,12 @@ public class EscenaBatalla extends EscenaBase
                         hideButtons();
                         attackChoice = pMenuItem.getID();
 
-                        if (aiFirst == true) aiMove(player, ai);
-
-                        playerMove(player, ai, attackChoice);
+                        if (aiFirst == true) {
+                            aiMove(player, ai);
+                        }
+                        else {
+                            playerMove(player, ai, attackChoice);
+                        }
                         break;
                     case SUPER:
                         if (attacking == true) break;
@@ -476,9 +519,12 @@ public class EscenaBatalla extends EscenaBase
                         hideButtons();
                         attackChoice = pMenuItem.getID();
 
-                        if (aiFirst == true) aiMove(player, ai);
-
-                        playerMove(player, ai, attackChoice);
+                        if (aiFirst == true) {
+                            aiMove(player, ai);
+                        }
+                        else {
+                            playerMove(player, ai, attackChoice);
+                        }
                         break;
 
                 }
@@ -558,9 +604,17 @@ public class EscenaBatalla extends EscenaBase
                     }
                     arrayImagenesGeronimo.clear();
                     reset();
-                    crearEscena();
+
+                    if(aiFirst == true){
+                        playerMove(player, ai, attackChoice);
+                        crearEscena();
+                        hideButtons();
+                    }
+                    else {
+                        crearEscena();
+                        s="Choose an action";
+                    }
                     numImagenesGeronimo = 0;
-                    //tiempo.cancel();
                 }
 
 
@@ -608,7 +662,7 @@ public class EscenaBatalla extends EscenaBase
 
         }
     }
-    private void animacionSuper() {
+    private void animacionSuperCurtis() {
 
 
            // arrayImagenes = new ArrayList<>();
@@ -636,7 +690,7 @@ public class EscenaBatalla extends EscenaBase
                                 tagSpriteChild = spriteFrame;
 
                                 numImagenes++;
-                                animacionSuper();
+                                animacionSuperCurtis();
                             } else {
                                 for (int i = 0; i < 8; i++) {
 
@@ -656,7 +710,7 @@ public class EscenaBatalla extends EscenaBase
     }
     private void animacionBattack(){
 
-            registerUpdateHandler(new TimerHandler(0.3f, new ITimerCallback() {
+        registerUpdateHandler(new TimerHandler(0.3f, new ITimerCallback() {
                 @Override
                 public void onTimePassed(TimerHandler pTimerHandler) {
                     //A partir de aqui puedes agregrar las instrucciones que quieres que realice el timer
@@ -681,10 +735,19 @@ public class EscenaBatalla extends EscenaBase
                             }
                             arrayImagenes.clear();
                             reset();
-                            crearEscena();
-                            aiMove(player,ai);
+
+                            if(aiFirst == false) {
+                                aiMove(player, ai);
+                                crearEscena();
+                                hideButtons();
+                            }
+                            else{
+                                crearEscena();
+                                s="Choose an action";
+                            }
+                            numImagenes = 0;
+
                         }
-                        //tiempo.cancel();
                     }
 
 
@@ -694,13 +757,7 @@ public class EscenaBatalla extends EscenaBase
 
     private void animacionNight(){
 
-            /*arrayImagenes = new ArrayList<>();
-            numImagenes = 0;
-            for (int i = 0; i < 7; i++) {
-                ITextureRegion imagen = cargarImagen("AnimacionesCurtis/Night/Night0" + (i + 1) + ".png");
-                arrayImagenes.add(i, imagen);
-            }*/
-                registerUpdateHandler(new TimerHandler(0.3f, new ITimerCallback() {
+        registerUpdateHandler(new TimerHandler(0.3f, new ITimerCallback() {
                     @Override
                     public void onTimePassed(TimerHandler pTimerHandler) {
                         //A partir de aqui puedes agregrar las instrucciones que quieres que realice el timer
@@ -724,7 +781,16 @@ public class EscenaBatalla extends EscenaBase
                             }
                             arrayImagenes.clear();
                             reset();
-                            crearEscena();
+
+                            if(aiFirst == false) {
+                                aiMove(player, ai);
+                                crearEscena();
+                                hideButtons();
+                            }
+                            else{
+                                crearEscena();
+                                s="Choose an action";
+                            }
                             numImagenes = 0;
 
                         }
@@ -736,14 +802,6 @@ public class EscenaBatalla extends EscenaBase
     }
     private void animacionChoke() {
 
-        /*arrayImagenes = new ArrayList<>();
-        numImagenes = 0;
-        for (int i = 0; i < 7; i++) {
-            ITextureRegion imagen = cargarImagen("AnimacionesCurtis/Choke/VampChoke0" + (i + 1) + ".png");
-            arrayImagenes.add(i, imagen);
-        }*/
-
-
         registerUpdateHandler(new TimerHandler(0.3f, new ITimerCallback() {
             @Override
             public void onTimePassed(TimerHandler pTimerHandler) {
@@ -768,7 +826,16 @@ public class EscenaBatalla extends EscenaBase
                     }
                     arrayImagenes.clear();
                     reset();
-                    crearEscena();
+
+                    if(aiFirst == false) {
+                        aiMove(player, ai);
+                        crearEscena();
+                        hideButtons();
+                    }
+                    else{
+                        crearEscena();
+                        s="Choose an action";
+                    }
                     numImagenes = 0;
 
                 }
@@ -780,14 +847,6 @@ public class EscenaBatalla extends EscenaBase
     }
     private void animacionDarkness() {
 
-        /*arrayImagenes = new ArrayList<>();
-        numImagenes = 0;
-        for (int i = 0; i < 7; i++) {
-            ITextureRegion imagen = cargarImagen("AnimacionesCurtis/Choke/VampChoke0" + (i + 1) + ".png");
-            arrayImagenes.add(i, imagen);
-        }*/
-
-
         registerUpdateHandler(new TimerHandler(0.3f, new ITimerCallback() {
             @Override
             public void onTimePassed(TimerHandler pTimerHandler) {
@@ -812,7 +871,17 @@ public class EscenaBatalla extends EscenaBase
                     }
                     arrayImagenes.clear();
                     reset();
-                    crearEscena();
+
+                    if(aiFirst == false) {
+                        aiMove(player, ai);
+                        crearEscena();
+                        hideButtons();
+                    }
+                    else{
+                        crearEscena();
+                        s="Choose an action";
+                    }
+
                     numImagenes = 0;
 
                 }
@@ -881,11 +950,18 @@ public class EscenaBatalla extends EscenaBase
     private void hideButtons(){
 
         // BUG Nota, esto regresa null pointer si se llama al metodo cuando se defiende despues de el super de una enemigo
-        opcionAttack1.setVisible(false);
-        opcionAttack2.setVisible(false);
-        opcionAttack3.setVisible(false);
-        opcionAttack4.setVisible(false);
-        opcionSuper.setVisible(false);
+
+        if(escena2 == true) {
+            opcionAttack1.setVisible(false);
+            opcionAttack2.setVisible(false);
+            opcionAttack3.setVisible(false);
+            opcionAttack4.setVisible(false);
+            opcionSuper.setVisible(false);
+        }
+        if(escena1 == true){
+            opcionAttack.setVisible(false);
+            opcionDefense.setVisible(false);
+        }
 
         TextPlayerName.setVisible(false);
         TextAIName.setVisible(false);
@@ -928,70 +1004,16 @@ public class EscenaBatalla extends EscenaBase
     }
 
     private void checkTurn(P_Character player, P_Character ai){
-        if (player.getSpd()< ai.getSpd())
-            aiFirst = true;
-        else
+        if(player.getSpd() >= ai.getSpd()) {
             aiFirst = false;
+        }
+        else {
+            aiFirst = true;
+        }
     }
 
-    private void battleTurn(P_Character player, P_Character ai){
-        int n = 0;
-        boolean charChange = false;
-
-        if(charChange == true){
-            player.setDef(pStats[3]);
-            charChange = false;
-        }
-
-        EscenaBatalla.s = "Choose an action: ";
-
-        if(player.getSpd() > ai.getSpd()){
-
-            switch(n){
-                case 1:
-                    //playerMove(player, ai);
-                    s = "HP AI: " + ai.getHP() + " MP AI: " + ai.getMP() +
-                            "\nHP Player: " + player.getHP() + " MP Player: " + player.getMP();
-                    break;
-                case 2:
-                    s =player.getName() + " defended";
-                    defend(player);
-                    charChange = true;
-                    break;
-
-            }
-            //if(ai.getHP() <= 0) break;
-
-            //aiMove(player,ai);
-            s = "HP AI: " + ai.getHP() + " MP AI: " + ai.getMP() +
-                    "\nHP Player: " + player.getHP() + " MP Player: " + player.getMP();
-
-        }
-        else{
-
-            switch(n){
-                case 2:
-                    s = player.getName() + " defended";
-                    defend(player);
-                    charChange = true;
-                    break;
-            }
-
-            //aiMove(player,ai);
-            s = "HP AI: " + ai.getHP() + " MP AI: " + ai.getMP() +
-                    "\nHP Player: " + player.getHP() + " MP Player: " + player.getMP();
-
-            //if(player.getHP() <= 0) break;
-
-            //playerMove(player, ai);
-            s = "HP AI: " + ai.getHP() + " MP AI: " + ai.getMP() +
-                    "\nHP Player: " + player.getHP() + " MP Player: " + player.getMP();
-
-        }
-        turn++;
-    }
-
-    private static void defend(P_Character defender){
+    private void defend(P_Character defender){
+        charChange = true;
         double newDef = defender.getDef() * 1.3;
         defender.setDef((int)Math.ceil(newDef));
     }
@@ -1024,11 +1046,10 @@ public class EscenaBatalla extends EscenaBase
     }
 
     private  void playerMove(P_Character player,P_Character ai , int n){
+        turn++;
         int dmgToDeal = 0;
         String used = player.getName()+ " Used ";
         boolean enoughMP = false;
-
-        //System.out.println("\nPlayer Choose An Attack: ");
 
         if(n == 0 && (player.getMP() != player.getbase_MP())){
             n = 5;
@@ -1052,7 +1073,6 @@ public class EscenaBatalla extends EscenaBase
                 break;
             case 1:
                 s=used + player.getAtk_list()[0].getName();
-                numImagenes= 0;
                 getImagesCurtis(1);
                 animacionBattack();
                 dmgToDeal = damageCalc(player.getAtk_list()[0].getBase_dmg(), ai.getDef());
@@ -1120,7 +1140,6 @@ public class EscenaBatalla extends EscenaBase
                 dmgToDeal = superDamageCalc(ai.getSuperAtk());
                 break;
             case 1:
-
                 s= used + ai.getAtk_list()[0].getName();
                 getImagesGeronimo(1);
                 animacionLotus();
