@@ -40,15 +40,22 @@ public class SeleccionPersonaje extends EscenaBase
     private ITextureRegion regionNombreCurtis;
     private ITextureRegion regionAge;
 
+    private ITextureRegion regionImagenGeronimo;
+
+
     private ITextureRegion regionImagenFrancis;
     private ITextureRegion regionSelectTitle;
 
     private ITextureRegion regionPlay;
 
+    private IMenuItem opcionGeronimo;
     private IMenuItem opcionFrancis;
 
     private IMenuItem imagenCurtis;
+    private IMenuItem imagenGeronimo;
+
     private IMenuItem imagenFrancis;
+
 
     SharedPreferences preferencesCurrChar;
     int currChar;
@@ -60,13 +67,15 @@ public class SeleccionPersonaje extends EscenaBase
     private MenuScene menu;     // Contenedor de las opciones
     // Constantes para cada opción de personaje
     private final int OPCION_CURTIS = 0;
-    private final int OPCION_Geronimo = 1;
-    private final int OPCION_Francis = 1;
+    private final int OPCION_Geronimo = 2;
+    private final int OPCION_Francis = 3;
 
 
     private final int OPCION_IMAGEN_CURTIS = 20;
     private final int OPCION_NOMBRE_CURTIS = 30;
     private final int OPCION_AGE = 40;
+
+    private final int OPCION_IMAGEN_Geronimo = 21;
 
     private final int OPCION_IMAGEN_FRANCIS = 22;
 
@@ -79,12 +88,22 @@ public class SeleccionPersonaje extends EscenaBase
     //Cosas del texto
     private BitmapTextureAtlas mFontTexture;
     private Text  text;
+    private Text  textGeronimo;
     private Text  textFrancis;
     private Text  TextcurrCharLevel;
     private Font  fontCurtis;
+    private Font fontGeronimo;
     private Font  fontFrancis;
     private Font  fontLevel;
     private static String Curtisdesc = "Likes catsup, cramberry juice, and strawberry jam... Among 'other'\n" +
+            "red liquids. He's got ancestors from Transylvania. Or so he says \n"+
+            "Once, he tripped and accidentally bit someone...He strangely \n" +
+            "liked it. His classmates are afraid of him since \n\n"+
+            "Curtis is often described as a freak and a weirdo, \n" +
+            "seeing as how he is an expert in flying mammals and \n" +
+            "gothic horror novels, even for his young age";
+
+    private static String Geronimodesc = "All hail emperor Ramses and anubis... Among 'other'\n" +
             "red liquids. He's got ancestors from Transylvania. Or so he says \n"+
             "Once, he tripped and accidentally bit someone...He strangely \n" +
             "liked it. His classmates are afraid of him since \n\n"+
@@ -100,6 +119,8 @@ public class SeleccionPersonaje extends EscenaBase
             "seeing as how he is an expert in flying mammals and \n" +
             "gothic horror novels, even for his young age";
 
+
+
     @Override
     public void cargarRecursos() {
         // Fondo
@@ -107,13 +128,15 @@ public class SeleccionPersonaje extends EscenaBase
         // Botones personajes
         regionBtnCurtis = cargarImagen("SelectScreen/DracoSelect.png");
         regionBtnGeronimo = cargarImagen("SelectScreen/MummySelect.png");
-        regionBtnFrancisLocked = cargarImagen("SelectScreen/FrancisUnSelect.png");
+        regionBtnFrancisLocked = cargarImagen("SelectScreen/FrancisUnSeleted.png");
         regionBtnFrancisUnlocked = cargarImagen("SelectScreen/FrancisSelect.png");
         //info personajes
         regionImagenCurtis = cargarImagen("SelectScreen/DracoStand.png");
         regionNombreCurtis = cargarImagen("SelectScreen/NameTitle.png");
         regionAge = cargarImagen("SelectScreen/AgeLevel.png");
 
+
+        regionImagenGeronimo = cargarImagen("SelectScreen/GeronimoStand.png");
 
         regionImagenFrancis =cargarImagen("SelectScreen/FrancisStand.png");
 
@@ -128,6 +151,8 @@ public class SeleccionPersonaje extends EscenaBase
 
         fontCurtis = FontFactory.createFromAsset(actividadJuego.getFontManager(), actividadJuego.getTextureManager(), 1024, 1024, actividadJuego.getAssets(),
                 "spookyfont.ttf", 50, true,Color.parseColor("#FF00FF"));
+        fontGeronimo = FontFactory.createFromAsset(actividadJuego.getFontManager(), actividadJuego.getTextureManager(), 1024, 1024, actividadJuego.getAssets(),
+                "spookyfont.ttf", 50, true, Color.parseColor("#FFFF4D"));
         fontFrancis = FontFactory.createFromAsset(actividadJuego.getFontManager(), actividadJuego.getTextureManager(), 1024, 1024, actividadJuego.getAssets(),
                 "spookyfont.ttf", 50, true,Color.parseColor("#5CD65C"));
         fontLevel = FontFactory.createFromAsset(actividadJuego.getFontManager(), actividadJuego.getTextureManager(), 1024, 1024, actividadJuego.getAssets(),
@@ -135,6 +160,7 @@ public class SeleccionPersonaje extends EscenaBase
 
 
         fontCurtis.load();
+        fontGeronimo.load();
         fontFrancis.load();
         fontLevel.load();
 
@@ -155,6 +181,7 @@ public class SeleccionPersonaje extends EscenaBase
 
 
         text = new Text(0, 0, fontCurtis,Curtisdesc, actividadJuego.getVertexBufferObjectManager());
+        textGeronimo = new Text(0, 0, fontGeronimo,Geronimodesc, actividadJuego.getVertexBufferObjectManager());
         textFrancis = new Text(0, 0, fontFrancis,Francisdesc, actividadJuego.getVertexBufferObjectManager());
 
         SharedPreferences preferences = actividadJuego.getSharedPreferences("levels", Context.MODE_PRIVATE);
@@ -186,7 +213,7 @@ public class SeleccionPersonaje extends EscenaBase
 
         // Crea las opciones de personaje
         IMenuItem opcionCurtis = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_CURTIS,regionBtnCurtis, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
-        IMenuItem opcionGeronimo = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_Geronimo,regionBtnGeronimo, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
+        opcionGeronimo = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_Geronimo,regionBtnGeronimo, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
 
         if(FrancisUnlocked == true){
             opcionFrancis = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_Francis, regionBtnFrancisUnlocked, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
@@ -199,6 +226,9 @@ public class SeleccionPersonaje extends EscenaBase
         imagenCurtis = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_IMAGEN_CURTIS,regionImagenCurtis, actividadJuego.getVertexBufferObjectManager()), 1, 1);
         IMenuItem nombreCurtis = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_NOMBRE_CURTIS,regionNombreCurtis,actividadJuego.getVertexBufferObjectManager()),1,1);
         IMenuItem opcionAge = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_AGE,regionAge,actividadJuego.getVertexBufferObjectManager()),1,1);
+
+        //info Geronimoc
+        imagenGeronimo = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_IMAGEN_Geronimo,regionImagenGeronimo, actividadJuego.getVertexBufferObjectManager()), 1, 1);
 
         //infro Francis
         imagenFrancis = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_IMAGEN_FRANCIS,regionImagenFrancis, actividadJuego.getVertexBufferObjectManager()), 1, 1);
@@ -214,10 +244,15 @@ public class SeleccionPersonaje extends EscenaBase
         menu.addMenuItem(opcionCurtis);
         menu.addMenuItem(opcionGeronimo);
         menu.addMenuItem(opcionFrancis);
+
         //Curtis info
         menu.addMenuItem(imagenCurtis);
         menu.addMenuItem(nombreCurtis);
         menu.addMenuItem(opcionAge);
+
+        //Geronimo info
+        menu.addMenuItem(imagenGeronimo);
+
 
         //Francis info
         menu.addMenuItem(imagenFrancis);
@@ -240,20 +275,33 @@ public class SeleccionPersonaje extends EscenaBase
         nombreCurtis.setPosition(-250,350);
         opcionAge.setPosition(425,-120);
 
+        //Geronimo
+        imagenGeronimo.setPosition(450,100);
+        imagenGeronimo.setVisible(false);
+
         //Francis
         imagenFrancis.setPosition(450,100);
         imagenFrancis.setVisible(false);
 
+
+
         opcionSelectTitle.setPosition(-290, -175);
         opcionPlay.setPosition(450, -290);
 
-
+        //texto Curtis
         text.setPosition(370 - (text.getWidth() / 2), 290 - (text.getHeight() / 2));
         menu.attachChild(text);
 
+        //Texto Geronimo
+        textGeronimo.setPosition(370 - (text.getWidth() / 2), 290 - (text.getHeight() / 2));
+        menu.attachChild(textGeronimo);
+        textGeronimo.setVisible(false);
+
+        //texto Francis
         textFrancis.setPosition(370 - (text.getWidth() / 2), 290 - (text.getHeight() / 2));
         menu.attachChild(textFrancis);
         textFrancis.setVisible(false);
+
 
         TextcurrCharLevel.setPosition(570,-120);
         menu.attachChild(TextcurrCharLevel);
@@ -277,15 +325,20 @@ public class SeleccionPersonaje extends EscenaBase
                         switchCharacter(currChar);
                         imagenCurtis.setVisible(true);
                         text.setVisible(true);
-                        text.setText(Curtisdesc);
                         currentCharacter(1);
                         //Log.i("CURRENT CHAR al presionar Curtis", currChar+"");
                         break;
+                    case OPCION_Geronimo:
+                        switchCharacter(currChar);
+                        imagenGeronimo.setVisible(true);
+                        textGeronimo.setVisible(true);
+                        currentCharacter(2);
+
+                    break;
                     case OPCION_Francis:
                         switchCharacter(currChar);
                         imagenFrancis.setVisible(true);
                         textFrancis.setVisible(true);
-                        text.setText(Francisdesc);
                         currentCharacter(3);
                         //Log.i("CURRENT CHAR al presionar Francis", currChar+"");
                         break;
@@ -319,6 +372,10 @@ public class SeleccionPersonaje extends EscenaBase
             case 1:
                 imagenCurtis.setVisible(false);
                 text.setVisible(false);
+                break;
+            case 2:
+                imagenGeronimo.setVisible(false);
+                textGeronimo.setVisible(false);
                 break;
             case 3:
                 imagenFrancis.setVisible(false);
