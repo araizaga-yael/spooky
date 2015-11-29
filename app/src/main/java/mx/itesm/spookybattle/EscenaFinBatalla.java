@@ -58,6 +58,11 @@ public class EscenaFinBatalla extends EscenaBase
             SpriteBackground fondo = new SpriteBackground(0.28f, 0.63f, 0.92f,SpriteWinner);
             setBackground(fondo);
 
+            SharedPreferences unlockPreferences = actividadJuego.getSharedPreferences("UnlockedCharacters", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = unlockPreferences.edit();
+            editor.putBoolean("Francis", true);
+            editor.commit();
+
         }
         else{
             SpriteBackground fondo = new SpriteBackground(0.28f, 0.63f, 0.92f,SpriteLoser);

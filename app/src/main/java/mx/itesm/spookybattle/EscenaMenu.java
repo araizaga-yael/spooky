@@ -1,5 +1,8 @@
 package mx.itesm.spookybattle;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import org.andengine.audio.sound.Sound;
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
@@ -100,35 +103,12 @@ public class EscenaMenu extends EscenaBase
         regionNubeNegra = cargarImagen("MenuPrincipal/cloud_black.png");
 
         relampagoSonido = cargarEfecto("Sonidos/single_lightning_bolt.wav");
+
+        initializeUnlocks();
     }
 
     @Override
     public void crearEscena() {
-
-        /*//tiempo = new Timer();
-
-        // Creamos el sprite de manera óptima
-
-        spriteFondo = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, regionFondo);
-        spriteFondo2 = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, regionFondo2);
-
-        spriteFondo2.setColor(1,1,1,0);
-        // Crea el fondo de la pantalla
-        //fondo = new SpriteBackground(1, 1, 1, spriteFondo);
-        //setBackground(fondo);
-        //setBackgroundEnabled(true);
-
-
-        // Mostrar un recuadro atrás del menú
-        //agregarFondoMenu();
-        // Mostrar opciones de menú
-        beginTimer();
-        agregarMenu();
-        attachChild(spriteFondo3);
-        attachChild(spriteFondo2);
-        attachChild(spriteFondo);*/
-
-
 
         spriteFondoAdultos = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, regionFondoAdultos);
         spriteFondoNinos = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, regionFondoNinos);
@@ -250,41 +230,6 @@ public class EscenaMenu extends EscenaBase
                     beginTimer2();
             }
         }));
-
-        /*tiempo2 = new Timer();
-
-        tiempo2.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                actividadJuego.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (!relampago) {
-                            spriteFondo.setColor(1, 1, 1, 0);
-                            spriteFondo2.setColor(1, 1, 1, 0);
-                            spriteFondo3.setColor(1, 1, 1, 1);
-                            relampagoSonido.play();
-                            relampago = true;
-
-                        }
-                        else {
-                            spriteFondo3.setColor(1, 1, 1, 0);
-                            if(!fondoPrincipalActivado) {
-                                spriteFondo.setColor(1, 1, 1, 1);
-                                spriteFondo2.setColor(1, 1, 1, 0);
-                            }else{
-                                spriteFondo.setColor(1, 1, 1, 0);
-                                spriteFondo2.setColor(1, 1, 1, 1);
-                            }
-                            tiempo2.cancel();
-                        }
-
-                    }
-                });
-            }
-        }, 400, 400);*/
-
-
     }
 
     private void agregarMenu() {
@@ -361,6 +306,14 @@ public class EscenaMenu extends EscenaBase
     protected void onManagedUpdate(float pSecondsElapsed) {
         super.onManagedUpdate(pSecondsElapsed);
 
+    }
+
+    private void initializeUnlocks(){
+        SharedPreferences unlockPreferences = actividadJuego.getSharedPreferences("UnlockedCharacters", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = unlockPreferences.edit();
+        editor.putBoolean("Geronimo", false);
+        editor.putBoolean("Francis", false);
+        editor.commit();
     }
 
 
