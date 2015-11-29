@@ -188,7 +188,7 @@ public class EscenaBatalla extends EscenaBase
         fontCurt = FontFactory.createFromAsset(actividadJuego.getFontManager(), actividadJuego.getTextureManager(), 1024, 1024, actividadJuego.getAssets(),
                 "spookyfont.ttf", 50, true, Color.parseColor("#FF00FF"));
         fontGeronimo = FontFactory.createFromAsset(actividadJuego.getFontManager(), actividadJuego.getTextureManager(), 1024, 1024, actividadJuego.getAssets(),
-                "spookyfont.ttf", 50, true, Color.YELLOW);
+                "spookyfont.ttf", 50, true, Color.parseColor("#FFFF4D"));
 
         fontHP  = FontFactory.createFromAsset(actividadJuego.getFontManager(), actividadJuego.getTextureManager(), 1024, 1024, actividadJuego.getAssets(),
                 "numbers.ttf", 50, true, Color.RED);
@@ -549,14 +549,14 @@ public class EscenaBatalla extends EscenaBase
                 break;
 
             case 2:
-                for (int i = 0; i < 7; i++) {
-                    ITextureRegion imagen = cargarImagen("AnimacionesCurtis/Night/Night0" + (i + 1) + ".png");
+                for (int i = 0; i < 10; i++) {
+                    ITextureRegion imagen = cargarImagen("AnimacionesGeronimo/Momify/Momify0" + (i) + ".png");
                     arrayImagenesGeronimo.add(i, imagen);
                 }
                 break;
             case 3:
-                for (int i = 0; i < 7; i++) {
-                    ITextureRegion imagen = cargarImagen("AnimacionesCurtis/Choke/VampChoke0" + (i + 1) + ".png");
+                for (int i = 0; i < 8; i++) {
+                    ITextureRegion imagen = cargarImagen("AnimacionesGeronimo/Anubis/Anubis" + (i + 1) + ".png");
                     arrayImagenesGeronimo.add(i, imagen);
                 }
                 break;
@@ -578,7 +578,7 @@ public class EscenaBatalla extends EscenaBase
         }
     }
 
-    private void animacionLotus(){
+    private void animacionLotusAI(){
 
         registerUpdateHandler(new TimerHandler(0.3f, new ITimerCallback() {
             @Override
@@ -595,7 +595,7 @@ public class EscenaBatalla extends EscenaBase
                     tagSpriteChild = spriteFrameGeronimo;
 
                     numImagenesGeronimo++;
-                    animacionLotus();
+                    animacionLotusAI();
                 } else {
 
                     for (int i = 0; i < 10; i++) {
@@ -621,6 +621,94 @@ public class EscenaBatalla extends EscenaBase
             }
         }));
     }
+
+    private void animacionMomifyAI(){
+
+        registerUpdateHandler(new TimerHandler(0.3f, new ITimerCallback() {
+            @Override
+            public void onTimePassed(TimerHandler pTimerHandler) {
+                if (numImagenesGeronimo < 10) {
+                    spriteGeronimoAnimado.setAlpha(0);
+
+                    if (tagSpriteChild != null)
+                        detachChild(tagSpriteChild);
+
+                    spriteFrameGeronimo = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, arrayImagenesGeronimo.get(numImagenesGeronimo));
+                    attachChild(spriteFrameGeronimo);
+                    tagSpriteChild = spriteFrameGeronimo;
+
+                    numImagenesGeronimo++;
+                    animacionMomifyAI();
+                } else {
+
+                    for (int i = 0; i < 10; i++) {
+
+                        arrayImagenesGeronimo.get(i).getTexture().unload();
+                    }
+                    arrayImagenesGeronimo.clear();
+                    reset();
+
+                    if(aiFirst == true){
+                        playerMove(player, ai, attackChoice);
+                        crearEscena();
+                        hideButtons();
+                    }
+                    else {
+                        crearEscena();
+                        s="Choose an action";
+                    }
+                    numImagenesGeronimo = 0;
+                }
+
+
+            }
+        }));
+    }
+
+    private void animacionAnubisAI(){
+
+        registerUpdateHandler(new TimerHandler(0.3f, new ITimerCallback() {
+            @Override
+            public void onTimePassed(TimerHandler pTimerHandler) {
+                if (numImagenesGeronimo < 8) {
+                    spriteGeronimoAnimado.setAlpha(0);
+
+                    if (tagSpriteChild != null)
+                        detachChild(tagSpriteChild);
+
+                    spriteFrameGeronimo = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, arrayImagenesGeronimo.get(numImagenesGeronimo));
+                    attachChild(spriteFrameGeronimo);
+                    tagSpriteChild = spriteFrameGeronimo;
+
+                    numImagenesGeronimo++;
+                    animacionAnubisAI();
+                } else {
+
+                    for (int i = 0; i < 8; i++) {
+                        arrayImagenesGeronimo.get(i).getTexture().unload();
+                    }
+                    arrayImagenesGeronimo.clear();
+                    reset();
+
+                    if(aiFirst == true){
+                        playerMove(player, ai, attackChoice);
+                        crearEscena();
+                        hideButtons();
+                    }
+                    else {
+                        crearEscena();
+                        s="Choose an action";
+                    }
+                    numImagenesGeronimo = 0;
+                }
+
+
+            }
+        }));
+    }
+
+
+    ///ANIMACIONES CURTIS/////
     private void getImagesCurtis(int opcionAtaque)
     {
         arrayImagenes = new ArrayList<>();
@@ -1133,7 +1221,6 @@ public class EscenaBatalla extends EscenaBase
 
             if(ai.getMP() == ai.getbase_MP()) n = 0;
         }
-        n=1;
         switch(n){
             case 0:
                 s= used + "SUPER ATTACK " + ai.getSuperAtk().getName();
@@ -1142,25 +1229,25 @@ public class EscenaBatalla extends EscenaBase
             case 1:
                 s= used + ai.getAtk_list()[0].getName();
                 getImagesGeronimo(1);
-                animacionLotus();
+                animacionLotusAI();
                 dmgToDeal = damageCalc(ai.getAtk_list()[0].getBase_dmg(), player.getDef());
                 break;
             case 2:
                 s= used + ai.getAtk_list()[1].getName();
-                getImagesGeronimo(1);
-                animacionLotus();
+                getImagesGeronimo(2);
+                animacionMomifyAI();
                 dmgToDeal = damageCalc(ai.getAtk_list()[1].getBase_dmg(), player.getDef());
                 break;
             case 3:
                 s= used + ai.getAtk_list()[2].getName();
-                getImagesGeronimo(1);
-                animacionLotus();
+                getImagesGeronimo(3);
+                animacionAnubisAI();
                 dmgToDeal = damageCalc(ai.getAtk_list()[2].getBase_dmg(), player.getDef());
                 break;
             case 4:
                 s= used + ai.getAtk_list()[3].getName();
                 getImagesGeronimo(1);
-                animacionLotus();
+                animacionLotusAI();
                 dmgToDeal = damageCalc(ai.getAtk_list()[3].getBase_dmg(), player.getDef());
                 break;
         }
