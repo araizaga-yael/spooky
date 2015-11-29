@@ -3,6 +3,7 @@ package mx.itesm.spookybattle;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.util.Log;
 
 import org.andengine.entity.scene.background.SpriteBackground;
 import org.andengine.entity.scene.menu.MenuScene;
@@ -97,6 +98,8 @@ public class SeleccionPersonaje extends EscenaBase
                 "spookyfont.ttf", 65, true,Color.parseColor("#800000"));
         fontCurtis.load();
         fontLevel.load();
+
+        currentCharacter();
     }
 
     @Override
@@ -121,6 +124,14 @@ public class SeleccionPersonaje extends EscenaBase
 
         // Mostrar opciones de menú
         agregarMenu();
+        currentCharacter();
+
+        SharedPreferences preferencesCurrChar = actividadJuego.getSharedPreferences("CurrentChar", Context.MODE_PRIVATE);
+        int currChar = preferencesCurrChar.getInt("Currentcharacter",1);
+
+        if(currChar == 1){
+            Log.i("CURRENT CHAR", currChar+"");
+        }
     }
 
     private void agregarMenu() {
@@ -202,6 +213,13 @@ public class SeleccionPersonaje extends EscenaBase
     @Override
     protected void onManagedUpdate(float pSecondsElapsed) {
         super.onManagedUpdate(pSecondsElapsed);
+    }
+
+    private void currentCharacter(){
+        SharedPreferences preferences = actividadJuego.getSharedPreferences("CurrentChar", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt("Currentcharacter", 1);
+        editor.commit();
     }
 
 

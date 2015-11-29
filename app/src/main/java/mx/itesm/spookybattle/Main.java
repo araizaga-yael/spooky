@@ -11,7 +11,7 @@ public class Main {
 	static Scanner sc = new Scanner(System.in);
 	
 	//Creando ataques de dracula
-	static Attack battack = new Attack("Battack", "Summon attacking...bats", 10, 0);
+	static Attack battack = new Attack("Battack", "Summon attacking...bats", 80, 0);
 	static Attack night = new Attack("I Am The Night", "Not like that other guy", 5, 2);
 	static Attack choke = new Attack("Vamp Choke", "Sort of like a force choke, but vampiric", 15, 10);	
 	static Attack darkness = new Attack("Submit To Darkness", "tbd", 10, 8);

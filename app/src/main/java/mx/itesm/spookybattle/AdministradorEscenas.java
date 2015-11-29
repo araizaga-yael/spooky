@@ -18,6 +18,7 @@ public class AdministradorEscenas
     private EscenaBase escenaAcercaDe;
     private EscenaBase escenaBatalla;
     private EscenaBase escenaSeleccion;
+    private EscenaBase escenaFinBatalla;
 
 
 
@@ -80,6 +81,9 @@ public class AdministradorEscenas
             case ESCENA_BATALLA:
                 setEscenaBase(escenaBatalla);
                 break;
+            case ESCENA_FIN_BATALLA:
+                setEscenaBase(escenaFinBatalla);
+                break;
         }
     }
 
@@ -141,12 +145,19 @@ public class AdministradorEscenas
         escenaSeleccion = null;
     }
 
+    public void crearEscenaFinBatalla() {
+        escenaFinBatalla = new EscenaFinBatalla();
+    }
+
+    public void liberarEscenaFinBatalla() {
+        escenaFinBatalla.liberarEscena();
+        escenaFinBatalla = null;
+    }
+
     public void crearEscenaBatalla() {
-        // Carga los recursos
         escenaBatalla = new EscenaBatalla();
     }
     public void liberarEscenaBatalla() {
-
         escenaBatalla.liberarEscena();
         escenaBatalla = null;
     }

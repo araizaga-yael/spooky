@@ -46,9 +46,6 @@ public class EscenaBatalla extends EscenaBase
     private ITextureRegion regionBtnAtk4;
     private ITextureRegion regionBtnAtk5;
 
-    private ITextureRegion regionWinner;
-    private ITextureRegion regionLoser;
-
     //SpriteAnimado
     private AnimatedSprite spriteCurtisAnimado;
     private TiledTextureRegion regionCurtisAnimado;
@@ -80,8 +77,6 @@ public class EscenaBatalla extends EscenaBase
 
     // Sprites sobre la escena
     private Sprite spriteFondo;
-    private Sprite SpriteWinner;
-    private Sprite SpriteLoser;
 
 
     // Un menú de tipo SceneMenu
@@ -99,7 +94,7 @@ public class EscenaBatalla extends EscenaBase
     private boolean charChange = false;
     private int attackChoice = 0;
     private boolean winner = false;
-    private boolean playerwin = false;
+    public static boolean playerwin = false;
     private int turn = 0;
     private boolean aiFirst = false;
     private boolean escena1 = true;
@@ -164,8 +159,6 @@ public class EscenaBatalla extends EscenaBase
     public void cargarRecursos() {
         // Fondo
         regionFondo = cargarImagen("Batalla1/FondosBatalla1.png");
-        regionWinner = cargarImagen("EscenasFinales/PantallaGanadora.png");
-        regionLoser = cargarImagen("EscenasFinales/PantallaPerdedora.png");
 
         regionCurtisAnimado = cargarImagenMosaico("AnimacionesCurtis/WaitingBattle/CurtisWaitingSheet.png", 1986, 331, 1, 6);
         regionGeronimoAnimado =cargarImagenMosaico("AnimacionesGeronimo/GeronimoWaitingSheet.png", 2723,389 ,1,7);
@@ -241,24 +234,6 @@ public class EscenaBatalla extends EscenaBase
     public void crearEscena() {
         turn++;
 
-        if(winner == true) {
-            if(playerwin == true){
-                attachChild(SpriteWinner);
-                finishBattle(player,ai);
-                if(player.getLvl() == 1) {
-                    player.levelUp();
-                }
-                savelevel(player);
-                player.resetLevel();
-            }
-            else if(playerwin ==false){
-                attachChild(SpriteLoser);
-                finishBattle(player,ai);
-            }
-
-        }
-        else {
-
             attacking = false;
 
             if(charChange == true){
@@ -300,7 +275,6 @@ public class EscenaBatalla extends EscenaBase
             attachChild(spriteGeronimoAnimado);
 
         }   //agregarCuadroVida();
-    }
 
     private void savelevel(P_Character player) {
         SharedPreferences preferences = actividadJuego.getSharedPreferences("levels", Context.MODE_PRIVATE);
@@ -752,47 +726,46 @@ public class EscenaBatalla extends EscenaBase
     }
     private void animacionSuperCurtis() {
 
-
-           // arrayImagenes = new ArrayList<>();
-            //numImagenes = 0;
-            //for (int i = 0; i < 8; i++) {
-            //    ITextureRegion imagen = cargarImagen("AnimacionesCurtis/Darkness/Darkness0" + (i) + ".png");
-            //    arrayImagenes.add(i, imagen);
-
-            //}
-
-
-
-            registerUpdateHandler(new TimerHandler(0.3f, new ITimerCallback() {
+        registerUpdateHandler(new TimerHandler(0.3f, new ITimerCallback() {
             @Override
             public void onTimePassed(TimerHandler pTimerHandler) {
-                            //A partir de aqui puedes agregrar las instrucciones que quieres que realice el timer
-                            if (numImagenes < 8) {
-                                spriteCurtisAnimado.setAlpha(0);
+                if (numImagenes < 8) {
+                    spriteCurtisAnimado.setAlpha(0);
 
-                                if (tagSpriteChild != null)
-                                    detachChild(tagSpriteChild);
+                    if (tagSpriteChild != null)
+                        detachChild(tagSpriteChild);
 
-                                spriteFrame = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, arrayImagenes.get(numImagenes));
-                                attachChild(spriteFrame);
-                                tagSpriteChild = spriteFrame;
+                    spriteFrame = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, arrayImagenes.get(numImagenes));
+                    attachChild(spriteFrame);
+                    tagSpriteChild = spriteFrame;
 
-                                numImagenes++;
-                                animacionSuperCurtis();
-                            } else {
-                                for (int i = 0; i < 8; i++) {
+                    numImagenes++;
+                    animacionSuperCurtis();
+                } else {
 
-                                    arrayImagenes.get(i).getTexture().unload();
-                                }
-                                arrayImagenes.clear();
-                                reset();
-                                crearEscena();
-                                numImagenes = 0;
-                                    
-                            }
+                    if(arrayImagenes.size()!=0) {
+                        for (int i = 0; i < 8; i++) {
 
-
+                            arrayImagenes.get(i).getTexture().unload();
                         }
+                        arrayImagenes.clear();
+                        reset();
+
+                        if(aiFirst == false) {
+                            aiMove(player, ai);
+                            crearEscena();
+                            hideButtons();
+                        }
+                        else{
+                            crearEscena();
+                            s="Choose an action";
+                        }
+                        numImagenes = 0;
+
+                    }
+                }
+
+            }
             }));
 
     }
@@ -985,24 +958,26 @@ public class EscenaBatalla extends EscenaBase
     protected void onManagedUpdate(float pSecondsElapsed){
         super.onManagedUpdate(pSecondsElapsed);
 
-        this.detachChild(text);
-        this.detachChild(TextPlayerHP);
-        this.detachChild(TextAIHP);
-        this.detachChild(TextPlayerMP);
-        this.detachChild(TextAIMP);
+        if(!winner) {
+            this.detachChild(text);
+            this.detachChild(TextPlayerHP);
+            this.detachChild(TextAIHP);
+            this.detachChild(TextPlayerMP);
+            this.detachChild(TextAIMP);
 
 
-        text.setColor(0f, 1f, 0f);
+            text.setColor(0f, 1f, 0f);
 
-        text.setPosition(800 - (text.getWidth() / 2), 750 - (text.getHeight() / 2));
-        TextPlayerHP.setPosition(280 , 555);
-        TextAIHP.setPosition(1040 , 555);
+            text.setPosition(800 - (text.getWidth() / 2), 750 - (text.getHeight() / 2));
+            TextPlayerHP.setPosition(280, 555);
+            TextAIHP.setPosition(1040, 555);
 
-        TextPlayerMP.setPosition(280 , 525);
-        TextAIMP.setPosition(1040 , 525);
+            TextPlayerMP.setPosition(280, 525);
+            TextAIMP.setPosition(1040, 525);
 
 
-        agregaTexto(s);
+            agregaTexto(s);
+        }
 
 
     }
@@ -1078,17 +1053,49 @@ public class EscenaBatalla extends EscenaBase
         if(aiHP <= 0){
             s= "";
             hideButtons();
-            SpriteWinner = cargarSprite(ControlJuego.ANCHO_CAMARA/2, ControlJuego.ALTO_CAMARA/2, regionWinner);
             playerwin = true;
+            setWinner(1);
             winner = true;
+
+            finishBattle(player,ai);
+            if(player.getLvl() == 1) {
+                player.levelUp();
+            }
+            savelevel(player);
+            player.resetLevel();
+
+            admEscenas.crearEscenaFinBatalla();
+            admEscenas.setEscena(TipoEscena.ESCENA_FIN_BATALLA);
+            admEscenas.liberarEscenaBatalla();
+
         }
         if(pHP <= 0){
             s= "";
             hideButtons();
-            SpriteLoser = cargarSprite(ControlJuego.ANCHO_CAMARA/2, ControlJuego.ALTO_CAMARA/2, regionLoser);
             playerwin = false;
+            setWinner(0);
             winner = true;
+
+            finishBattle(player,ai);
+
+            admEscenas.crearEscenaFinBatalla();
+            admEscenas.setEscena(TipoEscena.ESCENA_FIN_BATALLA);
+            admEscenas.liberarEscenaBatalla();
+
         }
+    }
+
+    private void setWinner(int i){
+        SharedPreferences preferences = actividadJuego.getSharedPreferences("winner", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        if(i ==1) {
+            editor.putBoolean("winner", true);
+        }
+        else if(i==0){
+            editor.putBoolean("winner", false);
+        }
+        editor.commit();
     }
 
     private void checkTurn(P_Character player, P_Character ai){
@@ -1157,49 +1164,59 @@ public class EscenaBatalla extends EscenaBase
 
             case 0:
                 s= used + "SUPER ATTACK " + player.getSuperAtk().getName();
+
                 dmgToDeal = superDamageCalc(player.getSuperAtk());
+                drainSuper(player);
+                dealDmg(dmgToDeal, ai);
+                checkHP(player, ai);
+
+                getImagesCurtis(5);
+                animacionSuperCurtis();
                 break;
             case 1:
                 s=used + player.getAtk_list()[0].getName();
+                dmgToDeal = damageCalc(player.getAtk_list()[0].getBase_dmg(), ai.getDef());
+                drainGainMP(dmgToDeal, n, player);
+                dealDmg(dmgToDeal, ai);
+                checkHP(player, ai);
+
                 getImagesCurtis(1);
                 animacionBattack();
-                dmgToDeal = damageCalc(player.getAtk_list()[0].getBase_dmg(), ai.getDef());
                 break;
             case 2:
                 s=used + player.getAtk_list()[1].getName();
+                dmgToDeal = damageCalc(player.getAtk_list()[1].getBase_dmg(), ai.getDef());
+                drainGainMP(dmgToDeal, n, player);
+                dealDmg(dmgToDeal, ai);
+                checkHP(player, ai);
+
                 getImagesCurtis(2);
                 animacionNight();
-                dmgToDeal = damageCalc(player.getAtk_list()[1].getBase_dmg(), ai.getDef());
                 break;
             case 3:
                 s=used + player.getAtk_list()[2].getName();
+                dmgToDeal = damageCalc(player.getAtk_list()[2].getBase_dmg(), ai.getDef());
+                drainGainMP(dmgToDeal, n, player);
+                dealDmg(dmgToDeal, ai);
+                checkHP(player, ai);
+
                 getImagesCurtis(3);
                 animacionChoke();
-                dmgToDeal = damageCalc(player.getAtk_list()[2].getBase_dmg(), ai.getDef());
                 break;
             case 4:
                 s=used + player.getAtk_list()[3].getName();
+                dmgToDeal = damageCalc(player.getAtk_list()[3].getBase_dmg(), ai.getDef());
+                drainGainMP(dmgToDeal, n, player);
+                dealDmg(dmgToDeal, ai);
+                checkHP(player, ai);
+
                 getImagesCurtis(4);
                 animacionDarkness();
-                dmgToDeal = damageCalc(player.getAtk_list()[3].getBase_dmg(), ai.getDef());
                 break;
             case 5:
                 s="Not enough MP";
                 break;
         }
-
-
-        if(n == 0){
-            drainSuper(player);
-            dealDmg(dmgToDeal, ai);
-        }
-        else if(n == 5){
-        }
-        else{
-            drainGainMP(dmgToDeal, n, player);
-            dealDmg(dmgToDeal, ai);
-        }
-     checkHP(player,ai);
     }
 
     private void aiMove(P_Character player,P_Character ai ){
@@ -1225,43 +1242,53 @@ public class EscenaBatalla extends EscenaBase
             case 0:
                 s= used + "SUPER ATTACK " + ai.getSuperAtk().getName();
                 dmgToDeal = superDamageCalc(ai.getSuperAtk());
+                drainSuper(ai);
+                dealDmg(dmgToDeal, player);
+                checkHP(player,ai);
+
+
                 break;
             case 1:
                 s= used + ai.getAtk_list()[0].getName();
+                dmgToDeal = damageCalc(ai.getAtk_list()[0].getBase_dmg(), player.getDef());
+                drainGainMP(dmgToDeal, n, ai);
+                dealDmg(dmgToDeal, player);
+                checkHP(player,ai);
+
                 getImagesGeronimo(1);
                 animacionLotusAI();
-                dmgToDeal = damageCalc(ai.getAtk_list()[0].getBase_dmg(), player.getDef());
                 break;
             case 2:
                 s= used + ai.getAtk_list()[1].getName();
+                dmgToDeal = damageCalc(ai.getAtk_list()[1].getBase_dmg(), player.getDef());
+                drainGainMP(dmgToDeal, n, ai);
+                dealDmg(dmgToDeal, player);
+                checkHP(player,ai);
+
                 getImagesGeronimo(2);
                 animacionMomifyAI();
-                dmgToDeal = damageCalc(ai.getAtk_list()[1].getBase_dmg(), player.getDef());
                 break;
             case 3:
                 s= used + ai.getAtk_list()[2].getName();
+                dmgToDeal = damageCalc(ai.getAtk_list()[2].getBase_dmg(), player.getDef());
+                drainGainMP(dmgToDeal, n, ai);
+                dealDmg(dmgToDeal, player);
+                checkHP(player,ai);
+
                 getImagesGeronimo(3);
                 animacionAnubisAI();
-                dmgToDeal = damageCalc(ai.getAtk_list()[2].getBase_dmg(), player.getDef());
                 break;
             case 4:
                 s= used + ai.getAtk_list()[3].getName();
+                dmgToDeal = damageCalc(ai.getAtk_list()[3].getBase_dmg(), player.getDef());
+                drainGainMP(dmgToDeal, n, ai);
+                dealDmg(dmgToDeal, player);
+                checkHP(player,ai);
+
                 getImagesGeronimo(1);
                 animacionLotusAI();
-                dmgToDeal = damageCalc(ai.getAtk_list()[3].getBase_dmg(), player.getDef());
                 break;
         }
-
-        if(n == 0){
-            drainSuper(ai);
-            dealDmg(dmgToDeal, player);
-        }
-        else{
-            drainGainMP(dmgToDeal, n, ai);
-            dealDmg(dmgToDeal, player);
-        }
-
-        checkHP(player,ai);
     }
 
 }
