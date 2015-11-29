@@ -53,6 +53,15 @@ public class EscenaBatalla extends EscenaBase
     private AnimatedSprite spriteGeronimoAnimado;
     private TiledTextureRegion regionGeronimoAnimado;
 
+    private AnimatedSprite spriteGeronimoAnimadoPlayer;
+    private TiledTextureRegion regionGeronimoAnimadoPlayer;
+
+    private AnimatedSprite spriteFrancisAnimadoPlayer;
+    private TiledTextureRegion regionFrancisAnimadoPlayer;
+
+    private AnimatedSprite spriteGusAnimadoPlayer;
+    private TiledTextureRegion regionGusAnimadoPlayer;
+
 
 
     //cosas de texto
@@ -63,6 +72,9 @@ public class EscenaBatalla extends EscenaBase
 
     private Font  fontCurt;
     private Font  fontGeronimo;
+    private Font  fontFrancis;
+    private Font  fontGus;
+
     private Font  fontHP;
     private Font  fontMP;
 
@@ -105,20 +117,8 @@ public class EscenaBatalla extends EscenaBase
     P_Character player;
     P_Character ai;
 
-
-    //String SplayerName = player.toString();
-    //String SAIName = ai.toString();
-
     String SplayerName;
     String SAIName;
-
-/*
-    String SplayerstartingHP = player.getHP() +"";
-    String SAIStartingHP = ai.getHP()+ "";
-
-    String SplayerHP = player.getHP() +"";
-    String SAIHP = ai.getHP()+ "";
-    */
 
     String SplayerstartingHP;
     String SAIStartingHP;
@@ -143,24 +143,45 @@ public class EscenaBatalla extends EscenaBase
     IMenuItem opcionSuper;
     boolean attacking = false;
 
-    public Main batalla1 = new Main();
-
     //Animaciones
-    private Timer tiempo;
     private int numImagenes;
     private int numImagenesGeronimo;
+    private int numImagenesGeronimoPlayer;
+    private int numImagenesFrancisPlayer;
+    private int numImagenesGusPlayer;
+
     private Sprite spriteFrame;
     private Sprite spriteFrameGeronimo;
+    private Sprite spriteFrameGeronimoPlayer;
+    private Sprite spriteFrameFrancisPlayer;
+    private Sprite spriteFrameGusPlayer;
     private IEntity tagSpriteChild;
 
     private ArrayList<ITextureRegion> arrayImagenes;
     private ArrayList<ITextureRegion> arrayImagenesGeronimo;
+    private ArrayList<ITextureRegion> arrayImagenesGeronimoPlayer;
+
+    SharedPreferences preferencesCurrChar;
+    int currChar;
+
     @Override
     public void cargarRecursos() {
+
+        preferencesCurrChar = actividadJuego.getSharedPreferences("CurrentChar", Context.MODE_PRIVATE);
+        currChar = preferencesCurrChar.getInt("Currentcharacter",1);
+
+        Log.i("Personaje Actual", currChar + "");
+
         // Fondo
         regionFondo = cargarImagen("Batalla1/FondosBatalla1.png");
 
-        regionCurtisAnimado = cargarImagenMosaico("AnimacionesCurtis/WaitingBattle/CurtisWaitingSheet.png", 1986, 331, 1, 6);
+        if(currChar == 1) {
+            regionCurtisAnimado = cargarImagenMosaico("AnimacionesCurtis/WaitingBattle/CurtisWaitingSheet.png", 1986, 331, 1, 6);
+        }
+        else if(currChar==2){
+            regionGeronimoAnimadoPlayer = cargarImagenMosaico("AnimacionesGeronimo/GeronimoWaitingSheet.png", 2723,389 ,1,7);
+        }
+
         regionGeronimoAnimado =cargarImagenMosaico("AnimacionesGeronimo/GeronimoWaitingSheet.png", 2723,389 ,1,7);
 
         regionBtnAtk = cargarImagen("BotonesCurtis/BotonAttack.png");
@@ -182,6 +203,8 @@ public class EscenaBatalla extends EscenaBase
                 "spookyfont.ttf", 50, true, Color.parseColor("#FF00FF"));
         fontGeronimo = FontFactory.createFromAsset(actividadJuego.getFontManager(), actividadJuego.getTextureManager(), 1024, 1024, actividadJuego.getAssets(),
                 "spookyfont.ttf", 50, true, Color.parseColor("#FFFF4D"));
+        fontFrancis = FontFactory.createFromAsset(actividadJuego.getFontManager(), actividadJuego.getTextureManager(), 1024, 1024, actividadJuego.getAssets(),
+                "spookyfont.ttf", 50, true,Color.parseColor("#5CD65C"));
 
         fontHP  = FontFactory.createFromAsset(actividadJuego.getFontManager(), actividadJuego.getTextureManager(), 1024, 1024, actividadJuego.getAssets(),
                 "numbers.ttf", 50, true, Color.RED);
@@ -197,7 +220,13 @@ public class EscenaBatalla extends EscenaBase
         //IF GERONIMO
         fontGeronimo.load();
 
-        player = Main.dracula;
+
+        if(currChar == 1) {
+            player = Main.dracula;
+        }
+        else if(currChar==2 ){
+            player = Main.mummy;
+        }
        // Para resetear nivel
         //player.resetLevel();
         //savelevel(player);
@@ -218,6 +247,8 @@ public class EscenaBatalla extends EscenaBase
         SplayerName = player.toString();
         SAIName = ai.toString();
 
+        if(ai.getName().toLowerCase().equalsIgnoreCase(player.getName())){SAIName += "?"; }
+
         SplayerstartingHP = player.getHP() +"";
         SAIStartingHP = ai.getHP()+ "";
 
@@ -233,13 +264,14 @@ public class EscenaBatalla extends EscenaBase
     @Override
     public void crearEscena() {
         turn++;
+        if(!winner) {
 
             attacking = false;
 
-            if(charChange == true){
+            if (charChange == true) {
                 player.setDef(pStats[3]);
                 charChange = false;
-                checkTurn(player,ai);
+                checkTurn(player, ai);
             }
 
 
@@ -257,22 +289,33 @@ public class EscenaBatalla extends EscenaBase
             TextPlayerMP = new Text(0, 0, fontMP, SplayerMP + "/" + player.getbase_MP(), textLength, actividadJuego.getVertexBufferObjectManager());
             TextAIMP = new Text(0, 0, fontMP, SAIMP + "/" + ai.getbase_MP(), textLength, actividadJuego.getVertexBufferObjectManager());
 
-
-            TextPlayerName = new Text(0, 0, fontCurt, SplayerName, actividadJuego.getVertexBufferObjectManager());
+            if(currChar == 1) {
+                TextPlayerName = new Text(0, 0, fontCurt, SplayerName, actividadJuego.getVertexBufferObjectManager());
+            }
+            else if(currChar == 2){
+                TextPlayerName = new Text(0, 0, fontGeronimo, SplayerName, actividadJuego.getVertexBufferObjectManager());
+            }
             TextAIName = new Text(0, 0, fontGeronimo, SAIName, actividadJuego.getVertexBufferObjectManager());
 
             agregarMenu();
-
-
-            spriteCurtisAnimado = new AnimatedSprite(ControlJuego.ANCHO_CAMARA / 6, ControlJuego.ALTO_CAMARA / 2 - 100, regionCurtisAnimado, actividadJuego.getVertexBufferObjectManager());
-            spriteCurtisAnimado.animate(500);
             attachChild(spriteFondo);
-            attachChild(spriteCurtisAnimado);
 
+            if(currChar ==1) {
+                spriteCurtisAnimado = new AnimatedSprite(ControlJuego.ANCHO_CAMARA / 6, ControlJuego.ALTO_CAMARA / 2 - 100, regionCurtisAnimado, actividadJuego.getVertexBufferObjectManager());
+                spriteCurtisAnimado.animate(500);
+                attachChild(spriteCurtisAnimado);
+            }
+            else if (currChar == 2){
+                spriteGeronimoAnimadoPlayer =new AnimatedSprite(ControlJuego.ANCHO_CAMARA / 6, ControlJuego.ALTO_CAMARA / 2 - 100, regionGeronimoAnimadoPlayer, actividadJuego.getVertexBufferObjectManager());
+                spriteGeronimoAnimadoPlayer.animate(500);
+                spriteGeronimoAnimadoPlayer.setFlippedHorizontal(true);
+                attachChild(spriteGeronimoAnimadoPlayer);
+            }
 
             spriteGeronimoAnimado = new AnimatedSprite(ControlJuego.ANCHO_CAMARA / 2 + 350, ControlJuego.ALTO_CAMARA / 2 - 80, regionGeronimoAnimado, actividadJuego.getVertexBufferObjectManager());
             spriteGeronimoAnimado.animate(500);
             attachChild(spriteGeronimoAnimado);
+        }
 
         }   //agregarCuadroVida();
 
@@ -552,6 +595,8 @@ public class EscenaBatalla extends EscenaBase
         }
     }
 
+
+
     private void animacionLotusAI(){
 
         registerUpdateHandler(new TimerHandler(0.3f, new ITimerCallback() {
@@ -750,6 +795,7 @@ public class EscenaBatalla extends EscenaBase
                         }
                         arrayImagenes.clear();
                         reset();
+                        checkHP(player,ai);
 
                         if(aiFirst == false) {
                             aiMove(player, ai);
@@ -796,6 +842,7 @@ public class EscenaBatalla extends EscenaBase
                             }
                             arrayImagenes.clear();
                             reset();
+                            checkHP(player,ai);
 
                             if(aiFirst == false) {
                                 aiMove(player, ai);
@@ -842,6 +889,7 @@ public class EscenaBatalla extends EscenaBase
                             }
                             arrayImagenes.clear();
                             reset();
+                            checkHP(player,ai);
 
                             if(aiFirst == false) {
                                 aiMove(player, ai);
@@ -887,6 +935,7 @@ public class EscenaBatalla extends EscenaBase
                     }
                     arrayImagenes.clear();
                     reset();
+                    checkHP(player,ai);
 
                     if(aiFirst == false) {
                         aiMove(player, ai);
@@ -932,6 +981,7 @@ public class EscenaBatalla extends EscenaBase
                     }
                     arrayImagenes.clear();
                     reset();
+                    checkHP(player,ai);
 
                     if(aiFirst == false) {
                         aiMove(player, ai);
@@ -952,6 +1002,186 @@ public class EscenaBatalla extends EscenaBase
         }));
 
     }
+
+    ///Animaciones Geronimo PLayer
+    private void getImagesGeronimoPlayer(int opcionAtaque)
+    {
+        arrayImagenesGeronimoPlayer = new ArrayList<>();
+        switch(opcionAtaque){
+
+            case 1:
+                for (int i = 0; i < 10; i++) {
+                    ITextureRegion imagen = cargarImagen("AnimacionesGeronimo/LotusPocus/Geronimo0" + (i) + ".png");
+                    arrayImagenesGeronimoPlayer.add(i, imagen);
+                }
+                break;
+
+            case 2:
+                for (int i = 0; i < 10; i++) {
+                    ITextureRegion imagen = cargarImagen("AnimacionesGeronimo/Momify/Momify0" + (i) + ".png");
+                    arrayImagenesGeronimoPlayer.add(i, imagen);
+                }
+                break;
+            case 3:
+                for (int i = 0; i < 8; i++) {
+                    ITextureRegion imagen = cargarImagen("AnimacionesGeronimo/Anubis/Anubis" + (i + 1) + ".png");
+                    arrayImagenesGeronimoPlayer.add(i, imagen);
+                }
+                break;
+            case 4:
+                for (int i = 0; i < 7; i++) {
+                    ITextureRegion imagen = cargarImagen("AnimacionesCurtis/Darkness/Darkness0" + (i+1) + ".png");
+                    arrayImagenesGeronimoPlayer.add(i, imagen);
+
+                }
+                break;
+            case 5:
+                for (int i = 0; i < 8; i++) {
+                    ITextureRegion imagen = cargarImagen("AnimacionesCurtis/Super/Super0" + (i) + ".png");
+                    arrayImagenesGeronimoPlayer.add(i, imagen);
+
+                }
+                break;
+
+        }
+    }
+
+
+
+    private void animacionLotusPlayer(){
+
+        registerUpdateHandler(new TimerHandler(0.3f, new ITimerCallback() {
+            @Override
+            public void onTimePassed(TimerHandler pTimerHandler) {
+                //A partir de aqui puedes agregrar las instrucciones que quieres que realice el timer
+                if (numImagenesGeronimoPlayer < 10) {
+                    spriteGeronimoAnimadoPlayer.setAlpha(0);
+
+                    if (tagSpriteChild != null)
+                        detachChild(tagSpriteChild);
+
+                    spriteFrameGeronimoPlayer = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, arrayImagenesGeronimoPlayer.get(numImagenesGeronimoPlayer));
+                    spriteFrameGeronimoPlayer.setFlippedHorizontal(true);
+                    attachChild(spriteFrameGeronimoPlayer);
+                    tagSpriteChild = spriteFrameGeronimoPlayer;
+
+                    numImagenesGeronimoPlayer++;
+                    animacionLotusPlayer();
+                } else {
+
+                    for (int i = 0; i < 10; i++) {
+
+                        arrayImagenesGeronimoPlayer.get(i).getTexture().unload();
+                    }
+                    arrayImagenesGeronimoPlayer.clear();
+                    reset();
+
+                    if(aiFirst == true){
+                        playerMove(player, ai, attackChoice);
+                        crearEscena();
+                        hideButtons();
+                    }
+                    else {
+                        crearEscena();
+                        s="Choose an action";
+                    }
+                    numImagenesGeronimoPlayer = 0;
+                }
+
+
+            }
+        }));
+    }
+
+    private void animacionMomifyPlayer(){
+
+        registerUpdateHandler(new TimerHandler(0.3f, new ITimerCallback() {
+            @Override
+            public void onTimePassed(TimerHandler pTimerHandler) {
+                if (numImagenesGeronimoPlayer < 10) {
+                    spriteGeronimoAnimadoPlayer.setAlpha(0);
+
+                    if (tagSpriteChild != null)
+                        detachChild(tagSpriteChild);
+
+                    spriteFrameGeronimoPlayer = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, arrayImagenesGeronimoPlayer.get(numImagenesGeronimoPlayer));
+                    spriteFrameGeronimoPlayer.setFlippedHorizontal(true);
+                    attachChild(spriteFrameGeronimoPlayer);
+                    tagSpriteChild = spriteFrameGeronimoPlayer;
+
+                    numImagenesGeronimoPlayer++;
+                    animacionMomifyPlayer();
+                } else {
+
+                    for (int i = 0; i < 10; i++) {
+
+                        arrayImagenesGeronimoPlayer.get(i).getTexture().unload();
+                    }
+                    arrayImagenesGeronimoPlayer.clear();
+                    reset();
+
+                    if(aiFirst == true){
+                        playerMove(player, ai, attackChoice);
+                        crearEscena();
+                        hideButtons();
+                    }
+                    else {
+                        crearEscena();
+                        s="Choose an action";
+                    }
+                    numImagenesGeronimoPlayer = 0;
+                }
+
+
+            }
+        }));
+    }
+
+    private void animacionAnubisPlayer(){
+
+        registerUpdateHandler(new TimerHandler(0.3f, new ITimerCallback() {
+            @Override
+            public void onTimePassed(TimerHandler pTimerHandler) {
+                if (numImagenesGeronimoPlayer < 8) {
+                    spriteGeronimoAnimadoPlayer.setAlpha(0);
+
+                    if (tagSpriteChild != null)
+                        detachChild(tagSpriteChild);
+
+                    spriteFrameGeronimoPlayer = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, arrayImagenesGeronimoPlayer.get(numImagenesGeronimoPlayer));
+                    spriteFrameGeronimoPlayer.setFlippedHorizontal(true);
+                    attachChild(spriteFrameGeronimoPlayer);
+                    tagSpriteChild = spriteFrameGeronimoPlayer;
+
+                    numImagenesGeronimoPlayer++;
+                    animacionAnubisPlayer();
+                } else {
+
+                    for (int i = 0; i < 8; i++) {
+                        arrayImagenesGeronimoPlayer.get(i).getTexture().unload();
+                    }
+                    arrayImagenesGeronimoPlayer.clear();
+                    reset();
+
+                    if(aiFirst == true){
+                        playerMove(player, ai, attackChoice);
+                        crearEscena();
+                        hideButtons();
+                    }
+                    else {
+                        crearEscena();
+                        s="Choose an action";
+                    }
+                    numImagenesGeronimoPlayer = 0;
+                }
+
+
+            }
+        }));
+    }
+
+
+
     // La escena se debe actualizar en este método que se repite "varias" veces por segundo
     // Aquí es donde programan TODA la acción de la escena (movimientos, choques, disparos, etc.)
     @Override
@@ -1168,50 +1398,75 @@ public class EscenaBatalla extends EscenaBase
                 dmgToDeal = superDamageCalc(player.getSuperAtk());
                 drainSuper(player);
                 dealDmg(dmgToDeal, ai);
-                checkHP(player, ai);
 
-                getImagesCurtis(5);
-                animacionSuperCurtis();
+                if(currChar ==1) {
+                    getImagesCurtis(5);
+                    animacionSuperCurtis();
+                }
+                else if(currChar==1){
+                    getImagesGeronimoPlayer(1);
+                    animacionLotusPlayer();
+                }
                 break;
             case 1:
                 s=used + player.getAtk_list()[0].getName();
                 dmgToDeal = damageCalc(player.getAtk_list()[0].getBase_dmg(), ai.getDef());
                 drainGainMP(dmgToDeal, n, player);
                 dealDmg(dmgToDeal, ai);
-                checkHP(player, ai);
 
-                getImagesCurtis(1);
-                animacionBattack();
+                if(currChar == 1) {
+                    getImagesCurtis(1);
+                    animacionBattack();
+                }
+                else if(currChar == 2){
+                    getImagesGeronimoPlayer(1);
+                    animacionLotusPlayer();
+                }
                 break;
             case 2:
                 s=used + player.getAtk_list()[1].getName();
                 dmgToDeal = damageCalc(player.getAtk_list()[1].getBase_dmg(), ai.getDef());
                 drainGainMP(dmgToDeal, n, player);
                 dealDmg(dmgToDeal, ai);
-                checkHP(player, ai);
 
-                getImagesCurtis(2);
-                animacionNight();
+                if(currChar == 1) {
+                    getImagesCurtis(2);
+                    animacionNight();
+                }
+                else if(currChar == 2){
+                    getImagesGeronimoPlayer(2);
+                    animacionMomifyPlayer();
+                }
                 break;
             case 3:
                 s=used + player.getAtk_list()[2].getName();
                 dmgToDeal = damageCalc(player.getAtk_list()[2].getBase_dmg(), ai.getDef());
                 drainGainMP(dmgToDeal, n, player);
                 dealDmg(dmgToDeal, ai);
-                checkHP(player, ai);
 
-                getImagesCurtis(3);
-                animacionChoke();
+                if(currChar==1) {
+                    getImagesCurtis(3);
+                    animacionChoke();
+                }
+                else if(currChar == 2){
+                    getImagesGeronimoPlayer(3);
+                    animacionAnubisPlayer();
+                }
                 break;
             case 4:
                 s=used + player.getAtk_list()[3].getName();
                 dmgToDeal = damageCalc(player.getAtk_list()[3].getBase_dmg(), ai.getDef());
                 drainGainMP(dmgToDeal, n, player);
                 dealDmg(dmgToDeal, ai);
-                checkHP(player, ai);
 
-                getImagesCurtis(4);
-                animacionDarkness();
+                if(currChar ==1) {
+                    getImagesCurtis(4);
+                    animacionDarkness();
+                }
+                else if(currChar == 2){
+                    getImagesGeronimoPlayer(1);
+                    animacionLotusPlayer();
+                }
                 break;
             case 5:
                 s="Not enough MP";
@@ -1244,7 +1499,7 @@ public class EscenaBatalla extends EscenaBase
                 dmgToDeal = superDamageCalc(ai.getSuperAtk());
                 drainSuper(ai);
                 dealDmg(dmgToDeal, player);
-                checkHP(player,ai);
+                //checkHP(player,ai);
 
 
                 break;
@@ -1253,7 +1508,7 @@ public class EscenaBatalla extends EscenaBase
                 dmgToDeal = damageCalc(ai.getAtk_list()[0].getBase_dmg(), player.getDef());
                 drainGainMP(dmgToDeal, n, ai);
                 dealDmg(dmgToDeal, player);
-                checkHP(player,ai);
+                //checkHP(player,ai);
 
                 getImagesGeronimo(1);
                 animacionLotusAI();
@@ -1263,7 +1518,7 @@ public class EscenaBatalla extends EscenaBase
                 dmgToDeal = damageCalc(ai.getAtk_list()[1].getBase_dmg(), player.getDef());
                 drainGainMP(dmgToDeal, n, ai);
                 dealDmg(dmgToDeal, player);
-                checkHP(player,ai);
+                //checkHP(player,ai);
 
                 getImagesGeronimo(2);
                 animacionMomifyAI();
@@ -1273,7 +1528,7 @@ public class EscenaBatalla extends EscenaBase
                 dmgToDeal = damageCalc(ai.getAtk_list()[2].getBase_dmg(), player.getDef());
                 drainGainMP(dmgToDeal, n, ai);
                 dealDmg(dmgToDeal, player);
-                checkHP(player,ai);
+                //checkHP(player,ai);
 
                 getImagesGeronimo(3);
                 animacionAnubisAI();
@@ -1283,7 +1538,7 @@ public class EscenaBatalla extends EscenaBase
                 dmgToDeal = damageCalc(ai.getAtk_list()[3].getBase_dmg(), player.getDef());
                 drainGainMP(dmgToDeal, n, ai);
                 dealDmg(dmgToDeal, player);
-                checkHP(player,ai);
+                //checkHP(player,ai);
 
                 getImagesGeronimo(1);
                 animacionLotusAI();
