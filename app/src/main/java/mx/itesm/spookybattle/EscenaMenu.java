@@ -313,6 +313,7 @@ public class EscenaMenu extends EscenaBase
         SharedPreferences.Editor editor = unlockPreferences.edit();
         editor.putBoolean("Geronimo", false);
         editor.putBoolean("Francis", false);
+        editor.putBoolean("Gus", false);
         editor.commit();
     }
 

@@ -45,7 +45,7 @@ public class Main {
 	static Attack plague = new Attack("11th Plague","Buy 10 Egyptian Plagues, Get One More For Free!", 100, 0);
 	//Creando a momia
 	public static P_Character mummy = new P_Character("Geronimo", 1, 100, 100, 4, 0, mummy_atks, plague, "Una momia cosa");
-    public static P_Character mummyAI = new P_Character("Geronimo.", 2, 100, 100, 4, 0, mummy_atks, plague, "Una momia AI");
+    public static P_Character mummyAI = new P_Character("Geronimo.", 1, 100, 100, 4, 0, mummy_atks, plague, "Una momia AI");
 
 
     //Creando ataques de momia

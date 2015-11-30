@@ -1315,7 +1315,7 @@ public class EscenaBatalla extends EscenaBase
                 break;
             case 3:
                 for (int i = 0; i < 8; i++) {
-                    ITextureRegion imagen = cargarImagen("AnimacionesFrancis/LightningBolt/LightningBolt0" + (i) + ".png");
+                    ITextureRegion imagen = cargarImagen("AnimacionesFrancis/LightningBolt/LigthningBolt0" + (i) + ".png");
                     arrayImagenesFrancisPlayer.add(i, imagen);
                 }
                 break;
@@ -1335,6 +1335,50 @@ public class EscenaBatalla extends EscenaBase
                 break;
 
         }
+    }
+
+    private void animacionStrikePlayer(){
+
+        registerUpdateHandler(new TimerHandler(0.3f, new ITimerCallback() {
+            @Override
+            public void onTimePassed(TimerHandler pTimerHandler) {
+                if (numImagenesFrancisPlayer< 8) {
+                    spriteFrancisAnimadoPlayer.setAlpha(0);
+
+                    if (tagSpriteChild != null)
+                        detachChild(tagSpriteChild);
+
+                    spriteFrameFrancisPlayer = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, arrayImagenesFrancisPlayer.get(numImagenesFrancisPlayer));
+                    spriteFrameFrancisPlayer.setFlippedHorizontal(true);
+                    attachChild(spriteFrameFrancisPlayer);
+                    tagSpriteChild = spriteFrameFrancisPlayer;
+
+                    numImagenesFrancisPlayer++;
+                    animacionStrikePlayer();
+                } else {
+
+                    for (int i = 0; i < 8; i++) {
+                        arrayImagenesFrancisPlayer.get(i).getTexture().unload();
+                    }
+                    arrayImagenesFrancisPlayer.clear();
+                    reset();
+                    checkHP(player,ai);
+
+                    if(aiFirst == false) {
+                        aiMove(player, ai);
+                        crearEscena();
+                        hideButtons();
+                    }
+                    else{
+                        crearEscena();
+                        s="Choose an action";
+                    }
+                    numImagenesFrancisPlayer = 0;
+                }
+
+
+            }
+        }));
     }
 
     private void animacionFirePlayer(){
@@ -1358,6 +1402,137 @@ public class EscenaBatalla extends EscenaBase
                 } else {
 
                     for (int i = 0; i < 7; i++) {
+                        arrayImagenesFrancisPlayer.get(i).getTexture().unload();
+                    }
+                    arrayImagenesFrancisPlayer.clear();
+                    reset();
+                    checkHP(player,ai);
+
+                    if(aiFirst == false) {
+                        aiMove(player, ai);
+                        crearEscena();
+                        hideButtons();
+                    }
+                    else{
+                        crearEscena();
+                        s="Choose an action";
+                    }
+                    numImagenesFrancisPlayer = 0;
+                }
+
+
+            }
+        }));
+    }
+
+    private void animacionAlivePlayer(){
+
+        registerUpdateHandler(new TimerHandler(0.3f, new ITimerCallback() {
+            @Override
+            public void onTimePassed(TimerHandler pTimerHandler) {
+                if (numImagenesFrancisPlayer< 9) {
+                    spriteFrancisAnimadoPlayer.setAlpha(0);
+
+                    if (tagSpriteChild != null)
+                        detachChild(tagSpriteChild);
+
+                    spriteFrameFrancisPlayer = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, arrayImagenesFrancisPlayer.get(numImagenesFrancisPlayer));
+                    spriteFrameFrancisPlayer.setFlippedHorizontal(true);
+                    attachChild(spriteFrameFrancisPlayer);
+                    tagSpriteChild = spriteFrameFrancisPlayer;
+
+                    numImagenesFrancisPlayer++;
+                    animacionAlivePlayer();
+                } else {
+
+                    for (int i = 0; i < 9; i++) {
+                        arrayImagenesFrancisPlayer.get(i).getTexture().unload();
+                    }
+                    arrayImagenesFrancisPlayer.clear();
+                    reset();
+                    checkHP(player,ai);
+
+                    if(aiFirst == false) {
+                        aiMove(player, ai);
+                        crearEscena();
+                        hideButtons();
+                    }
+                    else{
+                        crearEscena();
+                        s="Choose an action";
+                    }
+                    numImagenesFrancisPlayer = 0;
+                }
+
+
+            }
+        }));
+    }
+    private void animacionShockPlayer(){
+
+        registerUpdateHandler(new TimerHandler(0.3f, new ITimerCallback() {
+            @Override
+            public void onTimePassed(TimerHandler pTimerHandler) {
+                if (numImagenesFrancisPlayer< 8) {
+                    spriteFrancisAnimadoPlayer.setAlpha(0);
+
+                    if (tagSpriteChild != null)
+                        detachChild(tagSpriteChild);
+
+                    spriteFrameFrancisPlayer = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, arrayImagenesFrancisPlayer.get(numImagenesFrancisPlayer));
+                    spriteFrameFrancisPlayer.setFlippedHorizontal(true);
+                    attachChild(spriteFrameFrancisPlayer);
+                    tagSpriteChild = spriteFrameFrancisPlayer;
+
+                    numImagenesFrancisPlayer++;
+                    animacionShockPlayer();
+                } else {
+
+                    for (int i = 0; i < 8; i++) {
+                        arrayImagenesFrancisPlayer.get(i).getTexture().unload();
+                    }
+                    arrayImagenesFrancisPlayer.clear();
+                    reset();
+                    checkHP(player,ai);
+
+                    if(aiFirst == false) {
+                        aiMove(player, ai);
+                        crearEscena();
+                        hideButtons();
+                    }
+                    else{
+                        crearEscena();
+                        s="Choose an action";
+                    }
+                    numImagenesFrancisPlayer = 0;
+                }
+
+
+            }
+        }));
+    }
+
+    private void animacionSmashPlayer(){
+
+        registerUpdateHandler(new TimerHandler(0.3f, new ITimerCallback() {
+            @Override
+            public void onTimePassed(TimerHandler pTimerHandler) {
+                if (numImagenesFrancisPlayer< 6) {
+                    spriteFrancisAnimadoPlayer.setAlpha(0);
+
+                    if (tagSpriteChild != null)
+                        detachChild(tagSpriteChild);
+
+                    spriteFrameFrancisPlayer = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, arrayImagenesFrancisPlayer.get(numImagenesFrancisPlayer));
+                    spriteFrameFrancisPlayer.setFlippedHorizontal(true);
+                    attachChild(spriteFrameFrancisPlayer);
+                    tagSpriteChild = spriteFrameFrancisPlayer;
+
+                    numImagenesFrancisPlayer++;
+                    animacionSmashPlayer();
+                } else {
+
+                    for (int i = 0; i < 6; i++) {
                         arrayImagenesFrancisPlayer.get(i).getTexture().unload();
                     }
                     arrayImagenesFrancisPlayer.clear();
@@ -1607,6 +1782,10 @@ public class EscenaBatalla extends EscenaBase
                     getImagesGeronimoPlayer(5);
                     animacionPlaguePlayer();
                 }
+                else if(currChar==3){
+                    getImagesFrancisPlayer(5);
+                    animacionStrikePlayer();
+                }
                 break;
             case 1:
                 s=used + player.getAtk_list()[0].getName();
@@ -1621,6 +1800,10 @@ public class EscenaBatalla extends EscenaBase
                 else if(currChar == 2){
                     getImagesGeronimoPlayer(1);
                     animacionLotusPlayer();
+                }
+                else if(currChar == 3){
+                    getImagesFrancisPlayer(1);
+                    animacionFirePlayer();
                 }
                 break;
             case 2:
@@ -1637,6 +1820,10 @@ public class EscenaBatalla extends EscenaBase
                     getImagesGeronimoPlayer(2);
                     animacionMomifyPlayer();
                 }
+                else if(currChar==3){
+                    getImagesFrancisPlayer(2);
+                    animacionAlivePlayer();
+                }
                 break;
             case 3:
                 s=used + player.getAtk_list()[2].getName();
@@ -1652,6 +1839,10 @@ public class EscenaBatalla extends EscenaBase
                     getImagesGeronimoPlayer(3);
                     animacionAnubisPlayer();
                 }
+                else if(currChar==3){
+                    getImagesFrancisPlayer(3);
+                    animacionShockPlayer();
+                }
                 break;
             case 4:
                 s=used + player.getAtk_list()[3].getName();
@@ -1666,6 +1857,10 @@ public class EscenaBatalla extends EscenaBase
                 else if(currChar == 2){
                     getImagesGeronimoPlayer(1);
                     animacionLotusPlayer();
+                }
+                else if(currChar==3){
+                    getImagesFrancisPlayer(4);
+                    animacionSmashPlayer();
                 }
                 break;
             case 5:
