@@ -45,8 +45,23 @@ public class Main {
 	static Attack plague = new Attack("11th Plague","Buy 10 Egyptian Plagues, Get One More For Free!", 100, 0);
 	//Creando a momia
 	public static P_Character mummy = new P_Character("Geronimo", 1, 100, 100, 4, 0, mummy_atks, plague, "Una momia cosa");
-	
-	//Turno del jugador
+
+    //Creando ataques de momia
+    static Attack fire = new Attack("Kill It With Fire ", "Fire Bad D:", 10, 0);
+    static Attack alive = new Attack("It's Alive", "Science Is a Hell Of a Drug", 15, 10);
+    static Attack shock = new Attack("Shock Therapy", "If It Moves, We Can Fix It", 5, 2);
+    static Attack smash = new Attack("Frank Smash", "Hulk Out! Smash Out! Let's Rock!", 10, 8);
+    //metiendo ataques de frankenstein a un array
+    static Attack[] frankenstein_atks = {fire, alive, shock, smash};
+    //super ataque
+    static Attack strike = new Attack("Frankenstrike","Take That Opressive Metaphors ", 100, 0);
+    //Creando al monstruo de Frankenstein
+    public static P_Character frankenstein = new P_Character("Francis", 1, 100, 100, 4, 0, frankenstein_atks, strike, "Un monstruo");
+
+
+
+
+    //Turno del jugador
 	private void playerMove(P_Character player,P_Character ai ){
 		int dmgToDeal = 0;
 		String used = player.getName()+ " Used ";
