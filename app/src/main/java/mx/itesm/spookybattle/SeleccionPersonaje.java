@@ -40,7 +40,6 @@ public class SeleccionPersonaje extends EscenaBase
 
 
     private ITextureRegion regionImagenCurtis;
-    private ITextureRegion regionNombreCurtis;
     private ITextureRegion regionAge;
 
     private ITextureRegion regionImagenGeronimo;
@@ -70,6 +69,10 @@ public class SeleccionPersonaje extends EscenaBase
 
     SharedPreferences preferencesCurrChar;
     int currChar;
+    int CurtisLevel;
+    int GeronimoLevel;
+    int FrancisLevel;
+    int GusLevel;
 
     // Sprites sobre la escena
     private Sprite spriteFondo;
@@ -84,7 +87,6 @@ public class SeleccionPersonaje extends EscenaBase
 
 
     private final int OPCION_IMAGEN_CURTIS = 20;
-    private final int OPCION_NOMBRE_CURTIS = 30;
     private final int OPCION_AGE = 40;
 
     private final int OPCION_IMAGEN_Geronimo = 21;
@@ -106,6 +108,9 @@ public class SeleccionPersonaje extends EscenaBase
     private Text  textFrancis;
     private Text  textGus;
     private Text  TextcurrCharLevel;
+    private Text  textCharacterName;
+
+    private Font  fontNames;
     private Font  fontCurtis;
     private Font  fontGeronimo;
     private Font  fontFrancis;
@@ -158,7 +163,6 @@ public class SeleccionPersonaje extends EscenaBase
         regionBtnGusUnlocked = cargarImagen("SelectScreen/FrancisSelect.png");
         //info personajes
         regionImagenCurtis = cargarImagen("SelectScreen/DracoStand.png");
-        regionNombreCurtis = cargarImagen("SelectScreen/NameTitle.png");
         regionAge = cargarImagen("SelectScreen/AgeLevel.png");
 
 
@@ -187,12 +191,15 @@ public class SeleccionPersonaje extends EscenaBase
                 "spookyfont.ttf", 50, true,Color.parseColor("#80DFFF"));
         fontLevel = FontFactory.createFromAsset(actividadJuego.getFontManager(), actividadJuego.getTextureManager(), 1024, 1024, actividadJuego.getAssets(),
                 "spookyfont.ttf", 65, true,Color.parseColor("#800000"));
+        fontNames = FontFactory.createFromAsset(actividadJuego.getFontManager(), actividadJuego.getTextureManager(), 1024, 1024, actividadJuego.getAssets(),
+                "fontf.ttf", 100, true,Color.RED);
 
         fontCurtis.load();
         fontGeronimo.load();
         fontFrancis.load();
         fontGus.load();
         fontLevel.load();
+        fontNames.load();
 
         currentCharacter(1);
     }
@@ -217,9 +224,13 @@ public class SeleccionPersonaje extends EscenaBase
 
 
         SharedPreferences preferences = actividadJuego.getSharedPreferences("levels", Context.MODE_PRIVATE);
-        int CurtisLevel = preferences.getInt("Curtis",1);
+         CurtisLevel = preferences.getInt("Curtis",1);
+         GeronimoLevel = preferences.getInt("Geronimo",1);
+         FrancisLevel = preferences.getInt("Francis",1);
+         GusLevel = preferences.getInt("Gus",1);
 
         TextcurrCharLevel =new Text(0, 0, fontLevel,CurtisLevel +"", actividadJuego.getVertexBufferObjectManager());
+        textCharacterName = new Text(0, 0, fontNames,"CURTIS DRACOVICH", actividadJuego.getVertexBufferObjectManager());
 
         // Mostrar opciones de menú
         agregarMenu();
@@ -259,7 +270,6 @@ public class SeleccionPersonaje extends EscenaBase
 
         //info Curtis
         imagenCurtis = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_IMAGEN_CURTIS,regionImagenCurtis, actividadJuego.getVertexBufferObjectManager()), 1, 1);
-        IMenuItem nombreCurtis = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_NOMBRE_CURTIS,regionNombreCurtis,actividadJuego.getVertexBufferObjectManager()),1,1);
         IMenuItem opcionAge = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_AGE,regionAge,actividadJuego.getVertexBufferObjectManager()),1,1);
 
         //info Geronimoc
@@ -286,7 +296,6 @@ public class SeleccionPersonaje extends EscenaBase
 
         //Curtis info
         menu.addMenuItem(imagenCurtis);
-        menu.addMenuItem(nombreCurtis);
         menu.addMenuItem(opcionAge);
 
         //Geronimo info
@@ -315,7 +324,6 @@ public class SeleccionPersonaje extends EscenaBase
 
         //Curtis
         imagenCurtis.setPosition(450,100);
-        nombreCurtis.setPosition(-250,350);
         opcionAge.setPosition(425,-120);
 
         //Geronimo
@@ -338,6 +346,8 @@ public class SeleccionPersonaje extends EscenaBase
         //texto Curtis
         text.setPosition(370 - (text.getWidth() / 2), 290 - (text.getHeight() / 2));
         menu.attachChild(text);
+        textCharacterName.setPosition(-260,325);
+        menu.attachChild(textCharacterName);
 
         //Texto Geronimo
         textGeronimo.setPosition(370 - (text.getWidth() / 2), 290 - (text.getHeight() / 2));
@@ -415,6 +425,28 @@ public class SeleccionPersonaje extends EscenaBase
     protected void onManagedUpdate(float pSecondsElapsed) {
         super.onManagedUpdate(pSecondsElapsed);
         currChar = preferencesCurrChar.getInt("Currentcharacter",1);
+        String levelUpdate = "";
+        String nameCharacter= "";
+
+        if(currChar==1){
+            levelUpdate = CurtisLevel + "";
+            nameCharacter= "CURTIS DRACOVICH";
+        }
+        else if(currChar==2){
+            levelUpdate = GeronimoLevel + "";
+            nameCharacter= "GERONIMO TEPHORD";
+        }
+        else if(currChar==3){
+            levelUpdate = FrancisLevel + "";
+            nameCharacter= "VICTOR FRANCIS";
+        }
+        else if(currChar==4){
+            levelUpdate = GusLevel + "";
+            nameCharacter= "GUS PHANTOM";
+        }
+        TextcurrCharLevel.setText(levelUpdate);
+        textCharacterName.setText(nameCharacter);
+
     }
 
     private void currentCharacter(int i){

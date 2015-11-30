@@ -45,6 +45,10 @@ public class EscenaFinBatalla extends EscenaBase
             regionWinner = cargarImagen("EscenasFinales/PantallaGanadora.png");
             regionLoser = cargarImagen("EscenasFinales/PantallaPerdedora.png");
         }
+        else if (currChar == 3){
+            regionWinner = cargarImagen("EscenasFinales/FrancisGanador.png");
+            regionLoser = cargarImagen("EscenasFinales/FrancisPerdedor.png");
+        }
 
 
             SpriteWinner = cargarSprite(ControlJuego.ANCHO_CAMARA/2, ControlJuego.ALTO_CAMARA/2, regionWinner);
