@@ -96,6 +96,7 @@ public class EscenaBatalla extends EscenaBase
     // Constantes para cada opción
     private final int ATTACK = 1;
     private final int DEFEND = 2;
+    //Ataques
     private final int ATTCK1 = 1;
     private final int ATTCK2 = 2;
     private final int ATTCK3 = 3;
@@ -160,6 +161,7 @@ public class EscenaBatalla extends EscenaBase
     private ArrayList<ITextureRegion> arrayImagenes;
     private ArrayList<ITextureRegion> arrayImagenesGeronimo;
     private ArrayList<ITextureRegion> arrayImagenesGeronimoPlayer;
+    private ArrayList<ITextureRegion> arrayImagenesFrancisPlayer;
 
     SharedPreferences preferencesCurrChar;
     int currChar;
@@ -180,6 +182,9 @@ public class EscenaBatalla extends EscenaBase
         }
         else if(currChar==2){
             regionGeronimoAnimadoPlayer = cargarImagenMosaico("AnimacionesGeronimo/GeronimoWaitingSheet.png", 2723,389 ,1,7);
+        }
+        else if(currChar ==3){
+            regionFrancisAnimadoPlayer = cargarImagenMosaico("AnimacionesFrancis/FrancisWaitingSheet.png", 2010,337 ,1,6);
         }
 
         regionGeronimoAnimado =cargarImagenMosaico("AnimacionesGeronimo/GeronimoWaitingSheet.png", 2723,389 ,1,7);
@@ -205,6 +210,8 @@ public class EscenaBatalla extends EscenaBase
                 "spookyfont.ttf", 50, true, Color.parseColor("#FFFF4D"));
         fontFrancis = FontFactory.createFromAsset(actividadJuego.getFontManager(), actividadJuego.getTextureManager(), 1024, 1024, actividadJuego.getAssets(),
                 "spookyfont.ttf", 50, true,Color.parseColor("#5CD65C"));
+        fontGus = FontFactory.createFromAsset(actividadJuego.getFontManager(), actividadJuego.getTextureManager(), 1024, 1024, actividadJuego.getAssets(),
+                "spookyfont.ttf", 50, true,Color.parseColor("#80DFFF"));
 
         fontHP  = FontFactory.createFromAsset(actividadJuego.getFontManager(), actividadJuego.getTextureManager(), 1024, 1024, actividadJuego.getAssets(),
                 "numbers.ttf", 50, true, Color.RED);
@@ -220,12 +227,18 @@ public class EscenaBatalla extends EscenaBase
         //IF GERONIMO
         fontGeronimo.load();
 
+        //IF FRANCIS
+        fontFrancis.load();
+
 
         if(currChar == 1) {
             player = Main.dracula;
         }
         else if(currChar==2 ){
             player = Main.mummy;
+        }
+        else if(currChar == 3){
+            player = Main.frankenstein;
         }
        // Para resetear nivel
         //player.resetLevel();
@@ -242,7 +255,7 @@ public class EscenaBatalla extends EscenaBase
         Log.i("Leyendo nivel", "Nivel = " + playerLvl);
         Log.i("Nivel real", "Real = " + player.getLvl());
 
-        ai = Main.mummy;
+        ai = Main.mummyAI;
 
         SplayerName = player.toString();
         SAIName = ai.toString();
@@ -295,6 +308,9 @@ public class EscenaBatalla extends EscenaBase
             else if(currChar == 2){
                 TextPlayerName = new Text(0, 0, fontGeronimo, SplayerName, actividadJuego.getVertexBufferObjectManager());
             }
+            else if(currChar == 3){
+                TextPlayerName = new Text(0, 0, fontFrancis, SplayerName, actividadJuego.getVertexBufferObjectManager());
+            }
             TextAIName = new Text(0, 0, fontGeronimo, SAIName, actividadJuego.getVertexBufferObjectManager());
 
             agregarMenu();
@@ -311,13 +327,19 @@ public class EscenaBatalla extends EscenaBase
                 spriteGeronimoAnimadoPlayer.setFlippedHorizontal(true);
                 attachChild(spriteGeronimoAnimadoPlayer);
             }
+            else if (currChar == 3){
+                spriteFrancisAnimadoPlayer =new AnimatedSprite(ControlJuego.ANCHO_CAMARA / 6, ControlJuego.ALTO_CAMARA / 2 - 100, regionFrancisAnimadoPlayer, actividadJuego.getVertexBufferObjectManager());
+                spriteFrancisAnimadoPlayer.animate(500);
+                spriteFrancisAnimadoPlayer.setFlippedHorizontal(true);
+                attachChild(spriteFrancisAnimadoPlayer);
+            }
 
             spriteGeronimoAnimado = new AnimatedSprite(ControlJuego.ANCHO_CAMARA / 2 + 350, ControlJuego.ALTO_CAMARA / 2 - 80, regionGeronimoAnimado, actividadJuego.getVertexBufferObjectManager());
             spriteGeronimoAnimado.animate(500);
             attachChild(spriteGeronimoAnimado);
         }
 
-        }   //agregarCuadroVida();
+    }   //agregarCuadroVida();
 
     private void savelevel(P_Character player) {
         SharedPreferences preferences = actividadJuego.getSharedPreferences("levels", Context.MODE_PRIVATE);
@@ -325,7 +347,6 @@ public class EscenaBatalla extends EscenaBase
         editor.putInt(player.getName(), player.getLvl());
         editor.commit();
     }
-
 
 
     /*private void agregarCuadroVida() {
@@ -1104,6 +1125,7 @@ public class EscenaBatalla extends EscenaBase
                         detachChild(tagSpriteChild);
 
                     spriteFrameGeronimoPlayer = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, arrayImagenesGeronimoPlayer.get(numImagenesGeronimoPlayer));
+                    spriteFrameGeronimoPlayer.setFlippedHorizontal(true);
                     attachChild(spriteFrameGeronimoPlayer);
                     tagSpriteChild = spriteFrameGeronimoPlayer;
 
@@ -1116,6 +1138,7 @@ public class EscenaBatalla extends EscenaBase
                     }
                     arrayImagenesGeronimoPlayer.clear();
                     reset();
+                    checkHP(player,ai);
 
                     if(aiFirst == false) {
                         aiMove(player, ai);
@@ -1270,6 +1293,93 @@ public class EscenaBatalla extends EscenaBase
         }));
     }
 
+    ///Animaciones Francis Player///
+
+    private void getImagesFrancisPlayer(int opcionAtaque)
+    {
+        arrayImagenesFrancisPlayer = new ArrayList<>();
+        switch(opcionAtaque){
+
+            case 1:
+                for (int i = 0; i < 7; i++) {
+                    ITextureRegion imagen = cargarImagen("AnimacionesFrancis/Fire/Fire0" + (i) + ".png");
+                    arrayImagenesFrancisPlayer.add(i, imagen);
+                }
+                break;
+
+            case 2:
+                for (int i = 0; i < 9; i++) {
+                    ITextureRegion imagen = cargarImagen("AnimacionesFrancis/Lightning/Lightning0" + (i) + ".png");
+                    arrayImagenesFrancisPlayer.add(i, imagen);
+                }
+                break;
+            case 3:
+                for (int i = 0; i < 8; i++) {
+                    ITextureRegion imagen = cargarImagen("AnimacionesFrancis/LightningBolt/LightningBolt0" + (i) + ".png");
+                    arrayImagenesFrancisPlayer.add(i, imagen);
+                }
+                break;
+            case 4:
+                for (int i = 0; i < 6; i++) {
+                    ITextureRegion imagen = cargarImagen("AnimacionesFrancis/Rocks/Rocks0" + (i) + ".png");
+                    arrayImagenesFrancisPlayer.add(i, imagen);
+
+                }
+                break;
+            case 5:
+                for (int i = 0; i < 8; i++) {
+                    ITextureRegion imagen = cargarImagen("AnimacionesFrancis/Super/Super0" + (i) + ".png");
+                    arrayImagenesFrancisPlayer.add(i, imagen);
+
+                }
+                break;
+
+        }
+    }
+
+    private void animacionFirePlayer(){
+
+        registerUpdateHandler(new TimerHandler(0.3f, new ITimerCallback() {
+            @Override
+            public void onTimePassed(TimerHandler pTimerHandler) {
+                if (numImagenesFrancisPlayer< 7) {
+                    spriteFrancisAnimadoPlayer.setAlpha(0);
+
+                    if (tagSpriteChild != null)
+                        detachChild(tagSpriteChild);
+
+                    spriteFrameFrancisPlayer = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, arrayImagenesFrancisPlayer.get(numImagenesFrancisPlayer));
+                    spriteFrameFrancisPlayer.setFlippedHorizontal(true);
+                    attachChild(spriteFrameFrancisPlayer);
+                    tagSpriteChild = spriteFrameFrancisPlayer;
+
+                    numImagenesFrancisPlayer++;
+                    animacionFirePlayer();
+                } else {
+
+                    for (int i = 0; i < 7; i++) {
+                        arrayImagenesFrancisPlayer.get(i).getTexture().unload();
+                    }
+                    arrayImagenesFrancisPlayer.clear();
+                    reset();
+                    checkHP(player,ai);
+
+                    if(aiFirst == false) {
+                        aiMove(player, ai);
+                        crearEscena();
+                        hideButtons();
+                    }
+                    else{
+                        crearEscena();
+                        s="Choose an action";
+                    }
+                    numImagenesFrancisPlayer = 0;
+                }
+
+
+            }
+        }));
+    }
 
 
     // La escena se debe actualizar en este método que se repite "varias" veces por segundo
