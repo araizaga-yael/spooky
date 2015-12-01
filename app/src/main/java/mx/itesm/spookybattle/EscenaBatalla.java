@@ -187,6 +187,8 @@ public class EscenaBatalla extends EscenaBase
 
     IMenuItem DynamicLifeBarAI;
     IMenuItem DynamicMagicBarAI;
+    private float scale;
+
 
     boolean attacking = false;
 
@@ -605,7 +607,7 @@ public class EscenaBatalla extends EscenaBase
 
         DynamicLifeBarPlayer = new ScaleMenuItemDecorator(new SpriteMenuItem(DYNLIFEBARPLYR,regionDynamicLifeBarPlayer, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
         DynamicLifeBarPlayer.setScale(.6f);
-        DynamicLifeBarPlayer.setPosition(-450, 458);
+        DynamicLifeBarPlayer.setPosition(-595, 458);
         menu.attachChild(DynamicLifeBarPlayer);
         DynamicMagicBarPlayer =  new ScaleMenuItemDecorator(new SpriteMenuItem(DYNMAGICBARPLYR,regionDynamicMagicBarPlayer, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
         DynamicMagicBarPlayer.setScale(.6f);
@@ -614,7 +616,7 @@ public class EscenaBatalla extends EscenaBase
 
         DynamicLifeBarAI = new ScaleMenuItemDecorator(new SpriteMenuItem(DYNLIFEBARAI,regionDynamicLifeBarAI, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
         DynamicLifeBarAI.setScale(.6f);
-        DynamicLifeBarAI.setPosition(310, 458);
+        DynamicLifeBarAI.setPosition(165, 458);
         menu.attachChild(DynamicLifeBarAI);
         DynamicMagicBarAI =  new ScaleMenuItemDecorator(new SpriteMenuItem(DYNMAGICBARAIA,regionDynamicMagicBarAI, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
         DynamicMagicBarAI.setScale(.6f);
@@ -622,14 +624,14 @@ public class EscenaBatalla extends EscenaBase
         menu.attachChild(DynamicMagicBarAI);
 
         ///POINTER
-        /*
-        float prevPos = DynamicLifeBarPlayer.getX();
-        DynamicLifeBarPlayer.setWidth(479f /2);
-        DynamicLifeBarPlayer.setX(prevPos - (479f /2));
-        */
+        //DynamicLifeBarPlayer.setWidth(DynamicLifeBarPlayer.getWidth() * .9f);
+        //DynamicLifeBarPlayer.setX(prevPos - (479f /2));
+
         if(turn == 1) {
-            universalWidth = DynamicMagicBarPlayer.getWidth();
+            universalWidth = DynamicLifeBarPlayer.getWidth();
         }
+        Log.i("Width", universalWidth+"");
+
 
         menu.attachChild(TextPlayerName);
         menu.attachChild(TextAIName);
@@ -1875,7 +1877,6 @@ public class EscenaBatalla extends EscenaBase
 
             text.setColor(0f, 1f, 0f);
 
-            //text.setPosition(800 - (text.getWidth() / 2), 750 - (text.getHeight() / 2));
             text.setPosition(650 , 750);
 
             TextPlayerHP.setPosition(400, 570);
@@ -1884,7 +1885,12 @@ public class EscenaBatalla extends EscenaBase
             TextPlayerMP.setPosition(400, 525);
             TextAIMP.setPosition(1160, 525);
 
-            //DynamicLifeBarPlayer.setWidth(universalWidth -(universalWidth *(player.getHP()/pStats[0])));
+            DynamicLifeBarPlayer.setWidth((universalWidth * player.getHP())/pStats[0]);
+            DynamicLifeBarAI.setWidth((universalWidth * ai.getHP())/aiStats[0]);
+
+            DynamicMagicBarPlayer.setWidth((universalWidth * player.getMP())/pStats[1]);
+            DynamicMagicBarAI.setWidth((universalWidth * ai.getMP())/aiStats[1]);
+
 
             agregaTexto(s);
         }
