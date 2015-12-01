@@ -162,6 +162,8 @@ public class EscenaBatalla extends EscenaBase
     private ArrayList<ITextureRegion> arrayImagenesGeronimo;
     private ArrayList<ITextureRegion> arrayImagenesGeronimoPlayer;
     private ArrayList<ITextureRegion> arrayImagenesFrancisPlayer;
+    private ArrayList<ITextureRegion> arrayImagenesGusPlayer;
+
 
     SharedPreferences preferencesCurrChar;
     int currChar;
@@ -185,6 +187,9 @@ public class EscenaBatalla extends EscenaBase
         }
         else if(currChar ==3){
             regionFrancisAnimadoPlayer = cargarImagenMosaico("AnimacionesFrancis/FrancisWaitingSheet.png", 2010,337 ,1,6);
+        }
+        else if(currChar ==4){
+            regionGusAnimadoPlayer = cargarImagenMosaico("AnimacionesGuss/GusWaitingSheet.png", 2010,337 ,1,6);
         }
 
         regionGeronimoAnimado =cargarImagenMosaico("AnimacionesGeronimo/GeronimoWaitingSheet.png", 2723,389 ,1,7);
@@ -230,6 +235,9 @@ public class EscenaBatalla extends EscenaBase
         //IF FRANCIS
         fontFrancis.load();
 
+        //IF GUS
+        fontGus.load();
+
 
         if(currChar == 1) {
             player = Main.dracula;
@@ -239,6 +247,9 @@ public class EscenaBatalla extends EscenaBase
         }
         else if(currChar == 3){
             player = Main.frankenstein;
+        }
+        else if(currChar == 4){
+            player = Main.ghost;
         }
        // Para resetear nivel
         //player.resetLevel();
@@ -260,7 +271,9 @@ public class EscenaBatalla extends EscenaBase
         SplayerName = player.toString();
         SAIName = ai.toString();
 
+        //MODIFICAR
         if(ai.getName().toLowerCase().equalsIgnoreCase(player.getName())){SAIName += "?"; }
+        ////
 
         SplayerstartingHP = player.getHP() +"";
         SAIStartingHP = ai.getHP()+ "";
@@ -311,6 +324,10 @@ public class EscenaBatalla extends EscenaBase
             else if(currChar == 3){
                 TextPlayerName = new Text(0, 0, fontFrancis, SplayerName, actividadJuego.getVertexBufferObjectManager());
             }
+            else if(currChar == 4){
+                TextPlayerName = new Text(0, 0, fontGus, SplayerName, actividadJuego.getVertexBufferObjectManager());
+            }
+
             TextAIName = new Text(0, 0, fontGeronimo, SAIName, actividadJuego.getVertexBufferObjectManager());
 
             agregarMenu();
@@ -332,6 +349,12 @@ public class EscenaBatalla extends EscenaBase
                 spriteFrancisAnimadoPlayer.animate(500);
                 spriteFrancisAnimadoPlayer.setFlippedHorizontal(true);
                 attachChild(spriteFrancisAnimadoPlayer);
+            }
+            else if (currChar == 4){
+                spriteGusAnimadoPlayer =new AnimatedSprite(ControlJuego.ANCHO_CAMARA / 6, ControlJuego.ALTO_CAMARA / 2 - 100, regionGusAnimadoPlayer, actividadJuego.getVertexBufferObjectManager());
+                spriteGusAnimadoPlayer.animate(500);
+                spriteGusAnimadoPlayer.setFlippedHorizontal(true);
+                attachChild(spriteGusAnimadoPlayer);
             }
 
             spriteGeronimoAnimado = new AnimatedSprite(ControlJuego.ANCHO_CAMARA / 2 + 350, ControlJuego.ALTO_CAMARA / 2 - 80, regionGeronimoAnimado, actividadJuego.getVertexBufferObjectManager());
@@ -1549,6 +1572,94 @@ public class EscenaBatalla extends EscenaBase
                         s="Choose an action";
                     }
                     numImagenesFrancisPlayer = 0;
+                }
+
+
+            }
+        }));
+    }
+
+    ///Animaciones Gus Player///
+
+    private void getImagesGusPlayer(int opcionAtaque)
+    {
+        arrayImagenesGusPlayer = new ArrayList<>();
+        switch(opcionAtaque){
+
+            case 1:
+                for (int i = 0; i < 7; i++) {
+                    ITextureRegion imagen = cargarImagen("AnimacionesGus/Boom/Boom0" + (i) + ".png");
+                    arrayImagenesGusPlayer.add(i, imagen);
+                }
+                break;
+
+            case 2:
+                for (int i = 0; i < 9; i++) {
+                    ITextureRegion imagen = cargarImagen("AnimacionesGus/Booty/Booty0" + (i) + ".png");
+                    arrayImagenesGusPlayer.add(i, imagen);
+                }
+                break;
+            case 3:
+                for (int i = 0; i < 8; i++) {
+                    ITextureRegion imagen = cargarImagen("AnimacionesGus/Boogaloo/Boogaloo0" + (i) + ".png");
+                    arrayImagenesGusPlayer.add(i, imagen);
+                }
+                break;
+            case 4:
+                for (int i = 0; i < 6; i++) {
+                    ITextureRegion imagen = cargarImagen("AnimacionesGus/Taboo/Taboo0" + (i) + ".png");
+                    arrayImagenesGusPlayer.add(i, imagen);
+
+                }
+                break;
+            case 5:
+                for (int i = 0; i < 8; i++) {
+                    ITextureRegion imagen = cargarImagen("AnimacionesGus/Super/Super0" + (i) + ".png");
+                    arrayImagenesGusPlayer.add(i, imagen);
+
+                }
+                break;
+
+        }
+    }
+
+    private void animacionBoomPlayer(){
+
+        registerUpdateHandler(new TimerHandler(0.3f, new ITimerCallback() {
+            @Override
+            public void onTimePassed(TimerHandler pTimerHandler) {
+                if (numImagenesGusPlayer< 6) {
+                    spriteGusAnimadoPlayer.setAlpha(0);
+
+                    if (tagSpriteChild != null)
+                        detachChild(tagSpriteChild);
+
+                    spriteFrameGusPlayer = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, arrayImagenesGusPlayer.get(numImagenesGusPlayer));
+                    spriteFrameGusPlayer.setFlippedHorizontal(true);
+                    attachChild(spriteFrameGusPlayer);
+                    tagSpriteChild = spriteFrameGusPlayer;
+
+                    numImagenesFrancisPlayer++;
+                    animacionBoomPlayer();
+                } else {
+
+                    for (int i = 0; i < 6; i++) {
+                        arrayImagenesGusPlayer.get(i).getTexture().unload();
+                    }
+                    arrayImagenesGusPlayer.clear();
+                    reset();
+                    checkHP(player,ai);
+
+                    if(aiFirst == false) {
+                        aiMove(player, ai);
+                        crearEscena();
+                        hideButtons();
+                    }
+                    else{
+                        crearEscena();
+                        s="Choose an action";
+                    }
+                    numImagenesGusPlayer = 0;
                 }
 
 
