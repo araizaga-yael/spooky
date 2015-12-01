@@ -3,7 +3,6 @@ package mx.itesm.spookybattle;
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.entity.IEntity;
-import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.scene.menu.MenuScene;
 import org.andengine.entity.scene.menu.item.IMenuItem;
 import org.andengine.entity.scene.menu.item.SpriteMenuItem;
@@ -51,6 +50,11 @@ public class EscenaBatalla extends EscenaBase
     private ITextureRegion regionLifeBarAI;
     private ITextureRegion regionMagicBarAI;
 
+    private ITextureRegion regionDynamicLifeBarPlayer;
+    private ITextureRegion regionDynamicMagicBarPlayer;
+    private ITextureRegion regionDynamicLifeBarAI;
+    private ITextureRegion regionDynamicMagicBarAI;
+
     //SpriteAnimado
     private AnimatedSprite spriteCurtisAnimado;
     private TiledTextureRegion regionCurtisAnimado;
@@ -66,8 +70,6 @@ public class EscenaBatalla extends EscenaBase
 
     private AnimatedSprite spriteGusAnimadoPlayer;
     private TiledTextureRegion regionGusAnimadoPlayer;
-
-
 
     //cosas de texto
     private BitmapTextureAtlas mFontTexture;
@@ -91,10 +93,8 @@ public class EscenaBatalla extends EscenaBase
     private Text  TextAIHP;
     private Text  TextAIMP;
 
-
     // Sprites sobre la escena
     private Sprite spriteFondo;
-
 
     // Un menú de tipo SceneMenu
     private MenuScene menu;     // Contenedor de las opciones
@@ -112,6 +112,12 @@ public class EscenaBatalla extends EscenaBase
     private final int MAGICBARPLYR = 220;
     private final int LIFEBARAI = 121;
     private final int MAGICBARAIA = 221;
+    private final int DYNLIFEBARPLYR = 130;
+    private final int DYNMAGICBARPLYR = 230;
+    private final int DYNLIFEBARAI = 131;
+    private final int DYNMAGICBARAIA = 231;
+
+    private float universalWidth;
 
     //Logica del juego /////
     private boolean charChange = false;
@@ -140,9 +146,6 @@ public class EscenaBatalla extends EscenaBase
     String SplayerMP;
     String SAIMP;
 
-
-
-
     //BOTONES
     IMenuItem opcionAttack;
     IMenuItem opcionDefense;
@@ -159,6 +162,12 @@ public class EscenaBatalla extends EscenaBase
 
     IMenuItem LifeBarAI;
     IMenuItem MagicBarAI;
+
+    IMenuItem DynamicLifeBarPlayer;
+    IMenuItem DynamicMagicBarPlayer;
+
+    IMenuItem DynamicLifeBarAI;
+    IMenuItem DynamicMagicBarAI;
 
     boolean attacking = false;
 
@@ -225,6 +234,11 @@ public class EscenaBatalla extends EscenaBase
         regionMagicBarPlayer = cargarImagen("Batalla1/MagicBarBlack.png");
         regionLifeBarAI = cargarImagen("Batalla1/LifeBarBlack.png");
         regionMagicBarAI = cargarImagen("Batalla1/MagicBarBlack.png");
+
+        regionDynamicLifeBarPlayer =cargarImagen("Batalla1/LifeBar.png");
+        regionDynamicMagicBarPlayer =cargarImagen("Batalla1/MagicBar.png");
+        regionDynamicLifeBarAI =cargarImagen("Batalla1/LifeBar.png");
+        regionDynamicMagicBarAI =cargarImagen("Batalla1/MagicBar.png");
 
         numImagenes = 0;
 
@@ -481,6 +495,31 @@ public class EscenaBatalla extends EscenaBase
         MagicBarAI.setScale(.6f);
         MagicBarAI.setPosition(310, 425);
         menu.attachChild(MagicBarAI);
+
+        DynamicLifeBarPlayer = new ScaleMenuItemDecorator(new SpriteMenuItem(DYNLIFEBARPLYR,regionDynamicLifeBarPlayer, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
+        DynamicLifeBarPlayer.setScale(.6f);
+        DynamicLifeBarPlayer.setPosition(-450, 458);
+        menu.attachChild(DynamicLifeBarPlayer);
+        DynamicMagicBarPlayer =  new ScaleMenuItemDecorator(new SpriteMenuItem(DYNMAGICBARPLYR,regionDynamicMagicBarPlayer, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
+        DynamicMagicBarPlayer.setScale(.6f);
+        DynamicMagicBarPlayer.setPosition(-450, 413);
+        menu.attachChild(DynamicMagicBarPlayer);
+
+        DynamicLifeBarAI = new ScaleMenuItemDecorator(new SpriteMenuItem(DYNLIFEBARAI,regionDynamicLifeBarAI, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
+        DynamicLifeBarAI.setScale(.6f);
+        DynamicLifeBarAI.setPosition(310, 458);
+        menu.attachChild(DynamicLifeBarAI);
+        DynamicMagicBarAI =  new ScaleMenuItemDecorator(new SpriteMenuItem(DYNMAGICBARAIA,regionDynamicMagicBarAI, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
+        DynamicMagicBarAI.setScale(.6f);
+        DynamicMagicBarAI.setPosition(310, 413);
+        menu.attachChild(DynamicMagicBarAI);
+
+        if(turn == 1) {
+            universalWidth = DynamicMagicBarPlayer.getWidth();
+        }
+
+        Log.i("Width universal", universalWidth + "");
+        Log.i("Width del cuadro", DynamicLifeBarPlayer.getWidth() + "");
 
         menu.attachChild(TextPlayerName);
         menu.attachChild(TextAIName);
@@ -1724,18 +1763,18 @@ public class EscenaBatalla extends EscenaBase
             this.detachChild(TextPlayerMP);
             this.detachChild(TextAIMP);
 
-
             text.setColor(0f, 1f, 0f);
 
-            text.setPosition(800 - (text.getWidth() / 2), 750 - (text.getHeight() / 2));
+            //text.setPosition(800 - (text.getWidth() / 2), 750 - (text.getHeight() / 2));
+            text.setPosition(650 , 750);
 
-            //POINTER
             TextPlayerHP.setPosition(400, 570);
             TextAIHP.setPosition(1160, 570);
 
             TextPlayerMP.setPosition(400, 525);
             TextAIMP.setPosition(1160, 525);
 
+            //DynamicLifeBarPlayer.setWidth(universalWidth -(universalWidth *(player.getHP()/pStats[0])));
 
             agregaTexto(s);
         }
@@ -1771,6 +1810,7 @@ public class EscenaBatalla extends EscenaBase
         regionFondo = null;
     }
 
+    //POINTER
     private void hideButtons(){
 
         // BUG Nota, esto regresa null pointer si se llama al metodo cuando se defiende despues de el super de una enemigo
@@ -1798,6 +1838,11 @@ public class EscenaBatalla extends EscenaBase
         MagicBarPlayer.setVisible(false);
         LifeBarAI.setVisible(false);
         MagicBarAI.setVisible(false);
+
+        DynamicLifeBarPlayer.setVisible(false);
+        DynamicMagicBarPlayer.setVisible(false);
+        DynamicLifeBarAI.setVisible(false);
+        DynamicMagicBarAI.setVisible(false);
     }
 
     /////////LOGICA DEL JUEGO //////////////////
