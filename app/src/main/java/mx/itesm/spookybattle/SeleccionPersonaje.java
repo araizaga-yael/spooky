@@ -41,13 +41,9 @@ public class SeleccionPersonaje extends EscenaBase
 
     private ITextureRegion regionImagenGeronimo;
 
-
     private ITextureRegion regionImagenFrancis;
 
-
     private ITextureRegion regionImagenGus;
-
-
 
 
     private ITextureRegion regionSelectTitle;

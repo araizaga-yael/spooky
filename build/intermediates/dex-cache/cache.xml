@@ -2,39 +2,39 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\Juan Manuel\Documents\GitHub\spooky\app\build\intermediates\exploded-aar\spooky\org.andengine\unspecified\jars\classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="8420ffad62c2ff4188385ed367b5c881a190a0f5">
-        <dex dex="C:\Users\Juan Manuel\Documents\GitHub\spooky\app\build\intermediates\pre-dexed\debug\classes-5cf163c80ace191830cb6836a04130db19901d7e.jar" />
-    </item>
-    <item
-        jar="C:\Users\Juan Manuel\Documents\GitHub\spooky\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.1\jars\libs\internal_impl-22.2.1.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="c471eaaba13ff64f6e0383d1c30a9cdc9a97efeb">
-        <dex dex="C:\Users\Juan Manuel\Documents\GitHub\spooky\app\build\intermediates\pre-dexed\debug\internal_impl-22.2.1-9579385d204cab18b8c201d64c8d84d0eafe9ee9.jar" />
-    </item>
-    <item
-        jar="C:\Users\Juan Manuel\Documents\GitHub\spooky\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.2.1\jars\classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="4486e953d1f35f8ccab098b1dd67146366d5f731">
-        <dex dex="C:\Users\Juan Manuel\Documents\GitHub\spooky\app\build\intermediates\pre-dexed\debug\classes-1c2e5ba817e765f09782aba2e5a485b744e17231.jar" />
-    </item>
-    <item
-        jar="C:\Users\Juan Manuel\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.2.1\support-annotations-22.2.1.jar"
+        jar="C:\Users\Yael\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.2.1\support-annotations-22.2.1.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="61a0ff5c29295ec56d7e0bd3d25d95dbf71b4b2b">
-        <dex dex="C:\Users\Juan Manuel\Documents\GitHub\spooky\app\build\intermediates\pre-dexed\debug\support-annotations-22.2.1-c796bb4be5e4af9db8767b51671e232cea875ee9.jar" />
+        <dex dex="C:\Users\Yael\Desktop\spooky\app\build\intermediates\pre-dexed\debug\support-annotations-22.2.1-dac626bd6f6520d5038a1408e250c5fc59ea18cb.jar" />
     </item>
     <item
-        jar="C:\Users\Juan Manuel\Documents\GitHub\spooky\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.1\jars\classes.jar"
+        jar="C:\Users\Yael\Desktop\spooky\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.1\jars\libs\internal_impl-22.2.1.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="c471eaaba13ff64f6e0383d1c30a9cdc9a97efeb">
+        <dex dex="C:\Users\Yael\Desktop\spooky\app\build\intermediates\pre-dexed\debug\internal_impl-22.2.1-205698f2f001dab826d96a6bac0e4345c1fe0d0b.jar" />
+    </item>
+    <item
+        jar="C:\Users\Yael\Desktop\spooky\app\build\intermediates\exploded-aar\spooky\org.andengine\unspecified\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="cd929ce1ccc3ef79bf711af21dcf458a73f00dd2">
+        <dex dex="C:\Users\Yael\Desktop\spooky\app\build\intermediates\pre-dexed\debug\classes-d382dfe63f7f918606d0fe7004b9300f7addf127.jar" />
+    </item>
+    <item
+        jar="C:\Users\Yael\Desktop\spooky\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.2.1\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4486e953d1f35f8ccab098b1dd67146366d5f731">
+        <dex dex="C:\Users\Yael\Desktop\spooky\app\build\intermediates\pre-dexed\debug\classes-bb4e745ba1fdfcaf4b18ffc22c910d81ce2ceed6.jar" />
+    </item>
+    <item
+        jar="C:\Users\Yael\Desktop\spooky\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.1\jars\classes.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="f8efd0096475e0daf054267b61544e10dc776503">
-        <dex dex="C:\Users\Juan Manuel\Documents\GitHub\spooky\app\build\intermediates\pre-dexed\debug\classes-0fc2c3a4173d0fc904abe1cd367d7ea7ad5f1a63.jar" />
+        <dex dex="C:\Users\Yael\Desktop\spooky\app\build\intermediates\pre-dexed\debug\classes-f610e2c810d80df0fd4985d1eeac394b287e3952.jar" />
     </item>
 
 </items>

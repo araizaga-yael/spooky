@@ -621,12 +621,15 @@ public class EscenaBatalla extends EscenaBase
         DynamicMagicBarAI.setPosition(310, 413);
         menu.attachChild(DynamicMagicBarAI);
 
+        ///POINTER
+        /*
+        float prevPos = DynamicLifeBarPlayer.getX();
+        DynamicLifeBarPlayer.setWidth(479f /2);
+        DynamicLifeBarPlayer.setX(prevPos - (479f /2));
+        */
         if(turn == 1) {
             universalWidth = DynamicMagicBarPlayer.getWidth();
         }
-
-        Log.i("Width universal", universalWidth + "");
-        Log.i("Width del cuadro", DynamicLifeBarPlayer.getWidth() + "");
 
         menu.attachChild(TextPlayerName);
         menu.attachChild(TextAIName);

@@ -10,6 +10,7 @@ public class EscenaAcercaDe extends EscenaBase
 {
     // Regiones para imágenes
     private ITextureRegion regionFondo;
+
     // Sprite para el fondo
     private Sprite spriteFondo;
 
