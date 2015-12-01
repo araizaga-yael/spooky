@@ -3,12 +3,24 @@ package mx.itesm.spookybattle;
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.entity.IEntity;
+<<<<<<< Updated upstream
+=======
+import org.andengine.entity.particle.BatchedSpriteParticleSystem;
+import org.andengine.entity.particle.emitter.CircleParticleEmitter;
+import org.andengine.entity.particle.initializer.AccelerationParticleInitializer;
+import org.andengine.entity.particle.initializer.ExpireParticleInitializer;
+import org.andengine.entity.particle.initializer.ScaleParticleInitializer;
+import org.andengine.entity.particle.initializer.VelocityParticleInitializer;
+import org.andengine.entity.particle.modifier.AlphaParticleModifier;
+import org.andengine.entity.primitive.Rectangle;
+>>>>>>> Stashed changes
 import org.andengine.entity.scene.menu.MenuScene;
 import org.andengine.entity.scene.menu.item.IMenuItem;
 import org.andengine.entity.scene.menu.item.SpriteMenuItem;
 import org.andengine.entity.scene.menu.item.decorator.ScaleMenuItemDecorator;
 import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.entity.sprite.Sprite;
+import org.andengine.entity.sprite.UncoloredSprite;
 import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.entity.text.Text;
 import org.andengine.opengl.font.Font;
@@ -36,7 +48,8 @@ import java.util.Timer;
 public class EscenaBatalla extends EscenaBase
 {
     // Regiones para las imágenes de la escena
-    private ITextureRegion regionFondo;
+    private ITextureRegion regionFondoCielo;
+    private ITextureRegion regionFondoCasas;
     private ITextureRegion regionBtnAtk;
     private ITextureRegion regionBtnDef;
     private ITextureRegion regionBtnAtk1;
@@ -50,10 +63,14 @@ public class EscenaBatalla extends EscenaBase
     private ITextureRegion regionLifeBarAI;
     private ITextureRegion regionMagicBarAI;
 
+<<<<<<< Updated upstream
     private ITextureRegion regionDynamicLifeBarPlayer;
     private ITextureRegion regionDynamicMagicBarPlayer;
     private ITextureRegion regionDynamicLifeBarAI;
     private ITextureRegion regionDynamicMagicBarAI;
+=======
+    private ITextureRegion regionNubeNegra;
+>>>>>>> Stashed changes
 
     //SpriteAnimado
     private AnimatedSprite spriteCurtisAnimado;
@@ -71,6 +88,15 @@ public class EscenaBatalla extends EscenaBase
     private AnimatedSprite spriteGusAnimadoPlayer;
     private TiledTextureRegion regionGusAnimadoPlayer;
 
+<<<<<<< Updated upstream
+=======
+    private AnimatedSprite spriteGirlAnimado;
+    private TiledTextureRegion regionGirlAnimado;
+
+
+
+
+>>>>>>> Stashed changes
     //cosas de texto
     private BitmapTextureAtlas mFontTexture;
     private Text  text;
@@ -94,7 +120,8 @@ public class EscenaBatalla extends EscenaBase
     private Text  TextAIMP;
 
     // Sprites sobre la escena
-    private Sprite spriteFondo;
+    private Sprite spriteFondoCielo;
+    private Sprite spriteFondoCasas;
 
     // Un menú de tipo SceneMenu
     private MenuScene menu;     // Contenedor de las opciones
@@ -204,31 +231,51 @@ public class EscenaBatalla extends EscenaBase
         Log.i("Personaje Actual", currChar + "");
 
         // Fondo
-        regionFondo = cargarImagen("Batalla1/FondosBatalla1.png");
+        regionFondoCielo = cargarImagen("MenuPrincipal/MenuPrincipalCielo.png");
+        regionFondoCasas =  cargarImagen("Batalla1/CasasBatalla1.png");
+        regionNubeNegra = cargarImagen("MenuPrincipal/cloud_black.png");
 
         if(currChar == 1) {
             regionCurtisAnimado = cargarImagenMosaico("AnimacionesCurtis/WaitingBattle/CurtisWaitingSheet.png", 1986, 331, 1, 6);
+            regionBtnAtk = cargarImagen("BotonesCurtis/BotonAttack.png");
+            regionBtnDef = cargarImagen("BotonesCurtis/BotonDefense.png");
+
+            regionBtnAtk1 = cargarImagen("BotonesCurtis/BotonCurtisAtt4.png");
+            regionBtnAtk2 = cargarImagen("BotonesCurtis/BotonCurtisAtt3.png");
+            regionBtnAtk3 = cargarImagen("BotonesCurtis/BotonCurtisAtt2.png");
+            regionBtnAtk4 = cargarImagen("BotonesCurtis/BotonCurtisAtt1.png");
+            regionBtnAtk5 = cargarImagen("BotonesCurtis/BotonSuper.png");
         }
         else if(currChar==2){
             regionGeronimoAnimadoPlayer = cargarImagenMosaico("AnimacionesGeronimo/GeronimoWaitingSheet.png", 2723,389 ,1,7);
         }
         else if(currChar ==3){
             regionFrancisAnimadoPlayer = cargarImagenMosaico("AnimacionesFrancis/FrancisWaitingSheet.png", 2010,337 ,1,6);
+            regionBtnAtk = cargarImagen("BotonesFrancis/BotonAttack.png");
+            regionBtnDef = cargarImagen("BotonesFrancis/BotonDefense.png");
+
+            regionBtnAtk1 = cargarImagen("BotonesFrancis/BotonFire.png");
+            regionBtnAtk2 = cargarImagen("BotonesFrancis/BotonShock.png");
+            regionBtnAtk3 = cargarImagen("BotonesFrancis/BotonAlive.png");
+            regionBtnAtk4 = cargarImagen("BotonesFrancis/BotonSmash.png");
+            regionBtnAtk5 = cargarImagen("BotonesFrancis/BotonSuperFrancis.png");
         }
         else if(currChar ==4){
             regionGusAnimadoPlayer = cargarImagenMosaico("AnimacionesGuss/GusWaitingSheet.png", 2010,337 ,1,6);
         }
 
-        regionGeronimoAnimado =cargarImagenMosaico("AnimacionesGeronimo/GeronimoWaitingSheet.png", 2723,389 ,1,7);
+        regionGeronimoAnimado =cargarImagenMosaico("AnimacionesGeronimo/GeronimoWaitingSheet.png", 2723, 389, 1, 7);
 
-        regionBtnAtk = cargarImagen("BotonesCurtis/BotonAttack.png");
-        regionBtnDef = cargarImagen("BotonesCurtis/BotonDefense.png");
+        regionGirlAnimado = cargarImagenMosaico("Batalla1/GirlSpriteSheet.png", 1026, 171, 1, 6);
 
-        regionBtnAtk1 = cargarImagen("BotonesCurtis/BotonCurtisAtt4.png");
-        regionBtnAtk2 = cargarImagen("BotonesCurtis/BotonCurtisAtt3.png");
-        regionBtnAtk3 = cargarImagen("BotonesCurtis/BotonCurtisAtt2.png");
-        regionBtnAtk4 = cargarImagen("BotonesCurtis/BotonCurtisAtt1.png");
-        regionBtnAtk5 = cargarImagen("BotonesCurtis/BotonSuper.png");
+        //regionBtnAtk = cargarImagen("BotonesCurtis/BotonAttack.png");
+        //regionBtnDef = cargarImagen("BotonesCurtis/BotonDefense.png");
+
+        //regionBtnAtk1 = cargarImagen("BotonesCurtis/BotonCurtisAtt4.png");
+        //regionBtnAtk2 = cargarImagen("BotonesCurtis/BotonCurtisAtt3.png");
+        //regionBtnAtk3 = cargarImagen("BotonesCurtis/BotonCurtisAtt2.png");
+        //regionBtnAtk4 = cargarImagen("BotonesCurtis/BotonCurtisAtt1.png");
+        //regionBtnAtk5 = cargarImagen("BotonesCurtis/BotonSuper.png");
 
         regionLifeBarPlayer = cargarImagen("Batalla1/LifeBarBlack.png");
         regionMagicBarPlayer = cargarImagen("Batalla1/MagicBarBlack.png");
@@ -339,7 +386,8 @@ public class EscenaBatalla extends EscenaBase
 
 
             // Creamos el sprite de manera óptima
-            spriteFondo = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, regionFondo);
+            spriteFondoCielo = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, regionFondoCielo);
+            spriteFondoCasas = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, regionFondoCasas);
 
             // Mostrar un recuadro atrás del menú
 
@@ -368,7 +416,10 @@ public class EscenaBatalla extends EscenaBase
             TextAIName = new Text(0, 0, fontGeronimo, SAIName, actividadJuego.getVertexBufferObjectManager());
 
             agregarMenu();
-            attachChild(spriteFondo);
+            attachChild(spriteFondoCielo);
+            //agregarHumo();
+            //agregarHumo2();
+            attachChild(spriteFondoCasas);
 
             if(currChar ==1) {
                 spriteCurtisAnimado = new AnimatedSprite(ControlJuego.ANCHO_CAMARA / 6, ControlJuego.ALTO_CAMARA / 2 - 100, regionCurtisAnimado, actividadJuego.getVertexBufferObjectManager());
@@ -400,8 +451,62 @@ public class EscenaBatalla extends EscenaBase
 
         }
 
+        spriteGirlAnimado = new AnimatedSprite(ControlJuego.ANCHO_CAMARA/2-110,ControlJuego.ALTO_CAMARA/2-120,regionGirlAnimado, actividadJuego.getVertexBufferObjectManager());
+        spriteGirlAnimado.animate(500);
+        attachChild(spriteGirlAnimado);
     }   //agregarCuadroVida();
 
+    private void agregarHumo() {
+
+        CircleParticleEmitter circulo = new CircleParticleEmitter(ControlJuego.ANCHO_CAMARA/5,
+                ControlJuego.ALTO_CAMARA,10);
+        BatchedSpriteParticleSystem sistema = new BatchedSpriteParticleSystem(circulo,
+                20, 30, 200, regionNubeNegra, actividadJuego.getVertexBufferObjectManager());
+
+        // Velocidad de las partículas minX, maxX, minY, maxY
+        sistema.addParticleInitializer(new VelocityParticleInitializer<UncoloredSprite>(50,20,20,-20));
+        // Aceleración
+        sistema.addParticleInitializer(new AccelerationParticleInitializer<UncoloredSprite>(0,0));
+
+        float tiempoVida = 15;   // Segundos de vida de cada partícula
+        // Tiempo para que las partículas expiren.
+        sistema.addParticleInitializer(new ExpireParticleInitializer<UncoloredSprite>(tiempoVida));
+        // Escala
+        sistema.addParticleInitializer(new ScaleParticleInitializer<UncoloredSprite>(0.5f, 1.0f));
+        // Rotación
+        //sistema.addParticleModifier(new RotationParticleModifier<UncoloredSprite>(1, 4, 0, 360));
+        // Alpha de las partículas, recibe el rango de tiempo y el rango de alpha
+        sistema.addParticleModifier(new AlphaParticleModifier<UncoloredSprite>(tiempoVida - 2, tiempoVida + 1, 1, 0.3f));
+
+        // Se agrega a la escena, como cualquier Sprite
+        attachChild(sistema);
+    }
+
+    private void agregarHumo2() {
+
+        CircleParticleEmitter circulo = new CircleParticleEmitter(ControlJuego.ANCHO_CAMARA/5,
+                ControlJuego.ALTO_CAMARA/2+200,10);
+        BatchedSpriteParticleSystem sistema = new BatchedSpriteParticleSystem(circulo,
+                20, 30, 200, regionNubeNegra, actividadJuego.getVertexBufferObjectManager());
+
+        // Velocidad de las partículas minX, maxX, minY, maxY
+        sistema.addParticleInitializer(new VelocityParticleInitializer<UncoloredSprite>(50,20,20,-20));
+        // Aceleración
+        sistema.addParticleInitializer(new AccelerationParticleInitializer<UncoloredSprite>(0,0));
+
+        float tiempoVida = 15;   // Segundos de vida de cada partícula
+        // Tiempo para que las partículas expiren.
+        sistema.addParticleInitializer(new ExpireParticleInitializer<UncoloredSprite>(tiempoVida));
+        // Escala
+        sistema.addParticleInitializer(new ScaleParticleInitializer<UncoloredSprite>(0.5f, 1.0f));
+        // Rotación
+        //sistema.addParticleModifier(new RotationParticleModifier<UncoloredSprite>(1, 4, 0, 360));
+        // Alpha de las partículas, recibe el rango de tiempo y el rango de alpha
+        sistema.addParticleModifier(new AlphaParticleModifier<UncoloredSprite>(tiempoVida - 2, tiempoVida + 1, 1, 0.3f));
+
+        // Se agrega a la escena, como cualquier Sprite
+        attachChild(sistema);
+    }
     private void savelevel(P_Character player) {
         SharedPreferences preferences = actividadJuego.getSharedPreferences("levels", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
@@ -1806,8 +1911,10 @@ public class EscenaBatalla extends EscenaBase
 
     @Override
     public void liberarRecursos() {
-        regionFondo.getTexture().unload();
-        regionFondo = null;
+        regionFondoCielo.getTexture().unload();
+        regionFondoCielo = null;
+        regionFondoCasas.getTexture().unload();
+        regionFondoCasas = null;
     }
 
     //POINTER
