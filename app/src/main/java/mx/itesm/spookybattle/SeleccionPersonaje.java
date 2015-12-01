@@ -3,18 +3,15 @@ package mx.itesm.spookybattle;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.util.Log;
 
 import org.andengine.entity.scene.background.SpriteBackground;
 import org.andengine.entity.scene.menu.MenuScene;
 import org.andengine.entity.scene.menu.item.IMenuItem;
 import org.andengine.entity.scene.menu.item.SpriteMenuItem;
 import org.andengine.entity.scene.menu.item.decorator.ScaleMenuItemDecorator;
-import org.andengine.entity.sprite.ButtonSprite;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.opengl.texture.region.ITextureRegion;
 
-import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.entity.text.Text;
 import org.andengine.opengl.font.Font;
 import org.andengine.opengl.font.FontFactory;
@@ -31,8 +28,8 @@ public class SeleccionPersonaje extends EscenaBase
     // Regiones para las imágenes de la escena
     private ITextureRegion regionFondo;
     private ITextureRegion regionBtnCurtis;
-    private ITextureRegion regionBtnGeronimo;
-    private ITextureRegion regionBtnGeronimoUnlocked;
+    private ITextureRegion regionBtnGeronimoLocked;
+    private ITextureRegion regionBtnGeronimoUnLocked;
     private ITextureRegion regionBtnFrancisLocked;
     private ITextureRegion regionBtnFrancisUnlocked;
     private ITextureRegion regionBtnGusLocked;
@@ -156,11 +153,12 @@ public class SeleccionPersonaje extends EscenaBase
         regionFondo = cargarImagen("SelectScreen/FondoSelect.png");
         // Botones personajes
         regionBtnCurtis = cargarImagen("SelectScreen/DracoSelect.png");
-        regionBtnGeronimo = cargarImagen("SelectScreen/MummySelect.png");
+        regionBtnGeronimoLocked = cargarImagen("SelectScreen/GeronimoUnSelected.png");
+        regionBtnGeronimoUnLocked =cargarImagen("SelectScreen/GeronimoSelected.png");
         regionBtnFrancisLocked = cargarImagen("SelectScreen/FrancisUnSeleted.png");
         regionBtnFrancisUnlocked = cargarImagen("SelectScreen/FrancisSelect.png");
-        regionBtnGusLocked = cargarImagen("SelectScreen/FrancisUnSeleted.png");
-        regionBtnGusUnlocked = cargarImagen("SelectScreen/FrancisSelect.png");
+        regionBtnGusLocked = cargarImagen("SelectScreen/GusUnSelected.png");
+        regionBtnGusUnlocked = cargarImagen("SelectScreen/GusSelected.png");
         //info personajes
         regionImagenCurtis = cargarImagen("SelectScreen/DracoStand.png");
         regionAge = cargarImagen("SelectScreen/AgeLevel.png");
@@ -252,21 +250,32 @@ public class SeleccionPersonaje extends EscenaBase
         //Leyendo que personajes estan desbloqueados
         SharedPreferences unlockPreferences = actividadJuego.getSharedPreferences("UnlockedCharacters", Context.MODE_PRIVATE);
         boolean FrancisUnlocked = unlockPreferences.getBoolean("Francis",false);
+        boolean GusUnlocked = unlockPreferences.getBoolean("Gus",false);
+        boolean GeronimoUnlocked = unlockPreferences.getBoolean("Geronimo",false);
 
 
         // Crea las opciones de personaje
         IMenuItem opcionCurtis = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_CURTIS,regionBtnCurtis, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
-        opcionGeronimo = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_Geronimo,regionBtnGeronimo, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
 
+
+        if(GeronimoUnlocked == true){
+            opcionGeronimo = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_Geronimo,regionBtnGeronimoUnLocked, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
+        }
+        else if (GeronimoUnlocked == false) {
+            opcionGeronimo = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_Geronimo,regionBtnGeronimoLocked, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
+        }
         if(FrancisUnlocked == true){
             opcionFrancis = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_Francis, regionBtnFrancisUnlocked, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
         }
-        else {
+        else if (FrancisUnlocked == false) {
             opcionFrancis = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_Francis, regionBtnFrancisLocked, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
         }
-
-        opcionGus = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_Gus,regionBtnGusLocked, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
-
+        if(GusUnlocked == true){
+            opcionGus = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_Gus, regionBtnGusUnlocked, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
+        }
+        else if (GusUnlocked == false) {
+            opcionGus = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_Gus, regionBtnGusLocked, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
+        }
 
         //info Curtis
         imagenCurtis = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_IMAGEN_CURTIS,regionImagenCurtis, actividadJuego.getVertexBufferObjectManager()), 1, 1);

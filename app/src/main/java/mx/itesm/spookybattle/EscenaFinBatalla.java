@@ -64,7 +64,9 @@ public class EscenaFinBatalla extends EscenaBase
 
             SharedPreferences unlockPreferences = actividadJuego.getSharedPreferences("UnlockedCharacters", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = unlockPreferences.edit();
+            editor.putBoolean("Geronimo", true);
             editor.putBoolean("Francis", true);
+            editor.putBoolean("Gus", true);
             editor.commit();
 
         }

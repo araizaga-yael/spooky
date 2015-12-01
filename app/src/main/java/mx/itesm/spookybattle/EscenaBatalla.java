@@ -3,8 +3,6 @@ package mx.itesm.spookybattle;
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.entity.IEntity;
-<<<<<<< Updated upstream
-=======
 import org.andengine.entity.particle.BatchedSpriteParticleSystem;
 import org.andengine.entity.particle.emitter.CircleParticleEmitter;
 import org.andengine.entity.particle.initializer.AccelerationParticleInitializer;
@@ -13,7 +11,6 @@ import org.andengine.entity.particle.initializer.ScaleParticleInitializer;
 import org.andengine.entity.particle.initializer.VelocityParticleInitializer;
 import org.andengine.entity.particle.modifier.AlphaParticleModifier;
 import org.andengine.entity.primitive.Rectangle;
->>>>>>> Stashed changes
 import org.andengine.entity.scene.menu.MenuScene;
 import org.andengine.entity.scene.menu.item.IMenuItem;
 import org.andengine.entity.scene.menu.item.SpriteMenuItem;
@@ -63,14 +60,12 @@ public class EscenaBatalla extends EscenaBase
     private ITextureRegion regionLifeBarAI;
     private ITextureRegion regionMagicBarAI;
 
-<<<<<<< Updated upstream
     private ITextureRegion regionDynamicLifeBarPlayer;
     private ITextureRegion regionDynamicMagicBarPlayer;
     private ITextureRegion regionDynamicLifeBarAI;
     private ITextureRegion regionDynamicMagicBarAI;
-=======
+
     private ITextureRegion regionNubeNegra;
->>>>>>> Stashed changes
 
     //SpriteAnimado
     private AnimatedSprite spriteCurtisAnimado;
@@ -88,15 +83,12 @@ public class EscenaBatalla extends EscenaBase
     private AnimatedSprite spriteGusAnimadoPlayer;
     private TiledTextureRegion regionGusAnimadoPlayer;
 
-<<<<<<< Updated upstream
-=======
     private AnimatedSprite spriteGirlAnimado;
     private TiledTextureRegion regionGirlAnimado;
 
 
 
 
->>>>>>> Stashed changes
     //cosas de texto
     private BitmapTextureAtlas mFontTexture;
     private Text  text;
@@ -248,6 +240,16 @@ public class EscenaBatalla extends EscenaBase
         }
         else if(currChar==2){
             regionGeronimoAnimadoPlayer = cargarImagenMosaico("AnimacionesGeronimo/GeronimoWaitingSheet.png", 2723,389 ,1,7);
+
+            regionCurtisAnimado = cargarImagenMosaico("AnimacionesCurtis/WaitingBattle/CurtisWaitingSheet.png", 1986, 331, 1, 6);
+            regionBtnAtk = cargarImagen("BotonesCurtis/BotonAttack.png");
+            regionBtnDef = cargarImagen("BotonesCurtis/BotonDefense.png");
+
+            regionBtnAtk1 = cargarImagen("BotonesCurtis/BotonCurtisAtt4.png");
+            regionBtnAtk2 = cargarImagen("BotonesCurtis/BotonCurtisAtt3.png");
+            regionBtnAtk3 = cargarImagen("BotonesCurtis/BotonCurtisAtt2.png");
+            regionBtnAtk4 = cargarImagen("BotonesCurtis/BotonCurtisAtt1.png");
+            regionBtnAtk5 = cargarImagen("BotonesCurtis/BotonSuper.png");
         }
         else if(currChar ==3){
             regionFrancisAnimadoPlayer = cargarImagenMosaico("AnimacionesFrancis/FrancisWaitingSheet.png", 2010,337 ,1,6);
