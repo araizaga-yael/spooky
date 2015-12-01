@@ -245,9 +245,9 @@ public class SeleccionPersonaje extends EscenaBase
 
         //Leyendo que personajes estan desbloqueados
         SharedPreferences unlockPreferences = actividadJuego.getSharedPreferences("UnlockedCharacters", Context.MODE_PRIVATE);
-        boolean FrancisUnlocked = unlockPreferences.getBoolean("Francis",false);
-        boolean GusUnlocked = unlockPreferences.getBoolean("Gus",false);
-        boolean GeronimoUnlocked = unlockPreferences.getBoolean("Geronimo",false);
+        final boolean FrancisUnlocked = unlockPreferences.getBoolean("Francis",false);
+        final boolean GusUnlocked = unlockPreferences.getBoolean("Gus",false);
+        final boolean GeronimoUnlocked = unlockPreferences.getBoolean("Geronimo",false);
 
 
         // Crea las opciones de personaje
@@ -396,6 +396,7 @@ public class SeleccionPersonaje extends EscenaBase
                         //Log.i("CURRENT CHAR al presionar Curtis", currChar+"");
                         break;
                     case OPCION_Geronimo:
+                        if(GeronimoUnlocked == false){break;}
                         switchCharacter(currChar);
                         imagenGeronimo.setVisible(true);
                         textGeronimo.setVisible(true);
@@ -403,6 +404,7 @@ public class SeleccionPersonaje extends EscenaBase
 
                     break;
                     case OPCION_Francis:
+                        if(FrancisUnlocked == false){break;}
                         switchCharacter(currChar);
                         imagenFrancis.setVisible(true);
                         textFrancis.setVisible(true);
@@ -410,6 +412,7 @@ public class SeleccionPersonaje extends EscenaBase
                         //Log.i("CURRENT CHAR al presionar Francis", currChar+"");
                         break;
                     case OPCION_Gus:
+                        if(GusUnlocked == false){break;}
                         switchCharacter(currChar);
                         imagenGus.setVisible(true);
                         textGus.setVisible(true);
