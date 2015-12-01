@@ -46,6 +46,11 @@ public class EscenaBatalla extends EscenaBase
     private ITextureRegion regionBtnAtk4;
     private ITextureRegion regionBtnAtk5;
 
+    private ITextureRegion regionLifeBarPlayer;
+    private ITextureRegion regionMagicBarPlayer;
+    private ITextureRegion regionLifeBarAI;
+    private ITextureRegion regionMagicBarAI;
+
     //SpriteAnimado
     private AnimatedSprite spriteCurtisAnimado;
     private TiledTextureRegion regionCurtisAnimado;
@@ -102,6 +107,11 @@ public class EscenaBatalla extends EscenaBase
     private final int ATTCK3 = 3;
     private final int ATTCK4 = 4;
     private final int SUPER = 0;
+    //Barras
+    private final int LIFEBARPLYR = 120;
+    private final int MAGICBARPLYR = 220;
+    private final int LIFEBARAI = 121;
+    private final int MAGICBARAIA = 221;
 
     //Logica del juego /////
     private boolean charChange = false;
@@ -142,6 +152,14 @@ public class EscenaBatalla extends EscenaBase
     IMenuItem opcionAttack3;
     IMenuItem opcionAttack4;
     IMenuItem opcionSuper;
+
+    //Barras
+    IMenuItem LifeBarPlayer;
+    IMenuItem MagicBarPlayer;
+
+    IMenuItem LifeBarAI;
+    IMenuItem MagicBarAI;
+
     boolean attacking = false;
 
     //Animaciones
@@ -203,6 +221,11 @@ public class EscenaBatalla extends EscenaBase
         regionBtnAtk4 = cargarImagen("BotonesCurtis/BotonCurtisAtt1.png");
         regionBtnAtk5 = cargarImagen("BotonesCurtis/BotonSuper.png");
 
+        regionLifeBarPlayer = cargarImagen("Batalla1/LifeBarBlack.png");
+        regionMagicBarPlayer = cargarImagen("Batalla1/MagicBarBlack.png");
+        regionLifeBarAI = cargarImagen("Batalla1/LifeBarBlack.png");
+        regionMagicBarAI = cargarImagen("Batalla1/MagicBarBlack.png");
+
         numImagenes = 0;
 
         this.mFontTexture = new BitmapTextureAtlas(actividadJuego.getTextureManager(),256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
@@ -221,7 +244,7 @@ public class EscenaBatalla extends EscenaBase
         fontHP  = FontFactory.createFromAsset(actividadJuego.getFontManager(), actividadJuego.getTextureManager(), 1024, 1024, actividadJuego.getAssets(),
                 "numbers.ttf", 50, true, Color.RED);
         fontMP = FontFactory.createFromAsset(actividadJuego.getFontManager(), actividadJuego.getTextureManager(), 1024, 1024, actividadJuego.getAssets(),
-                "numbers.ttf", 50, true, Color.BLUE);
+                "numbers.ttf", 50, true, Color.parseColor("#1AC6FF"));
         font.load();
         fontHP.load();
         fontMP.load();
@@ -360,6 +383,7 @@ public class EscenaBatalla extends EscenaBase
             spriteGeronimoAnimado = new AnimatedSprite(ControlJuego.ANCHO_CAMARA / 2 + 350, ControlJuego.ALTO_CAMARA / 2 - 80, regionGeronimoAnimado, actividadJuego.getVertexBufferObjectManager());
             spriteGeronimoAnimado.animate(500);
             attachChild(spriteGeronimoAnimado);
+
         }
 
     }   //agregarCuadroVida();
@@ -438,6 +462,25 @@ public class EscenaBatalla extends EscenaBase
 
         TextPlayerName.setPosition(-320 - (TextPlayerName.getWidth() / 2), 520 - (TextPlayerName.getHeight() / 2));
         TextAIName.setPosition(460 - (TextAIName.getWidth() / 2), 520 - (TextAIName.getHeight() / 2));
+
+        //Barras de vida y magica
+        LifeBarPlayer = new ScaleMenuItemDecorator(new SpriteMenuItem(LIFEBARPLYR,regionLifeBarPlayer, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
+        LifeBarPlayer.setScale(.6f);
+        LifeBarPlayer.setPosition(-450, 470);
+        menu.attachChild(LifeBarPlayer);
+        MagicBarPlayer =  new ScaleMenuItemDecorator(new SpriteMenuItem(MAGICBARPLYR,regionMagicBarPlayer, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
+        MagicBarPlayer.setScale(.6f);
+        MagicBarPlayer.setPosition(-450, 425);
+        menu.attachChild(MagicBarPlayer);
+
+        LifeBarAI = new ScaleMenuItemDecorator(new SpriteMenuItem(LIFEBARAI,regionLifeBarAI, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
+        LifeBarAI.setScale(.6f);
+        LifeBarAI.setPosition(310, 470);
+        menu.attachChild(LifeBarAI);
+        MagicBarAI =  new ScaleMenuItemDecorator(new SpriteMenuItem(MAGICBARAIA,regionMagicBarAI, actividadJuego.getVertexBufferObjectManager()), 1.5f, 1);
+        MagicBarAI.setScale(.6f);
+        MagicBarAI.setPosition(310, 425);
+        menu.attachChild(MagicBarAI);
 
         menu.attachChild(TextPlayerName);
         menu.attachChild(TextAIName);
@@ -1685,11 +1728,13 @@ public class EscenaBatalla extends EscenaBase
             text.setColor(0f, 1f, 0f);
 
             text.setPosition(800 - (text.getWidth() / 2), 750 - (text.getHeight() / 2));
-            TextPlayerHP.setPosition(280, 555);
-            TextAIHP.setPosition(1040, 555);
 
-            TextPlayerMP.setPosition(280, 525);
-            TextAIMP.setPosition(1040, 525);
+            //POINTER
+            TextPlayerHP.setPosition(400, 570);
+            TextAIHP.setPosition(1160, 570);
+
+            TextPlayerMP.setPosition(400, 525);
+            TextAIMP.setPosition(1160, 525);
 
 
             agregaTexto(s);
@@ -1748,6 +1793,11 @@ public class EscenaBatalla extends EscenaBase
         TextPlayerMP.setVisible(false);
         TextAIHP.setVisible(false);
         TextAIMP.setVisible(false);
+
+        LifeBarPlayer.setVisible(false);
+        MagicBarPlayer.setVisible(false);
+        LifeBarAI.setVisible(false);
+        MagicBarAI.setVisible(false);
     }
 
     /////////LOGICA DEL JUEGO //////////////////
