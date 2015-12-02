@@ -338,6 +338,7 @@ public class EscenaBatalla extends EscenaBase
         else if(currChar == 4){
             player = Main.ghost;
         }
+        player.resetLevel();
        // Para resetear nivel
         //player.resetLevel();
         //savelevel(player);

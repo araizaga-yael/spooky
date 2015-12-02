@@ -48,7 +48,8 @@ public class SeleccionPersonaje extends EscenaBase
 
     private ITextureRegion regionSelectTitle;
 
-    private ITextureRegion regionPlay;
+    private ITextureRegion regionStart;
+    private ITextureRegion regionContinue;
 
     private IMenuItem opcionGeronimo;
     private IMenuItem opcionFrancis;
@@ -92,6 +93,7 @@ public class SeleccionPersonaje extends EscenaBase
     private final int OPCION_SELECT_TITLE = 9000;
 
     private final int OPCION_START = 9999;
+    private final int OPCION_CONTINUE = 9991;
     // Botones de cada opción
 
     //Cosas del texto
@@ -170,7 +172,8 @@ public class SeleccionPersonaje extends EscenaBase
         //Select Character
         regionSelectTitle = cargarImagen("SelectScreen/SelectTitle.png");
         //Boton Play
-        regionPlay = cargarImagen("BotonPlay.png");
+        regionStart = cargarImagen("EscenasFinales/BotonStart.png");
+        regionContinue = cargarImagen("EscenasFinales/BotonContinue.png");
 
         //font del texto
         this.mFontTexture = new BitmapTextureAtlas(actividadJuego.getTextureManager(),256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
@@ -289,8 +292,11 @@ public class SeleccionPersonaje extends EscenaBase
 
         //Infor general
         IMenuItem opcionSelectTitle = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_SELECT_TITLE,regionSelectTitle,actividadJuego.getVertexBufferObjectManager()),1,1);
-        IMenuItem opcionPlay = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_START,regionPlay,actividadJuego.getVertexBufferObjectManager()),1,1);
+        IMenuItem opcionStart = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_START,regionStart,actividadJuego.getVertexBufferObjectManager()),1,1);
+        IMenuItem opcionContinue = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_CONTINUE,regionContinue,actividadJuego.getVertexBufferObjectManager()),1,1);
 
+        opcionStart.setScale(.7f);
+        opcionContinue.setScale(.8f);
 
 
         // Agrega las opciones de personaje
@@ -315,7 +321,9 @@ public class SeleccionPersonaje extends EscenaBase
 
         //general
         menu.addMenuItem(opcionSelectTitle);
-        menu.addMenuItem(opcionPlay);
+        menu.addMenuItem(opcionStart);
+        menu.addMenuItem(opcionContinue);
+
 
         // Termina la configuración
         menu.buildAnimations();
@@ -346,7 +354,8 @@ public class SeleccionPersonaje extends EscenaBase
 
 
         opcionSelectTitle.setPosition(-290, -175);
-        opcionPlay.setPosition(450, -290);
+        opcionStart.setPosition(450, -240);
+        opcionContinue.setPosition(450, -320);
 
         //texto Curtis
         text.setPosition(370 - (text.getWidth() / 2), 290 - (text.getHeight() / 2));
@@ -387,6 +396,7 @@ public class SeleccionPersonaje extends EscenaBase
                         admEscenas.crearEscenaBatalla();
                         admEscenas.setEscena(TipoEscena.ESCENA_BATALLA);
                         admEscenas.liberarEscenaSeleccionPersonaje();
+
                         break;
                     case OPCION_CURTIS:
                         switchCharacter(currChar);
@@ -417,6 +427,48 @@ public class SeleccionPersonaje extends EscenaBase
                         imagenGus.setVisible(true);
                         textGus.setVisible(true);
                         currentCharacter(4);
+                        break;
+
+                    case OPCION_CONTINUE:
+                        if(currChar ==1){
+                            if(CurtisLevel ==1){
+                                admEscenas.crearEscenaBatalla();
+                                admEscenas.setEscena(TipoEscena.ESCENA_BATALLA);
+                                admEscenas.liberarEscenaSeleccionPersonaje();
+                            }
+                            else if(CurtisLevel ==2){}
+                            else if(CurtisLevel >= 3){}
+
+                        }
+                        else if(currChar == 2){
+                            if(GeronimoLevel ==1){
+                                admEscenas.crearEscenaBatalla();
+                                admEscenas.setEscena(TipoEscena.ESCENA_BATALLA);
+                                admEscenas.liberarEscenaSeleccionPersonaje();
+                            }
+                            else if(GeronimoLevel ==2){}
+                            else if(GeronimoLevel >= 3){}
+                        }
+                        else if(currChar == 3){
+                            if(FrancisLevel ==1){
+                                admEscenas.crearEscenaBatalla();
+                                admEscenas.setEscena(TipoEscena.ESCENA_BATALLA);
+                                admEscenas.liberarEscenaSeleccionPersonaje();
+                            }
+                            else if(FrancisLevel ==2){}
+                            else if(FrancisLevel >= 3){}
+                        }
+                        else if(currChar == 4){
+                            if(GusLevel ==1){
+                                admEscenas.crearEscenaBatalla();
+                                admEscenas.setEscena(TipoEscena.ESCENA_BATALLA);
+                                admEscenas.liberarEscenaSeleccionPersonaje();
+                            }
+                            else if(GusLevel ==2){}
+                            else if(GusLevel >= 3){}
+                        }
+
+
                         break;
                 }
                 return true;

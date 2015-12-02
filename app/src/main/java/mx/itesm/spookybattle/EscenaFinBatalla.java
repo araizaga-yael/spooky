@@ -5,6 +5,10 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import org.andengine.entity.scene.background.SpriteBackground;
+import org.andengine.entity.scene.menu.MenuScene;
+import org.andengine.entity.scene.menu.item.IMenuItem;
+import org.andengine.entity.scene.menu.item.SpriteMenuItem;
+import org.andengine.entity.scene.menu.item.decorator.ScaleMenuItemDecorator;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.opengl.texture.region.ITextureRegion;
 
@@ -21,17 +25,26 @@ public class EscenaFinBatalla extends EscenaBase
     private ITextureRegion regionWinner;
     private ITextureRegion regionLoser;
 
+    private ITextureRegion regionBtnContinue;
+
     // Sprites sobre la escena
     private Sprite SpriteWinner;
     private Sprite SpriteLoser;
     private Sprite spriteFondo;
+    private SpriteBackground fondo;
+
+    private MenuScene menu;
+
+    private final int OPCION_CONTINUE = 9991;
+    boolean playerwin;
+
 
 
     // Carga todos los recursos para ESTA ESCENA.
     @Override
     public void cargarRecursos() {
 
-
+        regionBtnContinue =cargarImagen("EscenasFinales/BotonContinue.png");
     }
 
     // Arma la escena que se presentará en pantalla
@@ -55,11 +68,16 @@ public class EscenaFinBatalla extends EscenaBase
             SpriteLoser = cargarSprite(ControlJuego.ANCHO_CAMARA/2, ControlJuego.ALTO_CAMARA/2, regionLoser);
 
         SharedPreferences preferencesWinner = actividadJuego.getSharedPreferences("winner", Context.MODE_PRIVATE);
-        boolean playerwin = preferencesWinner.getBoolean("winner", true);
+        playerwin = preferencesWinner.getBoolean("winner", true);
 
 
         if(playerwin == true){
-            SpriteBackground fondo = new SpriteBackground(0.28f, 0.63f, 0.92f,SpriteWinner);
+            if(currChar == 1) {
+                fondo = new SpriteBackground(0.5f, 0f, 0.49f, SpriteWinner);
+            }
+            if(currChar == 3) {
+                fondo = new SpriteBackground(0f, 0.3f, 0f, SpriteWinner);
+            }
             setBackground(fondo);
 
             SharedPreferences unlockPreferences = actividadJuego.getSharedPreferences("UnlockedCharacters", Context.MODE_PRIVATE);
@@ -71,12 +89,53 @@ public class EscenaFinBatalla extends EscenaBase
 
         }
         else{
-            SpriteBackground fondo = new SpriteBackground(0.28f, 0.63f, 0.92f,SpriteLoser);
+            if(currChar == 1) {
+                fondo = new SpriteBackground(0.5f, 0f, 0.49f, SpriteLoser);
+            }
+            if(currChar == 3) {
+                fondo = new SpriteBackground(0f, 0.3f, 0f, SpriteLoser);
+            }
             setBackground(fondo);
 
         }
         setBackgroundEnabled(true);
 
+        agregaMenu();
+
+    }
+
+    private void agregaMenu(){
+        menu = new MenuScene(actividadJuego.camara);
+        // Centrado en la pantalla
+        menu.setPosition(ControlJuego.ANCHO_CAMARA/2,ControlJuego.ALTO_CAMARA/2);
+
+        IMenuItem opcionContinue = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_CONTINUE,regionBtnContinue,actividadJuego.getVertexBufferObjectManager()),1,1);
+        menu.addMenuItem(opcionContinue);
+
+        menu.buildAnimations();
+        menu.setBackgroundEnabled(false);
+        opcionContinue.setPosition(450, -240);
+
+        menu.setOnMenuItemClickListener(new MenuScene.IOnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClicked(MenuScene pMenuScene, IMenuItem pMenuItem,
+                                             float pMenuItemLocalX, float pMenuItemLocalY) {
+                // El parámetro pMenuItem indica la opción oprimida
+                switch(pMenuItem.getID()) {
+                    case OPCION_CONTINUE:
+                        if(playerwin== false) {
+                            admEscenas.crearEscenaBatalla();
+                            admEscenas.setEscena(TipoEscena.ESCENA_BATALLA);
+                        }
+                        else if(playerwin== true){
+
+                        }
+                        break;
+                }
+                return true;
+            }
+        });
+        setChildScene(menu);
     }
 
     // La escena se debe actualizar en este método que se repite "varias" veces por segundo

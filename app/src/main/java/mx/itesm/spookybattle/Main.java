@@ -11,10 +11,10 @@ public class Main {
 	static Scanner sc = new Scanner(System.in);
 	
 	//Creando ataques de dracula
-	static Attack battack = new Attack("Battack", "Summon attacking...bats", 80, 0);
-	static Attack night = new Attack("I Am The Night", "Not like that other guy", 5, 2);
-	static Attack choke = new Attack("Vamp Choke", "Sort of like a force choke, but vampiric", 15, 10);	
-	static Attack darkness = new Attack("Submit To Darkness", "tbd", 10, 8);
+	static Attack battack = new Attack("Battack", "Summon Attacking...Bats", 80, 0);
+	static Attack night = new Attack("I Am The Night", "Not Like That Other Guy", 5, 2);
+	static Attack choke = new Attack("Vamp Choke", "Sort Of Like A Force Choke, But Vampiric", 15, 10);
+	static Attack darkness = new Attack("Submit To Darkness", "On That Day Shall Darkness Prevail", 10, 8);
 	//metiendo ataques de dracula a un array
 	static Attack[] dracula_atks = {battack, night, choke, darkness};
 	//super ataque
@@ -24,7 +24,7 @@ public class Main {
 	
 	//Creando ataques de fantasma
 	static Attack boom = new Attack("Boooom", "Scare The Bejeezus Out Of Em", 10, 0);
-	static Attack booty = new Attack("Booty Kick", "tbh", 15, 10);	
+	static Attack booty = new Attack("Booty Kick", "A Kickass Move", 15, 10);
 	static Attack boogaloo = new Attack("Creepy Boogaloo", "Fear These Sick Moves", 5, 20);
 	static Attack taboo = new Attack("Taboo Wail", "Rules Are Meant To Be Foresaken", 10, 80);
 	//metiendo ataques de fantasma a un array
@@ -35,9 +35,9 @@ public class Main {
 	public static P_Character ghost = new P_Character("Gus", 1, 100, 100, 4, 0, ghost_atks, twospooky, "Un spooky dude");
 	
 	//Creando ataques de momia
-	static Attack locust = new Attack("Locust Pocus", "tbh", 10, 0);
-	static Attack mummify = new Attack("Mummify Mortify", "tbh", 15, 10);	
-	static Attack anubis = new Attack("Anubis Eye", "tbh", 5, 2);
+	static Attack locust = new Attack("Locust Pocus", "Aaaaaah, Not The Locusts", 10, 0);
+	static Attack mummify = new Attack("Mummify Mortify", "All Shipments Are Cleanly Wrapped", 15, 10);
+	static Attack anubis = new Attack("Anubis Eye", "Eye See Dead People", 5, 2);
 	static Attack osiris = new Attack("Osiris' Knights", "Strike With The Mighty Force Of the Underworld", 10, 8);
 	//metiendo ataques de momia a un array
 	static Attack[] mummy_atks = {locust, mummify, anubis, osiris};
@@ -56,7 +56,7 @@ public class Main {
     //metiendo ataques de frankenstein a un array
     static Attack[] frankenstein_atks = {fire, alive, shock, smash};
     //super ataque
-    static Attack strike = new Attack("Frankenstrike","Take That Opressive Metaphors ", 100, 0);
+    static Attack strike = new Attack("Frankenstrike","Take That Opressive Metaphors", 100, 0);
     //Creando al monstruo de Frankenstein
     public static P_Character frankenstein = new P_Character("Francis", 1, 100, 100, 4, 0, frankenstein_atks, strike, "Un monstruo");
 
