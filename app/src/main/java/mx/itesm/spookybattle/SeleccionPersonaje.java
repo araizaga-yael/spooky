@@ -203,6 +203,7 @@ public class SeleccionPersonaje extends EscenaBase
     @Override
     public void crearEscena() {
 
+        actividadJuego.reproducirMusica("Musica/02_Creepy_Monsters.ogg", true);
 
         // Creamos el sprite de manera óptima
         spriteFondo = cargarSprite(ControlJuego.ANCHO_CAMARA/2, ControlJuego.ALTO_CAMARA/2, regionFondo);

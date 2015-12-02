@@ -376,6 +376,8 @@ public class EscenaBatalla extends EscenaBase
         SAIMP = ai.getMP()+"";
 
         initialization(player, ai);
+        actividadJuego.reproducirMusica("Musica/03_Candy_Fight.ogg", true);
+
     }
 
     @Override

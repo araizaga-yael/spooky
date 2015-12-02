@@ -213,7 +213,7 @@ public class EscenaMenu extends EscenaBase
                     spriteFondoNinos.setColor(1, 1, 1, 0);
                     spriteFondoAdultos.setColor(1, 1, 1, 0);
                     spriteFondo3.setColor(1, 1, 1, 1);
-                    //relampagoSonido.play();
+                    relampagoSonido.play();
                     relampago = true;
 
                 }
@@ -340,7 +340,6 @@ public class EscenaMenu extends EscenaBase
 
     @Override
     public void liberarRecursos() {
-        actividadJuego.detenerMusica();
         regionFondoAdultos.getTexture().unload();
         regionFondoAdultos = null;
         regionFondoNinos.getTexture().unload();

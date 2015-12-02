@@ -48,6 +48,7 @@ public class EscenaAcercaDe extends EscenaBase
         spriteFondo = cargarSprite(ControlJuego.ANCHO_CAMARA/2, ControlJuego.ALTO_CAMARA/2, regionFondo);
         attachChild(spriteFondo);
 
+        actividadJuego.reproducirMusica("Musica/05_Unstopable_Masacre.ogg", true);
         agregaMenu();
     }
 
@@ -160,5 +161,6 @@ public class EscenaAcercaDe extends EscenaBase
     public void liberarRecursos() {
         regionFondo.getTexture().unload();
         regionFondo = null;
+        actividadJuego.detenerMusica();
     }
 }
