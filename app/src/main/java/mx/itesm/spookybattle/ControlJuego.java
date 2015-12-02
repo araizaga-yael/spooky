@@ -1,6 +1,9 @@
 package mx.itesm.spookybattle;
 
 import android.view.KeyEvent;
+
+import org.andengine.audio.music.Music;
+import org.andengine.audio.music.MusicFactory;
 import org.andengine.engine.camera.Camera;
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
@@ -25,6 +28,9 @@ public class ControlJuego extends SimpleBaseGameActivity
     protected Camera camara;
     // El administrador de escenas (se encarga de cambiar las escenas)
     private AdministradorEscenas admEscenas;
+
+    // MUSICA DE FONDO, los efectos de sonido se cargan en cada escena
+    private Music musica;
 
     /*
     Se crea la configuración del Engine.
@@ -99,6 +105,31 @@ public class ControlJuego extends SimpleBaseGameActivity
         super.onDestroy();
         if (admEscenas!=null) {
             System.exit(0);
+        }
+    }
+    public void reproducirMusica(String archivo, boolean loop) {
+        if (musica!=null) {
+            musica.stop();
+            musica.release();
+            musica = null;
+        }
+        // Carga el archivo mp3
+        try {
+            musica = MusicFactory.createMusicFromAsset(getMusicManager(),
+                    this, archivo);
+            musica.setLooping(loop);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+        musica.play();
+    }
+
+    public void detenerMusica() {
+        if (musica!=null) {
+            musica.stop();
+            musica.release();
+            musica = null;
         }
     }
 }

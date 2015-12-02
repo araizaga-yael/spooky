@@ -127,6 +127,8 @@ public class EscenaMenu extends EscenaBase
         attachChild(spriteFondoAdultos);
         attachChild(spriteFondoNinos);
 
+        actividadJuego.reproducirMusica("Musica/01_Creepy_Town.ogg", true);
+
     }
 
     private void agregarHumo() {
@@ -321,6 +323,7 @@ public class EscenaMenu extends EscenaBase
     @Override
     public void onBackKeyPressed() {
         // Salir del juego, no hacemos nada
+
     }
 
     @Override
@@ -337,6 +340,7 @@ public class EscenaMenu extends EscenaBase
 
     @Override
     public void liberarRecursos() {
+        actividadJuego.detenerMusica();
         regionFondoAdultos.getTexture().unload();
         regionFondoAdultos = null;
         regionFondoNinos.getTexture().unload();
