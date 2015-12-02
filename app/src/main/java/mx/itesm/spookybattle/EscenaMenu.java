@@ -104,7 +104,7 @@ public class EscenaMenu extends EscenaBase
 
         relampagoSonido = cargarEfecto("Sonidos/single_lightning_bolt.wav");
 
-        initializeUnlocks();
+        //initializeUnlocks();
     }
 
     @Override

@@ -2051,11 +2051,11 @@ public class EscenaBatalla extends EscenaBase
 
             text.setPosition(650 , 750);
 
-            TextPlayerHP.setPosition(400, 570);
-            TextAIHP.setPosition(1160, 570);
+            TextPlayerHP.setPosition(410, 570);
+            TextAIHP.setPosition(1170, 570);
 
-            TextPlayerMP.setPosition(400, 525);
-            TextAIMP.setPosition(1160, 525);
+            TextPlayerMP.setPosition(410, 525);
+            TextAIMP.setPosition(1170, 525);
 
             DynamicLifeBarPlayer.setWidth((universalWidth * player.getHP())/pStats[0]);
             DynamicLifeBarAI.setWidth((universalWidth * ai.getHP())/aiStats[0]);
