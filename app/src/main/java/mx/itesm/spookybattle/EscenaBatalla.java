@@ -356,6 +356,7 @@ public class EscenaBatalla extends EscenaBase
         Log.i("Nivel real", "Real = " + player.getLvl());
 
         ai = Main.mummyAI;
+        ai.resetLevel();
         ai.levelUp();
 
         SplayerName = player.toString();

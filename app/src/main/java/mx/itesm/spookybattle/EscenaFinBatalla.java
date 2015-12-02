@@ -55,8 +55,6 @@ public class EscenaFinBatalla extends EscenaBase
     // Arma la escena que se presentará en pantalla
     @Override
     public void crearEscena() {
-        actividadJuego.reproducirMusica("Musica/04_Victory.ogg", false);
-
         SharedPreferences preferencesCurrChar = actividadJuego.getSharedPreferences("CurrentChar", Context.MODE_PRIVATE);
         int currChar = preferencesCurrChar.getInt("Currentcharacter",1);
 
@@ -90,6 +88,8 @@ public class EscenaFinBatalla extends EscenaBase
 
 
         if(playerwin == true){
+            actividadJuego.reproducirMusica("Musica/04_Victory.ogg", false);
+
             if(currChar == 1) {
                 fondo = new SpriteBackground(0.5f, 0f, 0.49f, SpriteWinner);
             }

@@ -19,7 +19,7 @@ import org.andengine.opengl.texture.region.ITextureRegion;
  */
 
 
-public class EscenaFinBatalla2 extends EscenaBase
+public class EscenaFinBatalla3 extends EscenaBase
 {
     // Imágenes
     private ITextureRegion regionWinner;
@@ -88,7 +88,7 @@ public class EscenaFinBatalla2 extends EscenaBase
 
 
         if(playerwin == true){
-            actividadJuego.reproducirMusica("Musica/04_Victory.ogg", false);
+            actividadJuego.reproducirMusica("Musica/06_The_End.ogg", true);
             if(currChar == 1) {
                 fondo = new SpriteBackground(0.5f, 0f, 0.49f, SpriteWinner);
             }
@@ -161,14 +161,14 @@ public class EscenaFinBatalla2 extends EscenaBase
                 switch(pMenuItem.getID()) {
                     case OPCION_CONTINUE:
                         if(playerwin== true) {
-                            admEscenas.crearEscenaBatalla3();
-                            admEscenas.setEscena(TipoEscena.ESCENA_BATALLA3);
-                            admEscenas.liberarEscenaFinBatalla2();
+                            admEscenas.crearEscenaSeleccionPersonaje();
+                            admEscenas.setEscena(TipoEscena.ESCENA_SELECCION_PERSONAJE);
+                            admEscenas.liberarEscenaFinBatalla3();
                         }
                         else if(playerwin== false){
-                            admEscenas.crearEscenaBatalla2();
-                            admEscenas.setEscena(TipoEscena.ESCENA_BATALLA2);
-                            admEscenas.liberarEscenaFinBatalla2();
+                            admEscenas.crearEscenaBatalla3();
+                            admEscenas.setEscena(TipoEscena.ESCENA_BATALLA3);
+                            admEscenas.liberarEscenaFinBatalla3();
                         }
                         break;
                 }
@@ -191,12 +191,12 @@ public class EscenaFinBatalla2 extends EscenaBase
         // Regresar al menú principal
         admEscenas.crearEscenaSeleccionPersonaje();
         admEscenas.setEscena(TipoEscena.ESCENA_SELECCION_PERSONAJE);
-        admEscenas.liberarEscenaFinBatalla2();
+        admEscenas.liberarEscenaFinBatalla3();
     }
 
     @Override
     public TipoEscena getTipoEscena() {
-        return TipoEscena.ESCENA_FIN_BATALLA2;
+        return TipoEscena.ESCENA_FIN_BATALLA3;
     }
 
     // Libera la escena misma del engine

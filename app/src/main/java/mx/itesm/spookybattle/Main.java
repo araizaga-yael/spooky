@@ -33,8 +33,10 @@ public class Main {
 	static Attack twospooky = new Attack("2Spooky4me","Become Fear Itself", 100, 0);
 	//Creando a fantasma
 	public static P_Character ghost = new P_Character("Gus", 1, 100, 100, 4, 0, ghost_atks, twospooky, "Un spooky dude");
-	
-	//Creando ataques de momia
+    public static P_Character ghostAI = new P_Character("Gus.", 1, 100, 100, 4, 0, ghost_atks, twospooky, "Un spooky AI");
+
+
+    //Creando ataques de momia
 	static Attack locust = new Attack("Locust Pocus", "Aaaaaah, Not The Locusts", 80, 0);
 	static Attack mummify = new Attack("Mummify Mortify", "All Shipments Are Cleanly Wrapped", 15, 10);
 	static Attack anubis = new Attack("Anubis Eye", "Eye See Dead People", 5, 2);

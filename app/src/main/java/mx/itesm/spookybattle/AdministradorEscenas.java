@@ -182,7 +182,7 @@ public class AdministradorEscenas
         escenaFinBatalla2 = null;
     }
     public void crearEscenaFinBatalla3() {
-     //   escenaFinBatalla3 = new EscenaFinBatalla3();
+      escenaFinBatalla3 = new EscenaFinBatalla3();
     }
 
     public void liberarEscenaFinBatalla3() {
@@ -206,7 +206,7 @@ public class AdministradorEscenas
         escenaBatalla2 = null;
     }
     public void crearEscenaBatalla3() {
-        escenaBatalla2 = new EscenaBatalla2();
+        escenaBatalla3 = new EscenaBatalla3();
     }
     public void liberarEscenaBatalla3() {
         escenaBatalla3.liberarEscena();

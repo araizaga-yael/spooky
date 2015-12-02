@@ -441,7 +441,11 @@ public class SeleccionPersonaje extends EscenaBase
                                 admEscenas.setEscena(TipoEscena.ESCENA_BATALLA2);
                                 admEscenas.liberarEscenaSeleccionPersonaje();
                             }
-                            else if(CurtisLevel >= 3){}
+                            else if(CurtisLevel >= 3){
+                                admEscenas.crearEscenaBatalla3();
+                                admEscenas.setEscena(TipoEscena.ESCENA_BATALLA3);
+                                admEscenas.liberarEscenaSeleccionPersonaje();
+                            }
 
                         }
                         else if(currChar == 2){
@@ -455,7 +459,11 @@ public class SeleccionPersonaje extends EscenaBase
                                 admEscenas.setEscena(TipoEscena.ESCENA_BATALLA2);
                                 admEscenas.liberarEscenaSeleccionPersonaje();
                             }
-                            else if(GeronimoLevel >= 3){}
+                            else if(GeronimoLevel >= 3){
+                                admEscenas.crearEscenaBatalla3();
+                                admEscenas.setEscena(TipoEscena.ESCENA_BATALLA3);
+                                admEscenas.liberarEscenaSeleccionPersonaje();
+                            }
                         }
                         else if(currChar == 3){
                             if(FrancisLevel ==1){
@@ -468,7 +476,11 @@ public class SeleccionPersonaje extends EscenaBase
                                 admEscenas.setEscena(TipoEscena.ESCENA_BATALLA2);
                                 admEscenas.liberarEscenaSeleccionPersonaje();
                             }
-                            else if(FrancisLevel >= 3){}
+                            else if(FrancisLevel >= 3){
+                                admEscenas.crearEscenaBatalla3();
+                                admEscenas.setEscena(TipoEscena.ESCENA_BATALLA3);
+                                admEscenas.liberarEscenaSeleccionPersonaje();
+                            }
                         }
                         else if(currChar == 4){
                             if(GusLevel ==1){
@@ -481,7 +493,11 @@ public class SeleccionPersonaje extends EscenaBase
                                 admEscenas.setEscena(TipoEscena.ESCENA_BATALLA2);
                                 admEscenas.liberarEscenaSeleccionPersonaje();
                             }
-                            else if(GusLevel >= 3){}
+                            else if(GusLevel >= 3){
+                                admEscenas.crearEscenaBatalla3();
+                                admEscenas.setEscena(TipoEscena.ESCENA_BATALLA3);
+                                admEscenas.liberarEscenaSeleccionPersonaje();
+                            }
                         }
 
 
