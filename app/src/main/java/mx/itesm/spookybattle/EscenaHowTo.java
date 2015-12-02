@@ -10,18 +10,23 @@ public class EscenaHowTo extends EscenaBase
 {
     // Regiones para imágenes
     private ITextureRegion regionFondo;
+    private ITextureRegion regionCosas;
     // Sprite para el fondo
     private Sprite spriteFondo;
+    private Sprite spriteCosas;
 
     @Override
     public void cargarRecursos() {
         regionFondo = cargarImagen("instructions/Fondo.png");
+        regionCosas = cargarImagen("instructions/HowToPlay.png");
     }
 
     @Override
     public void crearEscena() {
         spriteFondo = cargarSprite(ControlJuego.ANCHO_CAMARA/2, ControlJuego.ALTO_CAMARA/2, regionFondo);
         attachChild(spriteFondo);
+        spriteCosas = cargarSprite(ControlJuego.ANCHO_CAMARA/2, ControlJuego.ALTO_CAMARA/2, regionCosas);
+        attachChild(spriteCosas);
 
         actividadJuego.reproducirMusica("Musica/05_Unstopable_Masacre.ogg", true);
 

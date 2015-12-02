@@ -23,7 +23,6 @@ import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.UncoloredSprite;
 import org.andengine.opengl.texture.region.ITextureRegion;
 
-import java.util.ResourceBundle;
 import java.util.Timer;
 
 /**

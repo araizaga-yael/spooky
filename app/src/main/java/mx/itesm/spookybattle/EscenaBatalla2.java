@@ -242,10 +242,8 @@ public class EscenaBatalla2 extends EscenaBase
             regionGeronimoAnimadoPlayer = cargarImagenMosaico("AnimacionesGeronimo/GeronimoWaitingSheet.png", 2723,389 ,1,7);
 
             regionCurtisAnimado = cargarImagenMosaico("AnimacionesCurtis/WaitingBattle/CurtisWaitingSheet.png", 1986, 331, 1, 6);
-            regionBtnAtk = cargarImagen("BotonesCurtis/BotonAttack.png");
-            regionBtnDef = cargarImagen("BotonesCurtis/BotonDefense.png");
-            //regionBtnAtk = cargarImagen("BotonesGeronimo/BotonAttack.png");
-            //regionBtnDef = cargarImagen("BotonesGeronimo/BotonDefense.png");
+            regionBtnAtk = cargarImagen("BotonesGeronimo/BotonAttack.png");
+            regionBtnDef = cargarImagen("BotonesGeronimo/BotonDefense.png");
 
             regionBtnAtk1 = cargarImagen("BotonesGeronimo/BotonLocust.png");
             regionBtnAtk2 = cargarImagen("BotonesGeronimo/BotonMummify.png");
@@ -266,11 +264,8 @@ public class EscenaBatalla2 extends EscenaBase
         }
         else if(currChar ==4){
             regionGusAnimadoPlayer = cargarImagenMosaico("AnimacionesGus/GusWaitingSheet.png", 2366, 338, 1, 7);
-
-            regionBtnAtk = cargarImagen("BotonesCurtis/BotonAttack.png");
-            regionBtnDef = cargarImagen("BotonesCurtis/BotonDefense.png");
-            //regionBtnAtk = cargarImagen("BotonesGus/BotonAttack.png");
-            //regionBtnDef = cargarImagen("BotonesGus/BotonDefense.png");
+            regionBtnAtk = cargarImagen("BotonesGus/BotonAttack.png");
+            regionBtnDef = cargarImagen("BotonesGus/BotonDefense.png");
 
             regionBtnAtk1 = cargarImagen("BotonesGus/BotonBoom.png");
             regionBtnAtk2 = cargarImagen("BotonesGus/BotonBootyx.png");

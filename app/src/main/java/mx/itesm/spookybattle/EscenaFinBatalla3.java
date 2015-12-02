@@ -127,6 +127,8 @@ public class EscenaFinBatalla3 extends EscenaBase
 
         }
         else{
+            actividadJuego.reproducirMusica("Musica/_Victory.ogg", false);
+
             if(currChar == 1) {
                 fondo = new SpriteBackground(0.5f, 0f, 0.49f, SpriteLoser);
             }
