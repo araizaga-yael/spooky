@@ -13,32 +13,45 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="03abb6b0-52a3-4416-a3d1-8201ddd53c83" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/AnimacionesGus/Booty/Booty00.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/AnimacionesGus/Booty/Booty01.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/AnimacionesGus/Booty/Booty02.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/AnimacionesGus/Booty/Booty03.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/AnimacionesGus/Booty/Booty04.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/AnimacionesGus/Booty/Booty05.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/AnimacionesGus/Booty/Booty06.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/AnimacionesGus/Booty/Booty07.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/AnimacionesGus/Booty/Booty08.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/AnimacionesGus/Booty/Booty09.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/AnimacionesGeronimo/Osiris/Osiris01.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/AnimacionesGeronimo/Osiris/Osiris010.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/AnimacionesGeronimo/Osiris/Osiris011.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/AnimacionesGeronimo/Osiris/Osiris02.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/AnimacionesGeronimo/Osiris/Osiris03.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/AnimacionesGeronimo/Osiris/Osiris04.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/AnimacionesGeronimo/Osiris/Osiris05.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/AnimacionesGeronimo/Osiris/Osiris06.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/AnimacionesGeronimo/Osiris/Osiris07.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/AnimacionesGeronimo/Osiris/Osiris08.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/AnimacionesGeronimo/Osiris/Osiris09.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/assets/Batalla1/MagicBar.png" afterPath="$PROJECT_DIR$/app/src/main/assets/Batalla1/MagicBar.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/assets/AnimacionesGeronimo/Momify/Momify08.png" afterPath="$PROJECT_DIR$/app/src/main/assets/AnimacionesGeronimo/Momify/Momify08.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/assets/AnimacionesGeronimo/Momify/Momify09.png" afterPath="$PROJECT_DIR$/app/src/main/assets/AnimacionesGeronimo/Momify/Momify09.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/AnimacionesGus/Boom/Boom00.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/AnimacionesGus/Boom/Boom01.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/AnimacionesGus/Boom/Boom02.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/AnimacionesGus/Boom/Boom03.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/AnimacionesGus/Boom/Boom04.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/AnimacionesGus/Boom/Boom05.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/AnimacionesGus/Boom/Boom06.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/AnimacionesGus/Boom/Boom07.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/AnimacionesGus/Boom/Boom08.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/AnimacionesGus/Boom/Boom09.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/BotonesGeronimo/BotonAnubis.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/BotonesGus/BotonBoogaloo.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/BotonesGus/BotonBoom.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/BotonesGus/BotonBootyx.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/BotonesGeronimo/BotonLocust.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/BotonesGeronimo/BotonMummify.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/BotonesGeronimo/BotonOsiris.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/BotonesGeronimo/BotonSuperGeronimo.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/BotonesGus/BotonSuperGus.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/BotonesGus/BotonTaboo.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/EscenasFinales/GeronimoGanador.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/EscenasFinales/GeronimoPerdedor.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/EscenasFinales/GusGanador.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/EscenasFinales/GusPerdedor.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/AnimacionesGus/TwoSpooky/TwoSpooky00.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/AnimacionesGus/TwoSpooky/TwoSpooky01.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/AnimacionesGus/TwoSpooky/TwoSpooky010.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/AnimacionesGus/TwoSpooky/TwoSpooky02.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/AnimacionesGus/TwoSpooky/TwoSpooky03.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/AnimacionesGus/TwoSpooky/TwoSpooky04.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/AnimacionesGus/TwoSpooky/TwoSpooky05.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/AnimacionesGus/TwoSpooky/TwoSpooky06.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/AnimacionesGus/TwoSpooky/TwoSpooky07.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/AnimacionesGus/TwoSpooky/TwoSpooky08.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/AnimacionesGus/TwoSpooky/TwoSpooky09.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/mx/itesm/spookybattle/EscenaBatalla.java" afterPath="$PROJECT_DIR$/app/src/main/java/mx/itesm/spookybattle/EscenaBatalla.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/mx/itesm/spookybattle/SeleccionPersonaje.java" afterPath="$PROJECT_DIR$/app/src/main/java/mx/itesm/spookybattle/SeleccionPersonaje.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/mx/itesm/spookybattle/EscenaFinBatalla.java" afterPath="$PROJECT_DIR$/app/src/main/java/mx/itesm/spookybattle/EscenaFinBatalla.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/mx/itesm/spookybattle/Main.java" afterPath="$PROJECT_DIR$/app/src/main/java/mx/itesm/spookybattle/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" afterPath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="spooky.iws" />
@@ -69,11 +82,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="EscenaBatalla.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="EscenaBatalla.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/mx/itesm/spookybattle/EscenaBatalla.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.595679" vertical-offset="31002" max-vertical-offset="38794">
-              <caret line="1905" column="40" selection-start-line="1905" selection-start-column="40" selection-end-line="1905" selection-end-column="40" />
+            <state vertical-scroll-proportion="-5.178571" vertical-offset="10803" max-vertical-offset="42109">
+              <caret line="647" column="30" selection-start-line="647" selection-start-column="30" selection-end-line="647" selection-end-column="30" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -81,21 +94,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SeleccionPersonaje.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/mx/itesm/spookybattle/SeleccionPersonaje.java">
+      <file leaf-file-name="EscenaMenu.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/mx/itesm/spookybattle/EscenaMenu.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="6477" max-vertical-offset="8483">
-              <caret line="410" column="44" selection-start-line="410" selection-start-column="44" selection-end-line="410" selection-end-column="44" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1921" max-vertical-offset="6069">
+              <caret line="113" column="119" selection-start-line="113" selection-start-column="119" selection-end-line="113" selection-end-column="119" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EscenaFinBatalla.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="SeleccionPersonaje.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/mx/itesm/spookybattle/SeleccionPersonaje.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="2312" max-vertical-offset="9724">
+              <caret line="136" column="0" selection-start-line="136" selection-start-column="0" selection-end-line="136" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EscenaFinBatalla.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/mx/itesm/spookybattle/EscenaFinBatalla.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1156" max-vertical-offset="2176">
-              <caret line="68" column="34" selection-start-line="68" selection-start-column="31" selection-end-line="68" selection-end-column="34" />
+            <state vertical-scroll-proportion="0.58352405" vertical-offset="1717" max-vertical-offset="3536">
+              <caret line="126" column="33" selection-start-line="126" selection-start-column="33" selection-end-line="126" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -104,8 +127,8 @@
       <file leaf-file-name="Main.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/mx/itesm/spookybattle/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="493" max-vertical-offset="5746">
-              <caret line="47" column="70" selection-start-line="47" selection-start-column="70" selection-end-line="47" selection-end-column="70" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="306" max-vertical-offset="5746">
+              <caret line="37" column="83" selection-start-line="37" selection-start-column="83" selection-end-line="37" selection-end-column="83" />
               <folding />
             </state>
           </provider>
@@ -2115,11 +2138,11 @@
         <option value="$PROJECT_DIR$/app/src/main/java/mx/itesm/spookybattle/TipoEscena.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/mx/itesm/spookybattle/AdministradorEscenas.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/mx/itesm/spookybattle/EscenaSplash.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/mx/itesm/spookybattle/Main.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/mx/itesm/spookybattle/EscenaMenu.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/mx/itesm/spookybattle/EscenaFinBatalla.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/mx/itesm/spookybattle/EscenaAcercaDe.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/mx/itesm/spookybattle/SeleccionPersonaje.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/mx/itesm/spookybattle/EscenaAcercaDe.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/mx/itesm/spookybattle/EscenaMenu.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/mx/itesm/spookybattle/Main.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/mx/itesm/spookybattle/EscenaFinBatalla.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/mx/itesm/spookybattle/EscenaBatalla.java" />
       </list>
     </option>
@@ -2157,7 +2180,6 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -2178,6 +2200,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -2214,7 +2237,7 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="instructions" />
+              <option name="myItemId" value="EscenasFinales" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -2232,25 +2255,7 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Booty" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="spooky" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AnimacionesFrancis" />
+              <option name="myItemId" value="AnimacionesGus" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -2305,17 +2310,17 @@
     <property name="settings.editor.selected.configurable" value="android.sdk-updates" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="recentsLimit" value="5" />
-    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="emulator-5554" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="Nexus_5_API_21_x86" />
     <property name="FullScreen" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Yael\Desktop\spooky\app\src\main\assets\AnimacionesGus\Booty" />
-      <recent name="C:\Users\Yael\Desktop\spooky\app\src\main\assets\AnimacionesGeronimo\Osiris" />
-      <recent name="C:\Users\Yael\Desktop\spooky\app\src\main\assets\Batalla1" />
-      <recent name="C:\Users\Yael\Desktop\spooky\app\src\main\assets\SelectScreen" />
-      <recent name="C:\Users\Yael\Desktop\spooky\app\src\main\assets" />
+      <recent name="C:\Users\Yael\Desktop\spooky\app\src\main\assets\AnimacionesGus\TwoSpooky" />
+      <recent name="C:\Users\Yael\Desktop\spooky\app\src\main\assets\AnimacionesGus\Boom" />
+      <recent name="C:\Users\Yael\Desktop\spooky\app\src\main\assets\BotonesGus" />
+      <recent name="C:\Users\Yael\Desktop\spooky\app\src\main\assets\BotonesGeronimo" />
+      <recent name="C:\Users\Yael\Desktop\spooky\app\src\main\assets\EscenasFinales" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Yael\Desktop\spooky\app\src\main\assets\AnimacionesGus\Booty\Booty" />
@@ -2551,7 +2556,31 @@
       <created>1448999593420</created>
       <updated>1448999593420</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="File que se borro en los commits pasado. 2spooky4me">
+      <created>1449009730733</created>
+      <updated>1449009730733</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Botones de continue y start en seleccion de pantalla. Continue todavía no funcional. Boton de continue al perder, regresa a la batalla anterior. Color del fondo al ganar, Descripcion de ataques">
+      <created>1449022923628</created>
+      <updated>1449022923628</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Fix de boton que no se hacia más grande y fix de no tener suficiente MP causaba que el juego se loopeara.">
+      <created>1449024618170</created>
+      <updated>1449024618170</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Letrero de level up funcional">
+      <created>1449027518779</created>
+      <updated>1449027518779</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Varias animaciones de Gus y texto de personajes en select screen">
+      <created>1449039404242</created>
+      <updated>1449039404242</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Botones de cheat y reset en pantalla de about us">
+      <created>1449041565030</created>
+      <updated>1449041565030</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -2575,7 +2604,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="55" y="-8" width="1319" height="784" extended-state="6" />
+    <frame x="55" y="-8" width="1319" height="784" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
@@ -2590,7 +2619,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32854864" sideWeight="0.59809375" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32854864" sideWeight="0.49960285" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32854864" sideWeight="0.4988086" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.37320575" sideWeight="0.81810963" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23763955" sideWeight="0.81810963" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5279107" sideWeight="0.598888" order="13" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20492454" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -2674,17 +2703,18 @@
     <MESSAGE value="Se agregó toda la lógica e imagenes necesarias en character select. Se editaron algunos comentarios raros que aparecieron en la escena de batalla" />
     <MESSAGE value="Se hicieron modifiaciones. E intentos de barras" />
     <MESSAGE value="Barras de vida funcionales y codigo para que funcionen las barras de magica, falta imagen" />
-    <option name="LAST_COMMIT_MESSAGE" value="Barras de vida funcionales y codigo para que funcionen las barras de magica, falta imagen" />
+    <MESSAGE value="File que se borro en los commits pasado. 2spooky4me" />
+    <MESSAGE value="Botones de continue y start en seleccion de pantalla. Continue todavía no funcional. Boton de continue al perder, regresa a la batalla anterior. Color del fondo al ganar, Descripcion de ataques" />
+    <MESSAGE value="Fix de boton que no se hacia más grande y fix de no tener suficiente MP causaba que el juego se loopeara." />
+    <MESSAGE value="Letrero de level up funcional" />
+    <MESSAGE value="Varias animaciones de Gus y texto de personajes en select screen" />
+    <MESSAGE value="Botones de cheat y reset en pantalla de about us" />
+    <MESSAGE value="Imagenes que faltaban Animaciones que faltaban. Y pantallas de ganador que faltaban" />
+    <option name="LAST_COMMIT_MESSAGE" value="Imagenes que faltaban Animaciones que faltaban. Y pantallas de ganador que faltaban" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/mx/itesm/spookybattle/EscenaMenu.java</url>
-          <line>107</line>
-          <properties />
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/mx/itesm/spookybattle/EscenaBase.java</url>
           <line>32</line>
@@ -2696,63 +2726,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/org.andengine/src/main/java/org/andengine/engine/handler/UpdateHandlerList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
-          <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/assets/Titulo.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/assets/logoTec.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/assets/BotonPlay.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/assets/BotonHowTo.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/assets/BotonAboutUs.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/assets/AnimacionesGeronimo/Anubis/Anubis8.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/assets/AnimacionesGeronimo/Momify/Momify09.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/assets/AnimacionesGeronimo/Momify/Momify08.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/assets/AnimacionesFrancis/Super/Super02.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/assets/AnimacionesFrancis/Super/Super03.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/assets/AnimacionesFrancis/Super/Super04.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -2886,11 +2859,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/assets/SelectScreen/GusSelected.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/assets/SelectScreen/GusUnSelected.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -2899,36 +2867,6 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/assets/SelectScreen/GeronimoSelected.png">
       <provider selected="true" editor-type-id="images">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/assets/SelectScreen/GeronimoUnSelected.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/mx/itesm/spookybattle/EscenaFinBatalla.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="753" max-vertical-offset="2040">
-          <caret line="68" column="34" selection-start-line="68" selection-start-column="31" selection-end-line="68" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/mx/itesm/spookybattle/EscenaMenu.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.0" vertical-offset="3424" max-vertical-offset="5865">
-          <caret line="213" column="22" selection-start-line="213" selection-start-column="22" selection-end-line="213" selection-end-column="45" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/mx/itesm/spookybattle/EscenaAcercaDe.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.464286" vertical-offset="0" max-vertical-offset="969">
-          <caret line="10" column="29" selection-start-line="10" selection-start-column="29" selection-end-line="10" selection-end-column="29" />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/assets/AboutUs.png">
@@ -2951,42 +2889,133 @@
         <state />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/assets/EscenasFinales/BotonContinue.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/assets/Batalla1/MagicBar.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/assets/SelectScreen/GusSelected.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/assets/AnimacionesGeronimo/Momify/Momify08.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/assets/AnimacionesGeronimo/Momify/Momify09.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/assets/EscenasFinales/BotonStart.png">
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/mx/itesm/spookybattle/P_Character.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.559659" vertical-offset="2193" max-vertical-offset="2618">
+        <state vertical-scroll-proportion="2.2471263" vertical-offset="510" max-vertical-offset="2618">
           <caret line="93" column="15" selection-start-line="93" selection-start-column="15" selection-end-line="93" selection-end-column="15" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/mx/itesm/spookybattle/Main.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/mx/itesm/spookybattle/Attack.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="697" max-vertical-offset="5746">
-          <caret line="47" column="70" selection-start-line="47" selection-start-column="70" selection-end-line="47" selection-end-column="70" />
-          <folding />
+        <state vertical-scroll-proportion="-1.0720222" vertical-offset="421" max-vertical-offset="782">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/assets/AnimacionesGus/GusWaitingSheet.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/mx/itesm/spookybattle/SeleccionPersonaje.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="6477" max-vertical-offset="8483">
-          <caret line="410" column="44" selection-start-line="410" selection-start-column="44" selection-end-line="410" selection-end-column="44" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="2312" max-vertical-offset="9724">
+          <caret line="136" column="0" selection-start-line="136" selection-start-column="0" selection-end-line="136" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/mx/itesm/spookybattle/EscenaAcercaDe.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1172" max-vertical-offset="2703">
+          <caret line="84" column="47" selection-start-line="84" selection-start-column="47" selection-end-line="84" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/mx/itesm/spookybattle/EscenaMenu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1921" max-vertical-offset="6069">
+          <caret line="113" column="119" selection-start-line="113" selection-start-column="119" selection-end-line="113" selection-end-column="119" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/assets/BotonesCurtis/BotonCurtisAtt4.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/assets/BotonesCurtis/BotonCurtisAtt3.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/assets/BotonesCurtis/BotonCurtisAtt2.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/assets/BotonesCurtis/BotonCurtisAtt1.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/assets/EscenasFinales/GusGanador.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/mx/itesm/spookybattle/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="306" max-vertical-offset="5746">
+          <caret line="37" column="83" selection-start-line="37" selection-start-column="83" selection-end-line="37" selection-end-column="83" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/mx/itesm/spookybattle/EscenaBatalla.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.595679" vertical-offset="31002" max-vertical-offset="38794">
-          <caret line="1905" column="40" selection-start-line="1905" selection-start-column="40" selection-end-line="1905" selection-end-column="40" />
+        <state vertical-scroll-proportion="-5.178571" vertical-offset="10803" max-vertical-offset="42109">
+          <caret line="647" column="30" selection-start-line="647" selection-start-column="30" selection-end-line="647" selection-end-column="30" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/assets/EscenasFinales/GeronimoGanador.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/mx/itesm/spookybattle/EscenaFinBatalla.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.58352405" vertical-offset="1717" max-vertical-offset="3536">
+          <caret line="126" column="33" selection-start-line="126" selection-start-column="33" selection-end-line="126" selection-end-column="33" />
+          <folding />
         </state>
       </provider>
     </entry>

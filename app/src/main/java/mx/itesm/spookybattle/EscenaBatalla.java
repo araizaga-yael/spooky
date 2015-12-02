@@ -189,6 +189,7 @@ public class EscenaBatalla extends EscenaBase
 
 
     boolean attacking = false;
+    boolean defending = false;
 
     //Animaciones
     private int numImagenes;
@@ -244,12 +245,14 @@ public class EscenaBatalla extends EscenaBase
             regionCurtisAnimado = cargarImagenMosaico("AnimacionesCurtis/WaitingBattle/CurtisWaitingSheet.png", 1986, 331, 1, 6);
             regionBtnAtk = cargarImagen("BotonesCurtis/BotonAttack.png");
             regionBtnDef = cargarImagen("BotonesCurtis/BotonDefense.png");
+            //regionBtnAtk = cargarImagen("BotonesGeronimo/BotonAttack.png");
+            //regionBtnDef = cargarImagen("BotonesGeronimo/BotonDefense.png");
 
-            regionBtnAtk1 = cargarImagen("BotonesCurtis/BotonCurtisAtt4.png");
-            regionBtnAtk2 = cargarImagen("BotonesCurtis/BotonCurtisAtt3.png");
-            regionBtnAtk3 = cargarImagen("BotonesCurtis/BotonCurtisAtt2.png");
-            regionBtnAtk4 = cargarImagen("BotonesCurtis/BotonCurtisAtt1.png");
-            regionBtnAtk5 = cargarImagen("BotonesCurtis/BotonSuper.png");
+            regionBtnAtk1 = cargarImagen("BotonesGeronimo/BotonLocust.png");
+            regionBtnAtk2 = cargarImagen("BotonesGeronimo/BotonMummify.png");
+            regionBtnAtk3 = cargarImagen("BotonesGeronimo/BotonAnubis.png");
+            regionBtnAtk4 = cargarImagen("BotonesGeronimo/BotonOsiris.png");
+            regionBtnAtk5 = cargarImagen("BotonesGeronimo/BotonSuperGeronimo.png");
         }
         else if(currChar ==3){
             regionFrancisAnimadoPlayer = cargarImagenMosaico("AnimacionesFrancis/FrancisWaitingSheet.png", 2010,337 ,1,6);
@@ -267,12 +270,14 @@ public class EscenaBatalla extends EscenaBase
 
             regionBtnAtk = cargarImagen("BotonesCurtis/BotonAttack.png");
             regionBtnDef = cargarImagen("BotonesCurtis/BotonDefense.png");
+            //regionBtnAtk = cargarImagen("BotonesGus/BotonAttack.png");
+            //regionBtnDef = cargarImagen("BotonesGus/BotonDefense.png");
 
-            regionBtnAtk1 = cargarImagen("BotonesCurtis/BotonCurtisAtt4.png");
-            regionBtnAtk2 = cargarImagen("BotonesCurtis/BotonCurtisAtt3.png");
-            regionBtnAtk3 = cargarImagen("BotonesCurtis/BotonCurtisAtt2.png");
-            regionBtnAtk4 = cargarImagen("BotonesCurtis/BotonCurtisAtt1.png");
-            regionBtnAtk5 = cargarImagen("BotonesCurtis/BotonSuper.png");
+            regionBtnAtk1 = cargarImagen("BotonesGus/BotonBoom.png");
+            regionBtnAtk2 = cargarImagen("BotonesGus/BotonBootyx.png");
+            regionBtnAtk3 = cargarImagen("BotonesGus/BotonBoogaloo.png");
+            regionBtnAtk4 = cargarImagen("BotonesGus/BotonTaboo.png");
+            regionBtnAtk5 = cargarImagen("BotonesGus/BotonSuperGus.png");
         }
 
         regionGeronimoAnimado =cargarImagenMosaico("AnimacionesGeronimo/GeronimoWaitingSheet.png", 2723, 389, 1, 7);
@@ -376,9 +381,12 @@ public class EscenaBatalla extends EscenaBase
     @Override
     public void crearEscena() {
         turn++;
+        attacking = false;
+        defending = false;
         if(!winner) {
 
             attacking = false;
+            defending = false;
 
             if (charChange == true) {
                 player.setDef(pStats[3]);
@@ -640,6 +648,7 @@ public class EscenaBatalla extends EscenaBase
                         break;
 
                     case DEFEND:
+                        if(defending==true) break;
                         //Esto solo se usa una vez
                         if(turn == 1) turn++;
                         //accion del boton
@@ -1866,7 +1875,7 @@ public class EscenaBatalla extends EscenaBase
         switch(opcionAtaque){
 
             case 1:
-                for (int i = 0; i < 7; i++) {
+                for (int i = 0; i < 10; i++) {
                     ITextureRegion imagen = cargarImagen("AnimacionesGus/Boom/Boom0" + (i) + ".png");
                     arrayImagenesGusPlayer.add(i, imagen);
                 }
@@ -1892,14 +1901,102 @@ public class EscenaBatalla extends EscenaBase
                 }
                 break;
             case 5:
-                for (int i = 0; i < 8; i++) {
-                    ITextureRegion imagen = cargarImagen("AnimacionesGus/Super/Super0" + (i) + ".png");
+                for (int i = 0; i < 11; i++) {
+                    ITextureRegion imagen = cargarImagen("AnimacionesGus/TwoSpooky/TwoSpooky0" + (i) + ".png");
                     arrayImagenesGusPlayer.add(i, imagen);
 
                 }
                 break;
 
         }
+    }
+
+    private void animacionTwoSpookyPlayer(){
+
+        registerUpdateHandler(new TimerHandler(0.3f, new ITimerCallback() {
+            @Override
+            public void onTimePassed(TimerHandler pTimerHandler) {
+                if (numImagenesGusPlayer< 11) {
+                    spriteGusAnimadoPlayer.setAlpha(0);
+
+                    if (tagSpriteChild != null)
+                        detachChild(tagSpriteChild);
+
+                    spriteFrameGusPlayer = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, arrayImagenesGusPlayer.get(numImagenesGusPlayer));
+                    spriteFrameGusPlayer.setFlippedHorizontal(true);
+                    attachChild(spriteFrameGusPlayer);
+                    tagSpriteChild = spriteFrameGusPlayer;
+
+                    numImagenesGusPlayer++;
+                    animacionTwoSpookyPlayer();
+                } else {
+
+                    for (int i = 0; i < 11; i++) {
+                        arrayImagenesGusPlayer.get(i).getTexture().unload();
+                    }
+                    arrayImagenesGusPlayer.clear();
+                    reset();
+                    checkHP(player,ai);
+
+                    if(aiFirst == false) {
+                        aiMove(player, ai);
+                        crearEscena();
+                        hideButtons();
+                    }
+                    else{
+                        crearEscena();
+                        s="Choose an action";
+                    }
+                    numImagenesGusPlayer = 0;
+                }
+
+
+            }
+        }));
+    }
+
+    private void animacionBoomPlayer(){
+
+        registerUpdateHandler(new TimerHandler(0.3f, new ITimerCallback() {
+            @Override
+            public void onTimePassed(TimerHandler pTimerHandler) {
+                if (numImagenesGusPlayer< 10) {
+                    spriteGusAnimadoPlayer.setAlpha(0);
+
+                    if (tagSpriteChild != null)
+                        detachChild(tagSpriteChild);
+
+                    spriteFrameGusPlayer = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, arrayImagenesGusPlayer.get(numImagenesGusPlayer));
+                    spriteFrameGusPlayer.setFlippedHorizontal(true);
+                    attachChild(spriteFrameGusPlayer);
+                    tagSpriteChild = spriteFrameGusPlayer;
+
+                    numImagenesGusPlayer++;
+                    animacionBoomPlayer();
+                } else {
+
+                    for (int i = 0; i < 10; i++) {
+                        arrayImagenesGusPlayer.get(i).getTexture().unload();
+                    }
+                    arrayImagenesGusPlayer.clear();
+                    reset();
+                    checkHP(player,ai);
+
+                    if(aiFirst == false) {
+                        aiMove(player, ai);
+                        crearEscena();
+                        hideButtons();
+                    }
+                    else{
+                        crearEscena();
+                        s="Choose an action";
+                    }
+                    numImagenesGusPlayer = 0;
+                }
+
+
+            }
+        }));
     }
 
     private void animacionBootyPlayer(){
@@ -2291,8 +2388,8 @@ public class EscenaBatalla extends EscenaBase
                     animacionStrikePlayer();
                 }
                 else if(currChar==4){
-                    getImagesGusPlayer(2);
-                    animacionBootyPlayer();
+                    getImagesGusPlayer(5);
+                    animacionTwoSpookyPlayer();
                 }
                 break;
             case 1:
@@ -2314,8 +2411,8 @@ public class EscenaBatalla extends EscenaBase
                     animacionFirePlayer();
                 }
                 else if(currChar==4){
-                    getImagesGusPlayer(2);
-                    animacionBootyPlayer();
+                    getImagesGusPlayer(1);
+                    animacionBoomPlayer();
                 }
                 break;
             case 2:

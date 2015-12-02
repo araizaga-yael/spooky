@@ -63,9 +63,18 @@ public class EscenaFinBatalla extends EscenaBase
             regionWinner = cargarImagen("EscenasFinales/PantallaGanadora.png");
             regionLoser = cargarImagen("EscenasFinales/PantallaPerdedora.png");
         }
+
+        if(currChar == 2) {
+            regionWinner = cargarImagen("EscenasFinales/GeronimoGanador.png");
+            regionLoser = cargarImagen("EscenasFinales/GeronimoPerdedor.png");
+        }
         else if (currChar == 3){
             regionWinner = cargarImagen("EscenasFinales/FrancisGanador.png");
             regionLoser = cargarImagen("EscenasFinales/FrancisPerdedor.png");
+        }
+        if(currChar == 4) {
+            regionWinner = cargarImagen("EscenasFinales/GusGanador.png");
+            regionLoser = cargarImagen("EscenasFinales/GusPerdedor.png");
         }
 
 
@@ -83,8 +92,14 @@ public class EscenaFinBatalla extends EscenaBase
             if(currChar == 1) {
                 fondo = new SpriteBackground(0.5f, 0f, 0.49f, SpriteWinner);
             }
+            if(currChar == 2) {
+                fondo = new SpriteBackground(.8f, .6f, 0f, SpriteWinner);
+            }
             if(currChar == 3) {
                 fondo = new SpriteBackground(0f, 0.3f, 0f, SpriteWinner);
+            }
+            if(currChar == 4) {
+                fondo = new SpriteBackground(0f, 0f, 0.8f, SpriteWinner);
             }
             setBackground(fondo);
 
@@ -100,8 +115,14 @@ public class EscenaFinBatalla extends EscenaBase
             if(currChar == 1) {
                 fondo = new SpriteBackground(0.5f, 0f, 0.49f, SpriteLoser);
             }
+            if(currChar == 2) {
+                fondo = new SpriteBackground(.8f, 0.6f, 0f, SpriteLoser);
+            }
             if(currChar == 3) {
                 fondo = new SpriteBackground(0f, 0.3f, 0f, SpriteLoser);
+            }
+            if(currChar == 4) {
+                fondo = new SpriteBackground(0f, 0f, 0.8f, SpriteLoser);
             }
             setBackground(fondo);
 
