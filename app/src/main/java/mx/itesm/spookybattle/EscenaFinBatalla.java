@@ -76,6 +76,8 @@ public class EscenaFinBatalla extends EscenaBase
         playerwin = preferencesWinner.getBoolean("winner", true);
         didILevelUp = preferencesWinner.getBoolean("didILevelUp", false);
 
+        Log.i("well, did he?", didILevelUp + "");
+
 
         if(playerwin == true){
             if(currChar == 1) {
@@ -120,7 +122,6 @@ public class EscenaFinBatalla extends EscenaBase
         levelUp = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_LEVELUP,regionLevelUp,actividadJuego.getVertexBufferObjectManager()),1,1);
         menu.addMenuItem(levelUp);
         levelUp.setVisible(false);
-        levelUp.setPosition(-450, -240);
 
         if(didILevelUp == true){
             levelUp.setVisible(true);
@@ -129,6 +130,7 @@ public class EscenaFinBatalla extends EscenaBase
         menu.buildAnimations();
         menu.setBackgroundEnabled(false);
         opcionContinue.setPosition(450, -240);
+        levelUp.setPosition(450, -110);
 
         menu.setOnMenuItemClickListener(new MenuScene.IOnMenuItemClickListener() {
             @Override

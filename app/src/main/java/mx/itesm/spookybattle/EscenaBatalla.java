@@ -340,7 +340,6 @@ public class EscenaBatalla extends EscenaBase
         }
         player.resetLevel();
        // Para resetear nivel
-        //player.resetLevel();
         //savelevel(player);
 
         SharedPreferences preferences = actividadJuego.getSharedPreferences("levels", Context.MODE_PRIVATE);
@@ -2070,7 +2069,6 @@ public class EscenaBatalla extends EscenaBase
             s= "";
             hideButtons();
             playerwin = true;
-            setWinner(1);
             winner = true;
 
             finishBattle(player,ai);
@@ -2078,6 +2076,7 @@ public class EscenaBatalla extends EscenaBase
                 player.levelUp();
                 didIlevelUp = true;
             }
+            setWinner(1);
             savelevel(player);
             player.resetLevel();
 
