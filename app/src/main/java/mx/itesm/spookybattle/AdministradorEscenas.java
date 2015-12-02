@@ -16,9 +16,14 @@ public class AdministradorEscenas
     private EscenaBase escenaSplash;
     private EscenaBase escenaMenu;
     private EscenaBase escenaAcercaDe;
+    private EscenaBase escenaHowTo;
     private EscenaBase escenaBatalla;
+    private EscenaBase escenaBatalla2;
+    private EscenaBase escenaBatalla3;
     private EscenaBase escenaSeleccion;
     private EscenaBase escenaFinBatalla;
+    private EscenaBase escenaFinBatalla2;
+    private EscenaBase escenaFinBatalla3;
 
 
 
@@ -75,14 +80,29 @@ public class AdministradorEscenas
             case ESCENA_ACERCA_DE:
                 setEscenaBase(escenaAcercaDe);
                 break;
+            case ESCENA_HOW_TO:
+                setEscenaBase(escenaHowTo);
+                break;
             case ESCENA_SELECCION_PERSONAJE:
                 setEscenaBase(escenaSeleccion);
                 break;
             case ESCENA_BATALLA:
                 setEscenaBase(escenaBatalla);
                 break;
+            case ESCENA_BATALLA2:
+                setEscenaBase(escenaBatalla2);
+                break;
+            case ESCENA_BATALLA3:
+                setEscenaBase(escenaBatalla3);
+                break;
             case ESCENA_FIN_BATALLA:
                 setEscenaBase(escenaFinBatalla);
+                break;
+            case ESCENA_FIN_BATALLA2:
+                setEscenaBase(escenaFinBatalla2);
+                break;
+            case ESCENA_FIN_BATALLA3:
+                setEscenaBase(escenaFinBatalla3);
                 break;
         }
     }
@@ -124,14 +144,14 @@ public class AdministradorEscenas
         escenaAcercaDe = null;
     }
 
-    public void crearNuclear() {
+    public void crearEscenaHowTo() {
         // Carga los recursos
-        escenaAcercaDe = new Nuclear();
+        escenaHowTo = new EscenaHowTo();
     }
 
-    public void liberarEscenaNuclear() {
-        escenaAcercaDe.liberarEscena();
-        escenaAcercaDe = null;
+    public void liberarEscenaHowTo() {
+        escenaHowTo.liberarEscena();
+        escenaHowTo = null;
     }
 
     public void crearEscenaSeleccionPersonaje(){
@@ -153,6 +173,22 @@ public class AdministradorEscenas
         escenaFinBatalla.liberarEscena();
         escenaFinBatalla = null;
     }
+    public void crearEscenaFinBatalla2() {
+       escenaFinBatalla2 = new EscenaFinBatalla2();
+    }
+
+    public void liberarEscenaFinBatalla2() {
+        escenaFinBatalla2.liberarEscena();
+        escenaFinBatalla2 = null;
+    }
+    public void crearEscenaFinBatalla3() {
+     //   escenaFinBatalla3 = new EscenaFinBatalla3();
+    }
+
+    public void liberarEscenaFinBatalla3() {
+        escenaFinBatalla3.liberarEscena();
+        escenaFinBatalla3 = null;
+    }
 
     public void crearEscenaBatalla() {
         escenaBatalla = new EscenaBatalla();
@@ -162,35 +198,20 @@ public class AdministradorEscenas
         escenaBatalla = null;
     }
 
+    public void crearEscenaBatalla2() {
+        escenaBatalla2 = new EscenaBatalla2();
+    }
+    public void liberarEscenaBatalla2() {
+        escenaBatalla2.liberarEscena();
+        escenaBatalla2 = null;
+    }
+    public void crearEscenaBatalla3() {
+        escenaBatalla2 = new EscenaBatalla2();
+    }
+    public void liberarEscenaBatalla3() {
+        escenaBatalla3.liberarEscena();
+        escenaBatalla3 = null;
+    }
+
 
 }
-/*
-    //*** Crea la escena de JUEGO
-    public void crearEscenaJuego() {
-        // Carga los recursos
-        admRecursos.cargarRecursosJuego();
-        //escenaJuego = new EscenaJuego();
-    }
-
-    //*** Libera la escena de JUEGO
-    public void liberarEscenaJuego() {
-        admRecursos.liberarRecursosJuego();
-        escenaJuego.liberarEscena();
-        escenaJuego = null;
-    }
-
-    //*** Crea la escena de Juego Dos
-    public void crearEscenaJuegoDos() {
-        // Carga los recursos
-        admRecursos.cargarRecursosJuegoDos();
-        //escenaJuegoDos = new EscenaJuegoDos();
-    }
-
-    //*** Libera la escena de Juego Dos
-    public void liberarEscenaJuegoDos() {
-        admRecursos.liberarRecursosJuegoDos();
-        escenaJuegoDos.liberarEscena();
-        escenaJuegoDos = null;
-    }
-*/
-

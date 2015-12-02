@@ -1,5 +1,10 @@
 package mx.itesm.spookybattle;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.util.Log;
+
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.entity.IEntity;
@@ -17,19 +22,13 @@ import org.andengine.entity.scene.menu.item.decorator.ScaleMenuItemDecorator;
 import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.UncoloredSprite;
-import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.entity.text.Text;
 import org.andengine.opengl.font.Font;
 import org.andengine.opengl.font.FontFactory;
 import org.andengine.opengl.texture.TextureOptions;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
+import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
-
-
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -40,7 +39,7 @@ import java.util.Random;
  *
  */
 
-public class EscenaBatalla extends EscenaBase
+public class EscenaBatalla2 extends EscenaBase
 {
     // Regiones para las imágenes de la escena
     private ITextureRegion regionFondoCielo;
@@ -69,8 +68,8 @@ public class EscenaBatalla extends EscenaBase
     private AnimatedSprite spriteCurtisAnimado;
     private TiledTextureRegion regionCurtisAnimado;
 
-    private AnimatedSprite spriteGeronimoAnimado;
-    private TiledTextureRegion regionGeronimoAnimado;
+    private AnimatedSprite spriteFrancisAnimado;
+    private TiledTextureRegion regionFrancisAnimado;
 
     private AnimatedSprite spriteGeronimoAnimadoPlayer;
     private TiledTextureRegion regionGeronimoAnimadoPlayer;
@@ -193,20 +192,20 @@ public class EscenaBatalla extends EscenaBase
 
     //Animaciones
     private int numImagenes;
-    private int numImagenesGeronimo;
+    private int numImagenesFrancis;
     private int numImagenesGeronimoPlayer;
     private int numImagenesFrancisPlayer;
     private int numImagenesGusPlayer;
 
     private Sprite spriteFrame;
-    private Sprite spriteFrameGeronimo;
+    private Sprite spriteFrameFrancis;
     private Sprite spriteFrameGeronimoPlayer;
     private Sprite spriteFrameFrancisPlayer;
     private Sprite spriteFrameGusPlayer;
     private IEntity tagSpriteChild;
 
     private ArrayList<ITextureRegion> arrayImagenes;
-    private ArrayList<ITextureRegion> arrayImagenesGeronimo;
+    private ArrayList<ITextureRegion> arrayImagenesFrancis;
     private ArrayList<ITextureRegion> arrayImagenesGeronimoPlayer;
     private ArrayList<ITextureRegion> arrayImagenesFrancisPlayer;
     private ArrayList<ITextureRegion> arrayImagenesGusPlayer;
@@ -280,7 +279,7 @@ public class EscenaBatalla extends EscenaBase
             regionBtnAtk5 = cargarImagen("BotonesGus/BotonSuperGus.png");
         }
 
-        regionGeronimoAnimado =cargarImagenMosaico("AnimacionesGeronimo/GeronimoWaitingSheet.png", 2723, 389, 1, 7);
+        regionFrancisAnimado =cargarImagenMosaico("AnimacionesFrancis/FrancisWaitingSheet.png", 2010,337 ,1,6);
 
         regionGirlAnimado = cargarImagenMosaico("Batalla1/GirlSpriteSheet.png", 1026, 171, 1, 6);
 
@@ -355,15 +354,14 @@ public class EscenaBatalla extends EscenaBase
         Log.i("Leyendo nivel", "Nivel = " + playerLvl);
         Log.i("Nivel real", "Real = " + player.getLvl());
 
-        ai = Main.mummyAI;
+        ai = Main.frankensteinAI;
+        ai.levelUp();
         ai.levelUp();
 
         SplayerName = player.toString();
         SAIName = ai.toString();
 
-        //MODIFICAR POINTER
         if(ai.getSuperAtk().equals(player.getSuperAtk())){SAIName += "?"; }
-        ////
 
         SplayerstartingHP = player.getHP() +"";
         SAIStartingHP = ai.getHP()+ "";
@@ -424,7 +422,7 @@ public class EscenaBatalla extends EscenaBase
                 TextPlayerName = new Text(0, 0, fontGus, SplayerName, actividadJuego.getVertexBufferObjectManager());
             }
 
-            TextAIName = new Text(0, 0, fontGeronimo, SAIName, actividadJuego.getVertexBufferObjectManager());
+            TextAIName = new Text(0, 0, fontFrancis, SAIName, actividadJuego.getVertexBufferObjectManager());
 
             agregarMenu();
             attachChild(spriteFondoCielo);
@@ -456,9 +454,9 @@ public class EscenaBatalla extends EscenaBase
                 attachChild(spriteGusAnimadoPlayer);
             }
 
-            spriteGeronimoAnimado = new AnimatedSprite(ControlJuego.ANCHO_CAMARA / 2 + 350, ControlJuego.ALTO_CAMARA / 2 - 80, regionGeronimoAnimado, actividadJuego.getVertexBufferObjectManager());
-            spriteGeronimoAnimado.animate(500);
-            attachChild(spriteGeronimoAnimado);
+            spriteFrancisAnimado = new AnimatedSprite(ControlJuego.ANCHO_CAMARA / 2 + 350, ControlJuego.ALTO_CAMARA / 2 - 80, regionFrancisAnimado, actividadJuego.getVertexBufferObjectManager());
+            spriteFrancisAnimado.animate(500);
+            attachChild(spriteFrancisAnimado);
 
         }
 
@@ -799,41 +797,41 @@ public class EscenaBatalla extends EscenaBase
 
     }
 
-    private void getImagesGeronimo(int opcionAtaque)
+    private void getImagesFrancis(int opcionAtaque)
     {
-        arrayImagenesGeronimo = new ArrayList<>();
+        arrayImagenesFrancis = new ArrayList<>();
         switch(opcionAtaque){
 
             case 1:
-                for (int i = 0; i < 10; i++) {
-                    ITextureRegion imagen = cargarImagen("AnimacionesGeronimo/LotusPocus/Geronimo0" + (i) + ".png");
-                    arrayImagenesGeronimo.add(i, imagen);
+                for (int i = 0; i < 7; i++) {
+                    ITextureRegion imagen = cargarImagen("AnimacionesFrancis/Fire/Fire0" + (i) + ".png");
+                    arrayImagenesFrancis.add(i, imagen);
                 }
                 break;
 
             case 2:
-                for (int i = 0; i < 10; i++) {
-                    ITextureRegion imagen = cargarImagen("AnimacionesGeronimo/Momify/Momify0" + (i) + ".png");
-                    arrayImagenesGeronimo.add(i, imagen);
+                for (int i = 0; i < 9; i++) {
+                    ITextureRegion imagen = cargarImagen("AnimacionesFrancis/Lightning/Lightning0" + (i) + ".png");
+                    arrayImagenesFrancis.add(i, imagen);
                 }
                 break;
             case 3:
                 for (int i = 0; i < 8; i++) {
-                    ITextureRegion imagen = cargarImagen("AnimacionesGeronimo/Anubis/Anubis" + (i + 1) + ".png");
-                    arrayImagenesGeronimo.add(i, imagen);
+                    ITextureRegion imagen = cargarImagen("AnimacionesFrancis/LightningBolt/LigthningBolt0" + (i) + ".png");
+                    arrayImagenesFrancis.add(i, imagen);
                 }
                 break;
             case 4:
-                for (int i = 0; i < 11; i++) {
-                    ITextureRegion imagen = cargarImagen("AnimacionesGeronimo/Osiris/Osiris0" + (i+1) + ".png");
-                    arrayImagenesGeronimo.add(i, imagen);
+                for (int i = 0; i < 6; i++) {
+                    ITextureRegion imagen = cargarImagen("AnimacionesFrancis/Rocks/Rocks0" + (i) + ".png");
+                    arrayImagenesFrancis.add(i, imagen);
 
                 }
                 break;
             case 5:
-                for (int i = 0; i < 11; i++) {
-                    ITextureRegion imagen = cargarImagen("AnimacionesGeronimo/Plague/SuperGer0" + (i) + ".png");
-                    arrayImagenesGeronimo.add(i, imagen);
+                for (int i = 0; i < 8; i++) {
+                    ITextureRegion imagen = cargarImagen("AnimacionesFrancis/Super/Super0" + (i) + ".png");
+                    arrayImagenesFrancis.add(i, imagen);
 
                 }
                 break;
@@ -843,118 +841,29 @@ public class EscenaBatalla extends EscenaBase
 
 
 
-    private void animacionLotusAI(){
+    private void animacionStrikeAI(){
 
         registerUpdateHandler(new TimerHandler(0.3f, new ITimerCallback() {
             @Override
             public void onTimePassed(TimerHandler pTimerHandler) {
-                //A partir de aqui puedes agregrar las instrucciones que quieres que realice el timer
-                if (numImagenesGeronimo < 10) {
-                    spriteGeronimoAnimado.setAlpha(0);
+                if (numImagenesFrancis< 8) {
+                    spriteFrancisAnimado.setAlpha(0);
 
                     if (tagSpriteChild != null)
                         detachChild(tagSpriteChild);
 
-                    spriteFrameGeronimo = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, arrayImagenesGeronimo.get(numImagenesGeronimo));
-                    attachChild(spriteFrameGeronimo);
-                    tagSpriteChild = spriteFrameGeronimo;
+                    spriteFrameFrancis = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, arrayImagenesFrancis.get(numImagenesFrancis));
+                    attachChild(spriteFrameFrancis);
+                    tagSpriteChild = spriteFrameFrancis;
 
-                    numImagenesGeronimo++;
-                    animacionLotusAI();
-                } else {
-
-                    for (int i = 0; i < 10; i++) {
-
-                        arrayImagenesGeronimo.get(i).getTexture().unload();
-                    }
-                    arrayImagenesGeronimo.clear();
-                    reset();
-                    checkHP(player,ai);
-
-                    if(aiFirst == true){
-                        playerMove(player, ai, attackChoice);
-                        crearEscena();
-                        hideButtons();
-                    }
-                    else {
-                        crearEscena();
-                        s="Choose an action";
-                    }
-                    numImagenesGeronimo = 0;
-                }
-
-
-            }
-        }));
-    }
-
-    private void animacionMomifyAI(){
-
-        registerUpdateHandler(new TimerHandler(0.3f, new ITimerCallback() {
-            @Override
-            public void onTimePassed(TimerHandler pTimerHandler) {
-                if (numImagenesGeronimo < 10) {
-                    spriteGeronimoAnimado.setAlpha(0);
-
-                    if (tagSpriteChild != null)
-                        detachChild(tagSpriteChild);
-
-                    spriteFrameGeronimo = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, arrayImagenesGeronimo.get(numImagenesGeronimo));
-                    attachChild(spriteFrameGeronimo);
-                    tagSpriteChild = spriteFrameGeronimo;
-
-                    numImagenesGeronimo++;
-                    animacionMomifyAI();
-                } else {
-
-                    for (int i = 0; i < 10; i++) {
-
-                        arrayImagenesGeronimo.get(i).getTexture().unload();
-                    }
-                    arrayImagenesGeronimo.clear();
-                    reset();
-                    checkHP(player,ai);
-
-                    if(aiFirst == true){
-                        playerMove(player, ai, attackChoice);
-                        crearEscena();
-                        hideButtons();
-                    }
-                    else {
-                        crearEscena();
-                        s="Choose an action";
-                    }
-                    numImagenesGeronimo = 0;
-                }
-
-
-            }
-        }));
-    }
-
-    private void animacionAnubisAI(){
-
-        registerUpdateHandler(new TimerHandler(0.3f, new ITimerCallback() {
-            @Override
-            public void onTimePassed(TimerHandler pTimerHandler) {
-                if (numImagenesGeronimo < 8) {
-                    spriteGeronimoAnimado.setAlpha(0);
-
-                    if (tagSpriteChild != null)
-                        detachChild(tagSpriteChild);
-
-                    spriteFrameGeronimo = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, arrayImagenesGeronimo.get(numImagenesGeronimo));
-                    attachChild(spriteFrameGeronimo);
-                    tagSpriteChild = spriteFrameGeronimo;
-
-                    numImagenesGeronimo++;
-                    animacionAnubisAI();
+                    numImagenesFrancis++;
+                    animacionStrikeAI();
                 } else {
 
                     for (int i = 0; i < 8; i++) {
-                        arrayImagenesGeronimo.get(i).getTexture().unload();
+                        arrayImagenesFrancis.get(i).getTexture().unload();
                     }
-                    arrayImagenesGeronimo.clear();
+                    arrayImagenesFrancis.clear();
                     reset();
                     checkHP(player,ai);
 
@@ -967,7 +876,7 @@ public class EscenaBatalla extends EscenaBase
                         crearEscena();
                         s="Choose an action";
                     }
-                    numImagenesGeronimo = 0;
+                    numImagenesFrancis = 0;
                 }
 
 
@@ -975,29 +884,29 @@ public class EscenaBatalla extends EscenaBase
         }));
     }
 
-    private void animacionOsirisAI(){
+    private void animacionFireAI(){
 
         registerUpdateHandler(new TimerHandler(0.3f, new ITimerCallback() {
             @Override
             public void onTimePassed(TimerHandler pTimerHandler) {
-                if (numImagenesGeronimo < 11) {
-                    spriteGeronimoAnimado.setAlpha(0);
+                if (numImagenesFrancis< 7) {
+                    spriteFrancisAnimado.setAlpha(0);
 
                     if (tagSpriteChild != null)
                         detachChild(tagSpriteChild);
 
-                    spriteFrameGeronimo = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, arrayImagenesGeronimo.get(numImagenesGeronimo));
-                    attachChild(spriteFrameGeronimo);
-                    tagSpriteChild = spriteFrameGeronimo;
+                    spriteFrameFrancis = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, arrayImagenesFrancis.get(numImagenesFrancis));
+                    attachChild(spriteFrameFrancis);
+                    tagSpriteChild = spriteFrameFrancis;
 
-                    numImagenesGeronimo++;
-                    animacionOsirisAI();
+                    numImagenesFrancis++;
+                    animacionFireAI();
                 } else {
 
-                    for (int i = 0; i < 11; i++) {
-                        arrayImagenesGeronimo.get(i).getTexture().unload();
+                    for (int i = 0; i < 7; i++) {
+                        arrayImagenesFrancis.get(i).getTexture().unload();
                     }
-                    arrayImagenesGeronimo.clear();
+                    arrayImagenesFrancis.clear();
                     reset();
                     checkHP(player,ai);
 
@@ -1010,7 +919,7 @@ public class EscenaBatalla extends EscenaBase
                         crearEscena();
                         s="Choose an action";
                     }
-                    numImagenesGeronimo = 0;
+                    numImagenesFrancis = 0;
                 }
 
 
@@ -1018,29 +927,29 @@ public class EscenaBatalla extends EscenaBase
         }));
     }
 
-    private void animacionPlagueAI(){
+    private void animacionAliveAI(){
 
         registerUpdateHandler(new TimerHandler(0.3f, new ITimerCallback() {
             @Override
             public void onTimePassed(TimerHandler pTimerHandler) {
-                if (numImagenesGeronimo < 11) {
-                    spriteGeronimoAnimado.setAlpha(0);
+                if (numImagenesFrancis< 9) {
+                    spriteFrancisAnimado.setAlpha(0);
 
                     if (tagSpriteChild != null)
                         detachChild(tagSpriteChild);
 
-                    spriteFrameGeronimo = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, arrayImagenesGeronimo.get(numImagenesGeronimo));
-                    attachChild(spriteFrameGeronimo);
-                    tagSpriteChild = spriteFrameGeronimo;
+                    spriteFrameFrancis = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, arrayImagenesFrancis.get(numImagenesFrancis));
+                    attachChild(spriteFrameFrancis);
+                    tagSpriteChild = spriteFrameFrancis;
 
-                    numImagenesGeronimo++;
-                    animacionPlagueAI();
+                    numImagenesFrancis++;
+                    animacionAliveAI();
                 } else {
 
-                    for (int i = 0; i < 11; i++) {
-                        arrayImagenesGeronimo.get(i).getTexture().unload();
+                    for (int i = 0; i < 9; i++) {
+                        arrayImagenesFrancis.get(i).getTexture().unload();
                     }
-                    arrayImagenesGeronimo.clear();
+                    arrayImagenesFrancis.clear();
                     reset();
                     checkHP(player,ai);
 
@@ -1053,7 +962,92 @@ public class EscenaBatalla extends EscenaBase
                         crearEscena();
                         s="Choose an action";
                     }
-                    numImagenesGeronimo = 0;
+                    numImagenesFrancis = 0;
+                }
+
+
+            }
+        }));
+    }
+    private void animacionShockAI(){
+
+        registerUpdateHandler(new TimerHandler(0.3f, new ITimerCallback() {
+            @Override
+            public void onTimePassed(TimerHandler pTimerHandler) {
+                if (numImagenesFrancis< 8) {
+                    spriteFrancisAnimado.setAlpha(0);
+
+                    if (tagSpriteChild != null)
+                        detachChild(tagSpriteChild);
+
+                    spriteFrameFrancis = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, arrayImagenesFrancis.get(numImagenesFrancis));
+                    attachChild(spriteFrameFrancis);
+                    tagSpriteChild = spriteFrameFrancis;
+
+                    numImagenesFrancis++;
+                    animacionShockAI();
+                } else {
+
+                    for (int i = 0; i < 8; i++) {
+                        arrayImagenesFrancis.get(i).getTexture().unload();
+                    }
+                    arrayImagenesFrancis.clear();
+                    reset();
+                    checkHP(player,ai);
+
+                    if(aiFirst == true){
+                        playerMove(player, ai, attackChoice);
+                        crearEscena();
+                        hideButtons();
+                    }
+                    else {
+                        crearEscena();
+                        s="Choose an action";
+                    }
+                    numImagenesFrancis = 0;
+                }
+
+
+            }
+        }));
+    }
+
+    private void animacionSmashAI(){
+
+        registerUpdateHandler(new TimerHandler(0.3f, new ITimerCallback() {
+            @Override
+            public void onTimePassed(TimerHandler pTimerHandler) {
+                if (numImagenesFrancis< 6) {
+                    spriteFrancisAnimado.setAlpha(0);
+
+                    if (tagSpriteChild != null)
+                        detachChild(tagSpriteChild);
+
+                    spriteFrameFrancis = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, arrayImagenesFrancis.get(numImagenesFrancis));
+                    attachChild(spriteFrameFrancis);
+                    tagSpriteChild = spriteFrameFrancis;
+
+                    numImagenesFrancis++;
+                    animacionSmashAI();
+                } else {
+
+                    for (int i = 0; i < 6; i++) {
+                        arrayImagenesFrancis.get(i).getTexture().unload();
+                    }
+                    arrayImagenesFrancis.clear();
+                    reset();
+                    checkHP(player,ai);
+
+                    if(aiFirst == true){
+                        playerMove(player, ai, attackChoice);
+                        crearEscena();
+                        hideButtons();
+                    }
+                    else {
+                        crearEscena();
+                        s="Choose an action";
+                    }
+                    numImagenesFrancis = 0;
                 }
 
 
@@ -2175,12 +2169,12 @@ public class EscenaBatalla extends EscenaBase
         player.resetLevel();
         admEscenas.crearEscenaSeleccionPersonaje();
         admEscenas.setEscena(TipoEscena.ESCENA_SELECCION_PERSONAJE);
-        admEscenas.liberarEscenaBatalla();
+        admEscenas.liberarEscenaBatalla2();
     }
 
     @Override
     public TipoEscena getTipoEscena() {
-        return TipoEscena.ESCENA_BATALLA;
+        return TipoEscena.ESCENA_BATALLA2;
     }
 
     @Override
@@ -2198,10 +2192,7 @@ public class EscenaBatalla extends EscenaBase
         regionFondoCasas = null;
     }
 
-    //POINTER
     private void hideButtons(){
-
-        // BUG Nota, esto regresa null pointer si se llama al metodo cuando se defiende despues de el super de una enemigo
 
         if(escena2 == true) {
             opcionAttack1.setVisible(false);
@@ -2256,7 +2247,7 @@ public class EscenaBatalla extends EscenaBase
             winner = true;
 
             finishBattle(player,ai);
-            if(player.getLvl() == 1) {
+            if(player.getLvl() == 2) {
                 player.levelUp();
                 didIlevelUp = true;
             }
@@ -2264,9 +2255,9 @@ public class EscenaBatalla extends EscenaBase
             savelevel(player);
             player.resetLevel();
 
-            admEscenas.crearEscenaFinBatalla();
-            admEscenas.setEscena(TipoEscena.ESCENA_FIN_BATALLA);
-            admEscenas.liberarEscenaBatalla();
+            admEscenas.crearEscenaFinBatalla2();
+            admEscenas.setEscena(TipoEscena.ESCENA_FIN_BATALLA2);
+            admEscenas.liberarEscenaBatalla2();
 
         }
         if(pHP <= 0){
@@ -2278,9 +2269,9 @@ public class EscenaBatalla extends EscenaBase
 
             finishBattle(player,ai);
 
-            admEscenas.crearEscenaFinBatalla();
-            admEscenas.setEscena(TipoEscena.ESCENA_FIN_BATALLA);
-            admEscenas.liberarEscenaBatalla();
+            admEscenas.crearEscenaFinBatalla2();
+            admEscenas.setEscena(TipoEscena.ESCENA_FIN_BATALLA2);
+            admEscenas.liberarEscenaBatalla2();
 
         }
     }
@@ -2517,8 +2508,8 @@ public class EscenaBatalla extends EscenaBase
                 drainSuper(ai);
                 dealDmg(dmgToDeal, player);
 
-                getImagesGeronimo(5);
-                animacionPlagueAI();
+                getImagesFrancis(5);
+                animacionStrikeAI();
                 break;
             case 1:
                 s= used + ai.getAtk_list()[0].getName();
@@ -2526,8 +2517,8 @@ public class EscenaBatalla extends EscenaBase
                 drainGainMP(dmgToDeal, n, ai);
                 dealDmg(dmgToDeal, player);
 
-                getImagesGeronimo(1);
-                animacionLotusAI();
+                getImagesFrancis(1);
+                animacionFireAI();
                 break;
             case 2:
                 s= used + ai.getAtk_list()[1].getName();
@@ -2535,8 +2526,8 @@ public class EscenaBatalla extends EscenaBase
                 drainGainMP(dmgToDeal, n, ai);
                 dealDmg(dmgToDeal, player);
 
-                getImagesGeronimo(2);
-                animacionMomifyAI();
+                getImagesFrancis(2);
+                animacionAliveAI();
                 break;
             case 3:
                 s= used + ai.getAtk_list()[2].getName();
@@ -2544,8 +2535,8 @@ public class EscenaBatalla extends EscenaBase
                 drainGainMP(dmgToDeal, n, ai);
                 dealDmg(dmgToDeal, player);
 
-                getImagesGeronimo(3);
-                animacionAnubisAI();
+                getImagesFrancis(3);
+                animacionShockAI();
                 break;
             case 4:
                 s= used + ai.getAtk_list()[3].getName();
@@ -2553,8 +2544,8 @@ public class EscenaBatalla extends EscenaBase
                 drainGainMP(dmgToDeal, n, ai);
                 dealDmg(dmgToDeal, player);
 
-                getImagesGeronimo(4);
-                animacionOsirisAI();
+                getImagesFrancis(4);
+                animacionSmashAI();
                 break;
         }
     }

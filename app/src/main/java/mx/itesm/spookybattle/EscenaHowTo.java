@@ -6,7 +6,7 @@ import org.andengine.opengl.texture.region.ITextureRegion;
 /**
  * Created by rmroman on 11/09/15.
  */
-public class Nuclear extends EscenaBase
+public class EscenaHowTo extends EscenaBase
 {
     // Regiones para imágenes
     private ITextureRegion regionFondo;
@@ -22,6 +22,9 @@ public class Nuclear extends EscenaBase
     public void crearEscena() {
         spriteFondo = cargarSprite(ControlJuego.ANCHO_CAMARA/2, ControlJuego.ALTO_CAMARA/2, regionFondo);
         attachChild(spriteFondo);
+
+        actividadJuego.reproducirMusica("Musica/05_Unstopable_Masacre.ogg", true);
+
     }
 
     @Override
@@ -29,12 +32,12 @@ public class Nuclear extends EscenaBase
         // Regresar al menú principal
         admEscenas.crearEscenaMenu();
         admEscenas.setEscena(TipoEscena.ESCENA_MENU);
-        admEscenas.liberarEscenaAcercaDe();
+        admEscenas.liberarEscenaHowTo();
     }
 
     @Override
     public TipoEscena getTipoEscena() {
-        return TipoEscena.ESCENA_NUCLEAR;
+        return TipoEscena.ESCENA_HOW_TO;
     }
 
     @Override

@@ -59,6 +59,7 @@ public class Main {
     static Attack strike = new Attack("Frankenstrike","Take That Opressive Metaphors", 100, 0);
     //Creando al monstruo de Frankenstein
     public static P_Character frankenstein = new P_Character("Francis", 1, 100, 100, 4, 0, frankenstein_atks, strike, "Un monstruo");
+    public static P_Character frankensteinAI = new P_Character("Francis.", 1, 100, 100, 4, 0, frankenstein_atks, strike, "Un monstruo AI");
 
 
 

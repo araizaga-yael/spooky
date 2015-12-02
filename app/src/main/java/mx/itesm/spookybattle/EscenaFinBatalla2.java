@@ -19,7 +19,7 @@ import org.andengine.opengl.texture.region.ITextureRegion;
  */
 
 
-public class EscenaFinBatalla extends EscenaBase
+public class EscenaFinBatalla2 extends EscenaBase
 {
     // Imágenes
     private ITextureRegion regionWinner;
@@ -162,14 +162,14 @@ public class EscenaFinBatalla extends EscenaBase
                 switch(pMenuItem.getID()) {
                     case OPCION_CONTINUE:
                         if(playerwin== true) {
-                            admEscenas.crearEscenaBatalla2();
-                            admEscenas.setEscena(TipoEscena.ESCENA_BATALLA2);
-                            admEscenas.liberarEscenaFinBatalla();
+                            //admEscenas.crearEscenaBatalla2();
+                            //admEscenas.setEscena(TipoEscena.ESCENA_BATALLA2);
+                            admEscenas.liberarEscenaFinBatalla2();
                         }
                         else if(playerwin== false){
-                            admEscenas.crearEscenaBatalla();
-                            admEscenas.setEscena(TipoEscena.ESCENA_BATALLA);
-                            admEscenas.liberarEscenaFinBatalla();
+                            admEscenas.crearEscenaBatalla2();
+                            admEscenas.setEscena(TipoEscena.ESCENA_BATALLA2);
+                            admEscenas.liberarEscenaFinBatalla2();
                         }
                         break;
                 }
@@ -192,12 +192,12 @@ public class EscenaFinBatalla extends EscenaBase
         // Regresar al menú principal
         admEscenas.crearEscenaSeleccionPersonaje();
         admEscenas.setEscena(TipoEscena.ESCENA_SELECCION_PERSONAJE);
-        admEscenas.liberarEscenaFinBatalla();
+        admEscenas.liberarEscenaFinBatalla2();
     }
 
     @Override
     public TipoEscena getTipoEscena() {
-        return TipoEscena.ESCENA_FIN_BATALLA;
+        return TipoEscena.ESCENA_FIN_BATALLA2;
     }
 
     // Libera la escena misma del engine

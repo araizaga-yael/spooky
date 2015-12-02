@@ -287,8 +287,8 @@ public class EscenaMenu extends EscenaBase
                         break;
 
                     case OPCION_HOW_TO:
-                        admEscenas.crearNuclear();
-                        admEscenas.setEscena(TipoEscena.ESCENA_ACERCA_DE);
+                        admEscenas.crearEscenaHowTo();
+                        admEscenas.setEscena(TipoEscena.ESCENA_HOW_TO);
                         admEscenas.liberarEscenaMenu();
 
                         break;
