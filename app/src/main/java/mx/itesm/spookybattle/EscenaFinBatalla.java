@@ -26,6 +26,8 @@ public class EscenaFinBatalla extends EscenaBase
     private ITextureRegion regionLoser;
 
     private ITextureRegion regionBtnContinue;
+    private ITextureRegion regionLevelUp;
+    IMenuItem levelUp;
 
     // Sprites sobre la escena
     private Sprite SpriteWinner;
@@ -36,7 +38,9 @@ public class EscenaFinBatalla extends EscenaBase
     private MenuScene menu;
 
     private final int OPCION_CONTINUE = 9991;
+    private final int OPCION_LEVELUP = 1337;
     boolean playerwin;
+    boolean didILevelUp;
 
 
 
@@ -45,6 +49,7 @@ public class EscenaFinBatalla extends EscenaBase
     public void cargarRecursos() {
 
         regionBtnContinue =cargarImagen("EscenasFinales/BotonContinue.png");
+        regionLevelUp=cargarImagen("SelectScreen/BotonLevelUp.png");
     }
 
     // Arma la escena que se presentará en pantalla
@@ -69,6 +74,7 @@ public class EscenaFinBatalla extends EscenaBase
 
         SharedPreferences preferencesWinner = actividadJuego.getSharedPreferences("winner", Context.MODE_PRIVATE);
         playerwin = preferencesWinner.getBoolean("winner", true);
+        didILevelUp = preferencesWinner.getBoolean("didILevelUp", false);
 
 
         if(playerwin == true){
@@ -109,8 +115,16 @@ public class EscenaFinBatalla extends EscenaBase
         // Centrado en la pantalla
         menu.setPosition(ControlJuego.ANCHO_CAMARA/2,ControlJuego.ALTO_CAMARA/2);
 
-        IMenuItem opcionContinue = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_CONTINUE,regionBtnContinue,actividadJuego.getVertexBufferObjectManager()),1,1);
+        IMenuItem opcionContinue = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_CONTINUE,regionBtnContinue,actividadJuego.getVertexBufferObjectManager()),1.5f,1);
         menu.addMenuItem(opcionContinue);
+        levelUp = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_LEVELUP,regionLevelUp,actividadJuego.getVertexBufferObjectManager()),1,1);
+        menu.addMenuItem(levelUp);
+        levelUp.setVisible(false);
+        levelUp.setPosition(-450, -240);
+
+        if(didILevelUp == true){
+            levelUp.setVisible(true);
+        }
 
         menu.buildAnimations();
         menu.setBackgroundEnabled(false);

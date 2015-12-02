@@ -185,7 +185,7 @@ public class EscenaBatalla extends EscenaBase
 
     IMenuItem DynamicLifeBarAI;
     IMenuItem DynamicMagicBarAI;
-    private float scale;
+    private boolean didIlevelUp = false;
 
 
     boolean attacking = false;
@@ -700,6 +700,10 @@ public class EscenaBatalla extends EscenaBase
                 switch (pMenuItem.getID()) {
                     case ATTCK1:
                         if (attacking == true) break;
+                        if(player.getAtk_list()[0].getMp_drain() > player.getMP()){
+                            s="Not Enough Magic Power";
+                            break;
+                        }
                         attacking = true;
                         hideButtons();
                         attackChoice = pMenuItem.getID();
@@ -714,6 +718,10 @@ public class EscenaBatalla extends EscenaBase
 
                     case ATTCK2:
                         if (attacking == true) break;
+                        if(player.getAtk_list()[1].getMp_drain() > player.getMP()){
+                            s="Not Enough Magic Power";
+                            break;
+                        }
                         attacking = true;
                         hideButtons();
                         attackChoice = pMenuItem.getID();
@@ -728,6 +736,10 @@ public class EscenaBatalla extends EscenaBase
 
                     case ATTCK3:
                         if (attacking == true) break;
+                        if(player.getAtk_list()[2].getMp_drain() > player.getMP()){
+                            s="Not Enough Magic Power";
+                            break;
+                        }
                         attacking = true;
                         hideButtons();
                         attackChoice = pMenuItem.getID();
@@ -741,6 +753,10 @@ public class EscenaBatalla extends EscenaBase
                         break;
                     case ATTCK4:
                         if (attacking == true) break;
+                        if(player.getAtk_list()[3].getMp_drain() > player.getMP()){
+                            s="Not Enough Magic Power";
+                            break;
+                        }
                         attacking = true;
                         hideButtons();
                         attackChoice = pMenuItem.getID();
@@ -2060,6 +2076,7 @@ public class EscenaBatalla extends EscenaBase
             finishBattle(player,ai);
             if(player.getLvl() == 1) {
                 player.levelUp();
+                didIlevelUp = true;
             }
             savelevel(player);
             player.resetLevel();
@@ -2094,6 +2111,13 @@ public class EscenaBatalla extends EscenaBase
         }
         else if(i==0){
             editor.putBoolean("winner", false);
+        }
+
+        if(didIlevelUp == true){
+            editor.putBoolean("didILevelUp", true);
+        }
+        else if(didIlevelUp== false){
+            editor.putBoolean("didILevelUp", false);
         }
         editor.commit();
     }
