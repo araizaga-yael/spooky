@@ -263,8 +263,7 @@ public class EscenaBatalla extends EscenaBase
             regionBtnAtk5 = cargarImagen("BotonesFrancis/BotonSuperFrancis.png");
         }
         else if(currChar ==4){
-            //regionGusAnimadoPlayer = cargarImagenMosaico("AnimacionesGus/GusWaitingSheet.png", 2010,337 ,1,6);
-            regionGusAnimadoPlayer = cargarImagenMosaico("AnimacionesCurtis/WaitingBattle/CurtisWaitingSheet.png", 1986, 331, 1, 6);
+            regionGusAnimadoPlayer = cargarImagenMosaico("AnimacionesGus/GusWaitingSheet.png", 2366, 338, 1, 7);
 
             regionBtnAtk = cargarImagen("BotonesCurtis/BotonAttack.png");
             regionBtnDef = cargarImagen("BotonesCurtis/BotonDefense.png");
@@ -1875,18 +1874,18 @@ public class EscenaBatalla extends EscenaBase
 
             case 2:
                 for (int i = 0; i < 10; i++) {
-                    ITextureRegion imagen = cargarImagen("AnimacionesGus/Booty/Booty0" + (i) + ".png");
+                    ITextureRegion imagen = cargarImagen("AnimacionesGus/Bootyx/Booty0" + (i) + ".png");
                     arrayImagenesGusPlayer.add(i, imagen);
                 }
                 break;
             case 3:
-                for (int i = 0; i < 8; i++) {
+                for (int i = 0; i < 11; i++) {
                     ITextureRegion imagen = cargarImagen("AnimacionesGus/Boogaloo/Boogaloo0" + (i) + ".png");
                     arrayImagenesGusPlayer.add(i, imagen);
                 }
                 break;
             case 4:
-                for (int i = 0; i < 6; i++) {
+                for (int i = 0; i < 12; i++) {
                     ITextureRegion imagen = cargarImagen("AnimacionesGus/Taboo/Taboo0" + (i) + ".png");
                     arrayImagenesGusPlayer.add(i, imagen);
 
@@ -1947,6 +1946,93 @@ public class EscenaBatalla extends EscenaBase
         }));
     }
 
+    private void animacionBoogalooPlayer(){
+
+        registerUpdateHandler(new TimerHandler(0.3f, new ITimerCallback() {
+            @Override
+            public void onTimePassed(TimerHandler pTimerHandler) {
+                if (numImagenesGusPlayer< 11) {
+                    spriteGusAnimadoPlayer.setAlpha(0);
+
+                    if (tagSpriteChild != null)
+                        detachChild(tagSpriteChild);
+
+                    spriteFrameGusPlayer = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, arrayImagenesGusPlayer.get(numImagenesGusPlayer));
+                    spriteFrameGusPlayer.setFlippedHorizontal(true);
+                    attachChild(spriteFrameGusPlayer);
+                    tagSpriteChild = spriteFrameGusPlayer;
+
+                    numImagenesGusPlayer++;
+                    animacionBoogalooPlayer();
+                } else {
+
+                    for (int i = 0; i < 11; i++) {
+                        arrayImagenesGusPlayer.get(i).getTexture().unload();
+                    }
+                    arrayImagenesGusPlayer.clear();
+                    reset();
+                    checkHP(player,ai);
+
+                    if(aiFirst == false) {
+                        aiMove(player, ai);
+                        crearEscena();
+                        hideButtons();
+                    }
+                    else{
+                        crearEscena();
+                        s="Choose an action";
+                    }
+                    numImagenesGusPlayer = 0;
+                }
+
+
+            }
+        }));
+    }
+
+    private void animacionTabooPlayer(){
+
+        registerUpdateHandler(new TimerHandler(0.3f, new ITimerCallback() {
+            @Override
+            public void onTimePassed(TimerHandler pTimerHandler) {
+                if (numImagenesGusPlayer< 12) {
+                    spriteGusAnimadoPlayer.setAlpha(0);
+
+                    if (tagSpriteChild != null)
+                        detachChild(tagSpriteChild);
+
+                    spriteFrameGusPlayer = cargarSprite(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2, arrayImagenesGusPlayer.get(numImagenesGusPlayer));
+                    spriteFrameGusPlayer.setFlippedHorizontal(true);
+                    attachChild(spriteFrameGusPlayer);
+                    tagSpriteChild = spriteFrameGusPlayer;
+
+                    numImagenesGusPlayer++;
+                    animacionTabooPlayer();
+                } else {
+
+                    for (int i = 0; i < 12; i++) {
+                        arrayImagenesGusPlayer.get(i).getTexture().unload();
+                    }
+                    arrayImagenesGusPlayer.clear();
+                    reset();
+                    checkHP(player,ai);
+
+                    if(aiFirst == false) {
+                        aiMove(player, ai);
+                        crearEscena();
+                        hideButtons();
+                    }
+                    else{
+                        crearEscena();
+                        s="Choose an action";
+                    }
+                    numImagenesGusPlayer = 0;
+                }
+
+
+            }
+        }));
+    }
 
     // La escena se debe actualizar en este método que se repite "varias" veces por segundo
     // Aquí es donde programan TODA la acción de la escena (movimientos, choques, disparos, etc.)
@@ -2274,8 +2360,8 @@ public class EscenaBatalla extends EscenaBase
                     animacionShockPlayer();
                 }
                 else if(currChar==4){
-                    getImagesGusPlayer(2);
-                    animacionBootyPlayer();
+                    getImagesGusPlayer(3);
+                    animacionBoogalooPlayer();
                 }
                 break;
             case 4:
@@ -2297,8 +2383,8 @@ public class EscenaBatalla extends EscenaBase
                     animacionSmashPlayer();
                 }
                 else if(currChar==4){
-                    getImagesGusPlayer(2);
-                    animacionBootyPlayer();
+                    getImagesGusPlayer(4);
+                    animacionTabooPlayer();
                 }
                 break;
             case 5:

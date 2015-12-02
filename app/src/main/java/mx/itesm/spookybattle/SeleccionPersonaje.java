@@ -119,30 +119,29 @@ public class SeleccionPersonaje extends EscenaBase
             "seeing as how he is an expert in flying mammals and \n" +
             "gothic horror novels, even for his young age";
 
-    private static String Geronimodesc = "All hail emperor Ramses and anubis... Among 'other'\n" +
-            "red liquids. He's got ancestors from Transylvania. Or so he says \n"+
-            "Once, he tripped and accidentally bit someone...He strangely \n" +
-            "liked it. His classmates are afraid of him since \n\n"+
-            "Curtis is often described as a freak and a weirdo, \n" +
-            "seeing as how he is an expert in flying mammals and \n" +
-            "gothic horror novels, even for his young age";
+    private static String Geronimodesc = "Geronimo is a well educated boy. He even looks way older than he is'\n" +
+            "Due to this, he bores friends with conversations about history \n"+
+            "and big ancient empires. He is very well versed in antiques \n" +
+            "and other artifacts that belong in museums \n\n"+
+            "Rumors say he owns 50 cats, and one of his greatest \n" +
+            "desires is to be buried with them all. A spoiled \n" +
+            "child that could easily be confused for an emperor";
 
-    private static String Francisdesc = "Dislikes fire, plasma, and angry mobs... Among 'other'\n" +
-        "red liquids. He's got ancestors from Transylvania. Or so he says \n"+
-        "Once, he tripped and accidentally bit someone...He strangely \n" +
-        "liked it. His classmates are afraid of him since \n\n"+
-        "Curtis is often described as a freak and a weirdo, \n" +
-        "seeing as how he is an expert in flying mammals and \n" +
-        "gothic horror novels, even for his young age";
+    private static String Francisdesc = "He is a very... special child. Often confused\n" +
+        "with his father for some reason. Sometimes, Francis is overcome \n"+
+        "by sheer monster-lile rage, and he is stronger than he looks. \n" +
+        "Fire is not his favorite element and he is also a bit afraid \n"+
+        "of crowds. Specially the angry and moby kind. \n\n" +
+        "His weirdest hobby is getting electrocuted by small shocks \n" +
+        "like the ones from licking batteries. It makes him 'feel alive'";
 
-    private static String Gusdesc = "Mr. Spooky, 2spooky, and so spooky 4me... Among 'other'\n" +
-            "red liquids. He's got ancestors from Transylvania. Or so he says \n"+
-            "Once, he tripped and accidentally bit someone...He strangely \n" +
-            "liked it. His classmates are afraid of him since \n\n"+
-            "Curtis is often described as a freak and a weirdo, \n" +
-            "seeing as how he is an expert in flying mammals and \n" +
-            "gothic horror novels, even for his young age";
-
+    private static String Gusdesc = "Gus is usually a very shy kid. He can be so quiet\n" +
+            "that it's almost as if he was invisible at times, \n"+
+            "and often scares people because of it. He is the kind of kid \n" +
+            "who doesn't prepare a Halloween costume and needs to improvise \n"+
+            "something for the last second. He totally pulls it off though. \n\n" +
+            "Ironically, he is easily scared and fears darkness, \n" +
+            "but this time, this year, things will be different";
 
 
     @Override
@@ -364,17 +363,17 @@ public class SeleccionPersonaje extends EscenaBase
         menu.attachChild(textCharacterName);
 
         //Texto Geronimo
-        textGeronimo.setPosition(370 - (text.getWidth() / 2), 290 - (text.getHeight() / 2));
+        textGeronimo.setPosition(-95, 100);
         menu.attachChild(textGeronimo);
         textGeronimo.setVisible(false);
 
         //texto Francis
-        textFrancis.setPosition(370 - (text.getWidth() / 2), 290 - (text.getHeight() / 2));
+        textFrancis.setPosition(-130, 100);
         menu.attachChild(textFrancis);
         textFrancis.setVisible(false);
 
         //texto Gus
-        textFrancis.setPosition(370 - (text.getWidth() / 2), 290 - (text.getHeight() / 2));
+        textGus.setPosition(-120 , 100);
         menu.attachChild(textGus);
         textGus.setVisible(false);
 
