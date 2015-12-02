@@ -27,22 +27,39 @@ public class EscenaFinBatalla3 extends EscenaBase
 
     private ITextureRegion regionBtnContinue;
     private ITextureRegion regionLevelUp;
+    private ITextureRegion regionCharacterUnlocked;
+    private ITextureRegion regionCharacterGeronimo;
+    private ITextureRegion regionCharacterFrancis;
+    private ITextureRegion regionCharacterGus;
+
+
+
     IMenuItem levelUp;
+    IMenuItem Unlock;
+    IMenuItem CharacterGeronimo;
+    IMenuItem CharacterFrancis;
+    IMenuItem CharacterGus;
 
     // Sprites sobre la escena
     private Sprite SpriteWinner;
     private Sprite SpriteLoser;
-    private Sprite spriteFondo;
     private SpriteBackground fondo;
 
     private MenuScene menu;
 
     private final int OPCION_CONTINUE = 9991;
     private final int OPCION_LEVELUP = 1337;
+    private final int OPCION_UNLOCK= 1338;
+    private final int OPCION_CHARAGER= 1338;
+    private final int OPCION_CHARAFRAN= 1339;
+    private final int OPCION_CHARAGUS= 13391;
+
+
+
     boolean playerwin;
     boolean didILevelUp;
 
-
+    int currChar;
 
     // Carga todos los recursos para ESTA ESCENA.
     @Override
@@ -50,13 +67,18 @@ public class EscenaFinBatalla3 extends EscenaBase
 
         regionBtnContinue =cargarImagen("EscenasFinales/BotonContinue.png");
         regionLevelUp=cargarImagen("SelectScreen/BotonLevelUp.png");
+        regionCharacterUnlocked=cargarImagen("SelectScreen/BotonCharacter.png");
+        regionCharacterGeronimo= cargarImagen("SelectScreen/GeronimoSelected.png");
+        regionCharacterFrancis= cargarImagen("SelectScreen/FrancisSelect.png");
+        regionCharacterGus =cargarImagen("SelectScreen/GusSelected.png");
     }
 
     // Arma la escena que se presentará en pantalla
     @Override
     public void crearEscena() {
+
         SharedPreferences preferencesCurrChar = actividadJuego.getSharedPreferences("CurrentChar", Context.MODE_PRIVATE);
-        int currChar = preferencesCurrChar.getInt("Currentcharacter",1);
+        currChar = preferencesCurrChar.getInt("Currentcharacter",1);
 
         if(currChar == 1) {
             regionWinner = cargarImagen("EscenasFinales/PantallaGanadora.png");
@@ -103,13 +125,6 @@ public class EscenaFinBatalla3 extends EscenaBase
             }
             setBackground(fondo);
 
-            SharedPreferences unlockPreferences = actividadJuego.getSharedPreferences("UnlockedCharacters", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = unlockPreferences.edit();
-            editor.putBoolean("Geronimo", true);
-            editor.putBoolean("Francis", true);
-            editor.putBoolean("Gus", true);
-            editor.commit();
-
         }
         else{
             if(currChar == 1) {
@@ -148,10 +163,64 @@ public class EscenaFinBatalla3 extends EscenaBase
             levelUp.setVisible(true);
         }
 
+        Unlock =new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_UNLOCK,regionCharacterUnlocked,actividadJuego.getVertexBufferObjectManager()),1,1);
+        menu.addMenuItem(Unlock);
+        Unlock.setVisible(false);
+
+        CharacterGeronimo =new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_CHARAGER,regionCharacterGeronimo,actividadJuego.getVertexBufferObjectManager()),1,1);
+        menu.addMenuItem(CharacterGeronimo);
+        CharacterGeronimo.setVisible(false);
+
+        CharacterFrancis =new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_CHARAFRAN,regionCharacterFrancis,actividadJuego.getVertexBufferObjectManager()),1,1);
+        menu.addMenuItem(CharacterFrancis);
+        CharacterFrancis.setVisible(false);
+
+        CharacterGus =new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_CHARAGUS,regionCharacterGus,actividadJuego.getVertexBufferObjectManager()),1,1);
+        menu.addMenuItem(CharacterGus);
+        CharacterGus.setVisible(false);
+
+        SharedPreferences unlockPreferences = actividadJuego.getSharedPreferences("UnlockedCharacters", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = unlockPreferences.edit();
+        boolean FrancisUnlocked = unlockPreferences.getBoolean("Francis",false);
+        boolean GusUnlocked = unlockPreferences.getBoolean("Gus",false);
+        boolean GeronimoUnlocked = unlockPreferences.getBoolean("Geronimo",false);
+
+        if(playerwin == true){
+            if(currChar == 1) {
+                if(GeronimoUnlocked == false){
+                    CharacterGeronimo.setVisible(true);
+                    Unlock.setVisible(true);
+                    editor.putBoolean("Geronimo", true);
+                }
+            }
+            if(currChar == 2) {
+                if(FrancisUnlocked == false){
+                    CharacterFrancis.setVisible(true);
+                    Unlock.setVisible(true);
+                    editor.putBoolean("Francis", true);
+                }
+            }
+            if(currChar == 3) {
+                if(GusUnlocked == false){
+                    CharacterGus.setVisible(true);
+                    Unlock.setVisible(true);
+                    editor.putBoolean("Gus", true);
+                }
+            }
+            editor.commit();
+        }
+
+
+
         menu.buildAnimations();
         menu.setBackgroundEnabled(false);
         opcionContinue.setPosition(450, -240);
         levelUp.setPosition(450, -110);
+
+        CharacterGeronimo.setPosition(-350, -130);
+        CharacterFrancis.setPosition(-350, -130);
+        CharacterGus.setPosition(-350, -130);
+        Unlock.setPosition(-350, 10);
 
         menu.setOnMenuItemClickListener(new MenuScene.IOnMenuItemClickListener() {
             @Override

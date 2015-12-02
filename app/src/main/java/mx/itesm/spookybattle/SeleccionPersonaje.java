@@ -68,6 +68,10 @@ public class SeleccionPersonaje extends EscenaBase
     int FrancisLevel;
     int GusLevel;
 
+    boolean FrancisUnlocked;
+    boolean GusUnlocked;
+    boolean GeronimoUnlocked;
+
     // Sprites sobre la escena
     private Sprite spriteFondo;
 
@@ -248,9 +252,9 @@ public class SeleccionPersonaje extends EscenaBase
 
         //Leyendo que personajes estan desbloqueados
         SharedPreferences unlockPreferences = actividadJuego.getSharedPreferences("UnlockedCharacters", Context.MODE_PRIVATE);
-        final boolean FrancisUnlocked = unlockPreferences.getBoolean("Francis",false);
-        final boolean GusUnlocked = unlockPreferences.getBoolean("Gus",false);
-        final boolean GeronimoUnlocked = unlockPreferences.getBoolean("Geronimo",false);
+        FrancisUnlocked = unlockPreferences.getBoolean("Francis",false);
+        GusUnlocked = unlockPreferences.getBoolean("Gus",false);
+        GeronimoUnlocked = unlockPreferences.getBoolean("Geronimo",false);
 
 
         // Crea las opciones de personaje
