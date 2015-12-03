@@ -55,7 +55,7 @@ public class EscenaAcercaDe extends EscenaBase
     private void agregaMenu(){
         menu = new MenuScene(actividadJuego.camara);
         // Centrado en la pantalla
-        menu.setPosition(ControlJuego.ANCHO_CAMARA/2,ControlJuego.ALTO_CAMARA/2);
+        menu.setPosition(ControlJuego.ANCHO_CAMARA / 2, ControlJuego.ALTO_CAMARA / 2);
 
         IMenuItem opcionCheat = new ScaleMenuItemDecorator(new SpriteMenuItem(OPCION_CHEAT,regionBtnCheat,actividadJuego.getVertexBufferObjectManager()),1.5f,1);
         menu.addMenuItem(opcionCheat);
@@ -77,28 +77,31 @@ public class EscenaAcercaDe extends EscenaBase
             public boolean onMenuItemClicked(MenuScene pMenuScene, IMenuItem pMenuItem,
                                              float pMenuItemLocalX, float pMenuItemLocalY) {
                 // El parámetro pMenuItem indica la opción oprimida
-                switch(pMenuItem.getID()) {
+                switch (pMenuItem.getID()) {
                     case OPCION_CHEAT:
                         cont++;
-                        if(cont == 7){
-                            //relampagoSonido.play();
+                        if (cont == 5) {
+                            relampagoSonido.play();
                             unlockAll();
+                        }
+                        if (cont == 10) {
                             levelUpAllLevels();
                         }
-                        break;
-                    case OPCION_RESET:
-                        contr++;
-                        if(contr == 7){
-                            //relampagoSonido.play();
-                            initializeUnlocks();
-                            resetAllLevels();
-
-                        }
-                        break;
-                }
-                return true;
+                break;
+                case OPCION_RESET:
+                contr++;
+                    if (cont == 5) {
+                        resetAllLevels();
+                    }
+                    if (cont == 10) {
+                        initializeUnlocks();
+                    }
+                break;
             }
-        });
+
+            return true;
+        }
+    });
         setChildScene(menu);
     }
 
