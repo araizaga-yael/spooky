@@ -25,7 +25,7 @@ public class Main {
 	//Creando ataques de fantasma
 	static Attack boom = new Attack("Boooom", "Scare The Bejeezus Out Of Em", 70, 0);
 	static Attack booty = new Attack("Booty Kick", "A Kickass Move", 80, 35);
-	static Attack boogaloo = new Attack("Creepy Boogaloo", "Fear These Sick Moves", 105, 70);
+	static Attack boogaloo = new Attack("Creepy Boogaloo", "Fear These Sick Moves", 105, 75);
 	static Attack taboo = new Attack("Taboo Wail", "Rules Are Meant To Be Foresaken", 110, 100);
 	//metiendo ataques de fantasma a un array
 	static Attack[] ghost_atks = {boom, booty, boogaloo, taboo};
@@ -33,27 +33,27 @@ public class Main {
 	static Attack twospooky = new Attack("2Spooky4me","Become Fear Itself", 115, 0);
 	//Creando a fantasma
 	public static P_Character ghost = new P_Character("Gus", 1, 110, 110, 7, 50, ghost_atks, twospooky, "Un spooky dude");
-    public static P_Character ghostAI = new P_Character("Gus.", 1, 110, 110, 7, 40, ghost_atks, twospooky, "Un spooky AI");
+    public static P_Character ghostAI = new P_Character("Gus.", 1, 110, 110, 7, 30, ghost_atks, twospooky, "Un spooky AI");
 
 
     //Creando ataques de momia
 	static Attack locust = new Attack("Locust Pocus", "Aaaaaah, Not The Locusts", 60, 0);
-	static Attack mummify = new Attack("Mummify Mortify", "All Shipments Are Cleanly Wrapped", 80, 30);
-	static Attack anubis = new Attack("Anubis Eye", "Eye See Dead People", 110, 70);
+	static Attack mummify = new Attack("Mummify Mortify", "All Shipments Are Cleanly Wrapped", 80, 40);
+	static Attack anubis = new Attack("Anubis Eye", "Eye See Dead People", 100, 75);
 	static Attack osiris = new Attack("Osiris' Knights", "Strike With The Mighty Force Of the Underworld", 120, 100);
 	//metiendo ataques de momia a un array
 	static Attack[] mummy_atks = {locust, mummify, anubis, osiris};
 	//super ataque
 	static Attack plague = new Attack("11th Plague","Buy 10 Egyptian Plagues, Get One More For Free!", 100, 0);
 	//Creando a momia
-	public static P_Character mummy = new P_Character("Geronimo", 1, 90, 120, 6, 45, mummy_atks, plague, "Una momia cosa");
-    public static P_Character mummyAI = new P_Character("Geronimo.", 1, 90, 120, 6, 35, mummy_atks, plague, "Una momia AI");
+	public static P_Character mummy = new P_Character("Geronimo", 1, 110, 120, 6, 45, mummy_atks, plague, "Una momia cosa");
+    public static P_Character mummyAI = new P_Character("Geronimo.", 1, 90, 105, 6, 35, mummy_atks, plague, "Una momia AI");
 
 
     //Creando ataques de frankenstein
     static Attack fire = new Attack("Kill It With Fire ", "Fire Bad D:", 65, 0);
     static Attack alive = new Attack("It's Alive", "Science Is a Hell Of a Drug", 95, 30);
-    static Attack shock = new Attack("Shock Therapy", "If It Moves, We Can Fix It", 110, 70);
+    static Attack shock = new Attack("Shock Therapy", "If It Moves, We Can Fix It", 110, 75);
     static Attack smash = new Attack("Frank Smash", "Hulk Out! Smash Out! Let's Rock!", 120, 100);
     //metiendo ataques de frankenstein a un array
     static Attack[] frankenstein_atks = {fire, alive, shock, smash};
@@ -61,7 +61,7 @@ public class Main {
     static Attack strike = new Attack("Frankenstrike","Take That Humanity Metaphors", 120, 0);
     //Creando al monstruo de Frankenstein
     public static P_Character frankenstein = new P_Character("Francis", 1, 140, 80, 5, 55, frankenstein_atks, strike, "Un monstruo");
-    public static P_Character frankensteinAI = new P_Character("Francis.", 1, 125, 80, 5, 35, frankenstein_atks, strike, "Un monstruo AI");
+    public static P_Character frankensteinAI = new P_Character("Francis.", 1, 115, 80, 5, 35, frankenstein_atks, strike, "Un monstruo AI");
 
 
 
