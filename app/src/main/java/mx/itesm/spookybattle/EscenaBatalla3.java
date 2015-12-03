@@ -639,6 +639,7 @@ public class EscenaBatalla3 extends EscenaBase
                     case ATTACK:
                         //Esto solo se usa una vez
                         if(turn == 1) turn++;
+                        defending = true;
 
                         //accion del boton
                         menu.clearMenuItems();
@@ -651,6 +652,7 @@ public class EscenaBatalla3 extends EscenaBase
 
                     case DEFEND:
                         if(defending==true) break;
+                        defending = true;
                         //Esto solo se usa una vez
                         if(turn == 1) turn++;
                         //accion del boton

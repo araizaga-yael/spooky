@@ -18,7 +18,7 @@ public class Main {
 	//metiendo ataques de dracula a un array
 	static Attack[] dracula_atks = {battack, night, choke, darkness};
 	//super ataque
-	static Attack vacuum = new Attack("Blood Vacuum","Suck Them Dry...Of Candy", 110, 0);
+	static Attack vacuum = new Attack("Blood Vacuum","Suck Them Dry...Of Candy", 150, 0);
 	//Creando a dracula
 	 public static P_Character dracula = new P_Character("Curtis", 1, 100, 100, 8, 50, dracula_atks, vacuum, "Curtis Dracovich el ninio vampiro");
 	
@@ -61,7 +61,7 @@ public class Main {
     static Attack strike = new Attack("Frankenstrike","Take That Humanity Metaphors", 120, 0);
     //Creando al monstruo de Frankenstein
     public static P_Character frankenstein = new P_Character("Francis", 1, 140, 80, 5, 55, frankenstein_atks, strike, "Un monstruo");
-    public static P_Character frankensteinAI = new P_Character("Francis.", 1, 140, 80, 5, 45, frankenstein_atks, strike, "Un monstruo AI");
+    public static P_Character frankensteinAI = new P_Character("Francis.", 1, 125, 80, 5, 35, frankenstein_atks, strike, "Un monstruo AI");
 
 
 
